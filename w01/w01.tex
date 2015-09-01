@@ -5,6 +5,7 @@
 \assignment{Written Homework 1}
 \duedate{September 9, 2015}
 
+\usepackage{amsmath}
 %\usepackage{mathtools}
 %\usepackage{graphicx}
 
@@ -59,6 +60,16 @@
       random variables $A$, $B$, and $C$, $E(A+B|C=c) = E(A|C=c) +
       E(B|C=c)$. (10 points)
     \end{question}
+
+    \begin{align*}
+      E(A + B | C=c) &= \sum_{a\in A} \sum_{b\in B} (a+b)p(A=a,B=b|C=c) \\
+                     &= \sum_{a\in A} \sum_{b\in B} \left(a p(A=a,B=b|C=c) + b p(A=a,B=b|C=c) \right) \\
+                     &= \sum_{a\in A} \sum_{b\in B} a p(A=a,B=b|C=c) + \sum_{b\in B} \sum_{a\in A} b p(A=a,B=b|C=c) \\
+                     &= \sum_{a\in A} \sum_{b\in B} \frac{ap(A=a,B=b,C=c)}{p(C=c)} + \sum_{b\in B} \sum_{a\in A} \frac{bp(A=a,B=b,C=c)}{p(C=c)} \\
+                     &= \sum_{a\in A} \frac{ap(A=a,C=c)}{p(C=c)} + \sum_{b\in B} \frac{bp(B=b,C=c)}{p(C=c)} \\
+                     &= \sum_{a\in A} a p_A(a|C=c) + \sum_{b\in B} bp_B(b|C=c) \\
+                     &= E(A|C=c) + E(B|C=c) \\
+    \end{align*}
   \end{problem}
 
   \begin{problem}{4}
