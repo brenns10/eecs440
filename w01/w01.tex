@@ -83,6 +83,18 @@
       indicates $X$ has the disease.  What is the probability that $X$ actually
       has the disease? (10 points)
     \end{question}
+
+    Let $D$ be the event that person $X$ has the disease, and $T$ be the event
+    that the test diagnoses person $X$ with the disease.  Both take on values of
+    $t$ or $f$ denoting true or false, respectively.  We are given that
+    $p(T=t|D=t) = 0.98$, $p(T=t|D=f)=0.002$, and $p(D=t) = 0.00001$.  We compute
+    $p(D=t|T=t)$ using Bayes' Rule:
+
+    \begin{align*}
+      p(D=t|T=t) &= \frac{p(T=t|D=t)p(D=t)}{p(T=t|D=t)p(D=t) + p(T=t|D=f)p(D=f)}\\
+                 &= \frac{0.98 \times 0.00001}{0.98 \times 0.00001 + 0.002 \times 0.9999}\\
+                 &= 4.88 \times 10^{-3}
+    \end{align*}
   \end{problem}
 
   \begin{problem}{5}
