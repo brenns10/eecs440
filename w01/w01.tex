@@ -17,6 +17,14 @@
       that the statement that ``$A$ is independent of $B$'' does not imply the
       statement ``$A$ is independent of $B$ given $C$.'' (10 points)
     \end{question}
+
+    Let $A$ represent the outcome of a fair coin flip, $B$ represent the outcome
+    of a second coin flip, and $C$ represent the indicator that only one of
+    coins $A$ and $B$ was heads.  Since $A$ and $B$ represent the outcomes of
+    two distinct, fair coins, they are independent.  However, given that $C=1$
+    (that is, only one of the two coins was heads), $A$ and $B$ are no longer
+    independent: $p(A=h|C=1) = 0.5$, $p(B=h|C=1) = 0.5$, but
+    $p(A=h, B=h | C=1) = 0 \neq 0.25$.
   \end{problem}
 
   \begin{problem}{2}
