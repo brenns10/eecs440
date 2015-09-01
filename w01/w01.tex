@@ -33,6 +33,22 @@
       they lie on the line $x+y=1$.  Determine the expected squared distance
       between any two sampled points. (10 points)
     \end{question}
+
+    We define $X_1$ and $X_2$ to be the $x$-coordinates of the two points
+    respectively.  They are both distributed uniformly across $(0, 1)$.  The
+    squared distance between these two points is:
+
+    \begin{equation}
+      (X_1 - X_2)^2 + (1 - X_1 - 1 + X_2)^2 = 2(X_1 - X_2)^2 = 2X_1^2 - 4X_1X_2 + 2X_2^2
+    \end{equation}
+
+    Since expectation is linear, it can be computed separately for each term.
+    $E(2X_1^2) = 2 \int_0^1 \! x_1^2 \,\mathrm{d} x = \frac{2}{3}$.
+    $E(2X_2^2) = \frac{2}{3}$ as well, since $X_1$ and $X_2$ are i.i.d.  Also
+    due to this, we can compute
+    $E(4X_1X_2) = 4 E(X_1) E(X_2) = 4 * 0.5 * 0.5 = 1$.  Therefore, we have the
+    expected squared distance being
+    $\frac{2}{3} - 1 + \frac{2}{3} = \frac{1}{3}$.
   \end{problem}
 
   \begin{problem}{3}
