@@ -19,6 +19,15 @@
       $h(x) = f(x) + g(x)$, (ii) $h(x) = \max{(f(x), g(x))}$.  Is
       $h(x) = f(x) - g(x)$ also convex?  Explain why or why not. (10 points)
     \end{question}
+
+    A function is convex iff Jensen's inequality applies to it.
+
+    For (i):
+    \begin{align*}
+      h(\lambda x_1 + (1 - \lambda) x_2) &= f(\lambda x_1 + (1 - \lambda) x_2) + g(\lambda x_1 + (1 - \lambda) x_2)\\
+                                         &\leq \lambda f(x_1) + (1-\lambda)f(x_2) + \lambda g(x_1) + (1-\lambda)g(x_2)\\
+                                         &\leq \lambda (f(x_1)+g(x_1)) + (1-\lambda)(f(x_2
+    \end{align*}
   \end{problem}
 
   \begin{problem}{2}
