@@ -84,6 +84,35 @@
       and $\vec{u}$ satisfying the constraints of the two LPs),
       $b^T \vec{u} \leq c^T \vec{x}$. (10 points)
     \end{question}
+
+    If $\vec{x}$ and $\vec{u}$ both satisfy the constraints of their respective
+    LP's, then we know that $A^T\vec{u} \leq \vec{c}$.  We take the transpose of both
+    sides and get:
+
+    \begin{equation*}
+      \vec{u}^T A \leq \vec{c}^T
+    \end{equation*}
+
+    Now, multiply both sides by $\vec{x}$ on the right, and we get:
+
+    \begin{equation*}
+      \vec{u}^T A \vec{x} \leq \vec{c}^T \vec{x}
+    \end{equation*}
+
+    Since we know $\vec{b} \leq a \vec{x}$, we can substitute $\vec{b}$ while
+    satisfying the inequality:
+
+    \begin{equation*}
+      \vec{u}^T \vec{b} \leq \vec{c}^T \vec{x}
+    \end{equation*}
+
+    Since $\vec{u}^T \vec{b}$ is a dot product of two vectors, it is the same as
+    $\vec{b}^T \vec{u}$.  Substituting, we get the desired inequality:
+
+    \begin{equation*}
+      \vec{b}^T \vec{u} \leq \vec{c}^T \vec{x}
+    \end{equation*}
+
   \end{problem}
 
   \begin{problem}{4}
