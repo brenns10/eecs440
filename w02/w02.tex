@@ -26,8 +26,31 @@
     \begin{align*}
       h(\lambda x_1 + (1 - \lambda) x_2) &= f(\lambda x_1 + (1 - \lambda) x_2) + g(\lambda x_1 + (1 - \lambda) x_2)\\
                                          &\leq \lambda f(x_1) + (1-\lambda)f(x_2) + \lambda g(x_1) + (1-\lambda)g(x_2)\\
-                                         &\leq \lambda (f(x_1)+g(x_1)) + (1-\lambda)(f(x_2
+                                         &\leq \lambda (f(x_1)+g(x_1)) + (1-\lambda)(f(x_2)g(x_2))\\
+                                         &\leq \lambda h(x_1) + (1 - \lambda)h(x_2)\\
     \end{align*}
+
+    Therefore, $h(x) = f(x) + g(x)$ is convex.
+
+    For (ii):
+    \begin{align*}
+      h(\lambda x_1 + (1 - \lambda) x_2)
+      &= \max{f(\lambda x_1 + (1 - \lambda) x_2), g(\lambda x_1 + (1 - \lambda) x_2)}\\
+    \end{align*}
+
+    Assume without loss of generality that
+    $f(\lambda x_1 + (1 - \lambda) x_2) \geq g(\lambda x_1 + (1 - \lambda)
+    x_2)$.  Then, we have:
+
+    \begin{align*}
+      h(\lambda x_1 + (1 - \lambda)x_2)
+      &= f(\lambda x_1 + (1 - \lambda) x_2) \\
+      &\leq \lambda f(x_1) + (1-\lambda) f(x_2) \\
+      &\leq \lambda \max{(f(x_1),g(x_1))} + (1-\lambda)\max{(f(x_2), g(x_2))} \\
+      &\leq \lambda h(x_1) + (1-\lambda)h(x_2)
+    \end{align*}
+
+    Therefore, $h(x) = \max{(f(x), g(x))}$ is convex.
   \end{problem}
 
   \begin{problem}{2}
