@@ -1,0 +1,67 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written Homework 2}
+\duedate{September 8, 2015}
+
+\usepackage{mathtools}
+\usepackage{amsfonts}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      Suppose $f$ and $g$ are two convex functions defined on $\mathbb{R}^n$.
+      Show that the following functions are also convex: (i)
+      $h(x) = f(x) + g(x)$, (ii) $h(x) = \max{(f(x), g(x))}$.  Is
+      $h(x) = f(x) - g(x)$ also convex?  Explain why or why not. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      Show that the set $C=\{\vec{x}|A\vec{x} \geq \vec{b}\}$,
+      $A \in \mathbb{R}^{m \times n}$, $\vec{x} \in \mathbb{R}^n$,
+      $\vec{b} \in \mathbb{R}^m$, is a convex set.  Note that this describes the
+      constraint set of a linear program. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Consider the primal linear program (LP): $\min c^T \vec{x}$ s.t.
+      $A\vec{x} \geq \vec{b}, \vec{x} \geq \vec{0}$ and its dual:
+      $\max b^T \vec{u}$ s.t. $A^T \vec{u} \leq c, \vec{u} \geq \vec{0}$.
+      Carefully prove that for any feasible $(\vec{x},\vec{u})$ (i.e. $\vec{x}$
+      and $\vec{u}$ satisfying the constraints of the two LPs),
+      $b^T \vec{u} \leq c^T \vec{x}$. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      Prove that the set of all continuous probability distributions over
+      $[0,1]$ is convex. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{5}
+    \begin{question}
+      Consider the LP: $\min c^t \vec{x}$ s.t. $A\vec{x} \geq \vec{b}$,
+      $\vec{x} \geq \vec{0}$, where $A$ is the $4 \times 2$ matrix:
+      $\begin{bmatrix*} 0 & -1 \\ -1 & -1 \\ -1 & 2 \\ 1 & -1 \end{bmatrix*}$,
+      $\vec{b}$ is a $4 \times 1$ vector
+      $\begin{bmatrix*} -5 \\ -9 \\ 0 \\ -3 \end{bmatrix*}$, and $\vec{c}$ is a
+      $2 \times 1$ vector $\begin{bmatrix*} -1 \\ -2 \end{bmatrix*}$.  (a) Draw
+      the feasible region in $\mathbb{R}^2$.  (b) Draw the contours of
+      $c^T \vec{x} = -12$, $c^T \vec{x} = -14$, and $c^T \vec{x} = -16$ and
+      determine the solution graphically.  (c) Solve the problem using the
+      simplex method.  On your figure, trace the path taken by the simplex
+      method as it moves to the solution. (10 points)
+    \end{question}
+  \end{problem}
+
+\end{document}
