@@ -64,6 +64,15 @@
       $\vec{b} \in \mathbb{R}^m$, is a convex set.  Note that this describes the
       constraint set of a linear program. (10 points)
     \end{question}
+
+    Assume $\vec{x_1}$ and $\vec{x_2}$ are members of $C$.  Therefore,
+    $A\vec{x_1} \geq \vec{b}$ and $A\vec{x_2} \geq \vec{b}$.  Any point along
+    the line segment connecting $\vec{x_1}$ and $\vec{x_2}$ can be represented
+    as $\lambda\vec{x_1} + (1-\lambda)\vec{x_2}$ for $0 \leq \lambda \leq 1$.
+    Since
+    $A(\lambda\vec{x_1} + (1-\lambda)\vec{x_2}) = \lambda A \vec{x_1} +
+    (1-\lambda)A\vec{x_2} \geq \vec{b}$,
+    any such point must also be in $C$.  Therefore, $C$ is a convex set.
   \end{problem}
 
   \begin{problem}{3}
