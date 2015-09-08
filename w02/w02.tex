@@ -120,6 +120,15 @@
       Prove that the set of all continuous probability distributions over
       $[0,1]$ is convex. (10 points)
     \end{question}
+
+    Let $f$ and $g$ be the density functions of two probability distributions
+    over $[0,1]$.  This means that $\int_0^1 f(x) \mathrm{d}x = 1$, and
+    similarly for $g$.  For any $h$ defined as
+    $h(x) = \lambda f(x) + (1-\lambda) g(x)$, where $0 \leq \lambda \leq 1$, we
+    can see that
+    $\int_0^1 (\lambda f(x) + (1-\lambda)g(x)) \mathrm{d}x = \lambda\int_0^1
+    f(x) \mathrm{d}x + (1-\lambda \int_0^1 g(x)) \mathrm{d}x = 1$.
+    Therefore, $h$ is also a continuous probability distribution over $[0,1]$.
   \end{problem}
 
   \begin{problem}{5}
