@@ -160,6 +160,80 @@
     \begin{center}
       \includegraphics[width=0.7\textwidth]{feasibleb.pdf}
     \end{center}
+
+    (c) The constraints $A \vec{x} \geq \vec{b}$ correspond to the following
+    inequalities, and therefore slack variables:
+
+    \begin{align*}
+      -y &\geq -5 & w_1 &= -y + 5\\
+      -x - y &\geq -9 & w_2 &= -x - y + 9 \\
+      -x + 2y &\geq 0 & w_3 &= -x + 2y \\
+      x - y &\geq -3 & w_3 &= x - y + 3 \\
+    \end{align*}
+
+    This leads to the following initial tableu (at the point $(0,0)$):
+
+    \begin{tabular}{r|rrr}
+      & $x$ & $y$ & \\
+      \hline
+      $w_1$ &  0 & -1 &  5 \\
+      $w_2$ & -1 & -1 &  9 \\
+      $w_3$ & -1 &  2 &  0 \\
+      $w_4$ &  1 & -1 &  3 \\
+      $z$   & -1 & -2 &  0 \\
+    \end{tabular}
+
+    $y$ will decrease the objective function the most, so we pick it.  We find
+    that the blocking constraint comes from $w_4$, and it sets $y=3$.  So we
+    swap $y$ and $w_4$ in the tableau, getting the following (at the point
+    $(0, 3)$):
+
+    \begin{tabular}{r|rrr}
+      & $x$ & $w_4$ & \\
+      \hline
+      $w_1$ & -1 &  1 &  2 \\
+      $w_2$ & -2 &  1 &  6 \\
+      $w_3$ &  1 & -2 &  6 \\
+      $y$   &  1 & -1 &  3 \\
+      $z$   & -3 &  2 & -6 \\
+    \end{tabular}
+
+    Next we choose $x$.  The blocking constraint comes from $w_1$, and sets
+    $x=2$.  So, we swap $x$ and $w_1$, getting the following (at the point
+    $(2, 5)$):
+
+    \begin{tabular}{r|rrr}
+      & $w_1$ & $w_4$ & \\
+      \hline
+      $x$   & -1 &  1 &  2 \\
+      $w_2$ &  2 & -1 &  2 \\
+      $w_3$ & -1 & -1 &  8 \\
+      $y$   & -1 &  0 &  5 \\
+      $z$   &  3 &  -1 & -12 \\
+    \end{tabular}
+
+    Next we choose $w_4$.  The blocking constraint comes from $w_2$, setting
+    $w_4 = 2$.  So, we swap $w_4$ and $w_2$, getting the following (at the point
+    $(4, 5)$):
+
+    \begin{tabular}{r|rrr}
+      & $w_1$ & $w_2$ & \\
+      \hline
+      $x$   &  1 & -1 &  4 \\
+      $w_4$ &  2 & -1 &  2 \\
+      $w_3$ & -3 &  1 & -2 \\
+      $y$   & -1 &  0 &  5 \\
+      $z$   &  1 &  1 & -14 \\
+    \end{tabular}
+
+    Since the coefficients of the objective function are now both positive, we
+    can no longer decrease it, so the Simplex method is complete.  The solution
+    is $(4, 5)$, with $z=-14$.  Below is the figure with the steps above traced
+    along it:
+
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{pathc.pdf}
+    \end{center}
   \end{problem}
 
 \end{document}
