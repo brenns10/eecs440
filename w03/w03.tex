@@ -41,6 +41,21 @@
       global minimum.  [Hint: Prove by contradiction using Jensen's inequality.]
       (10 points)
     \end{question}
+
+    Let us assume that $f$ is a convex function, and $x_1$ is a local minimum,
+    but not a global minimum.  Since $x_1$ is not a global minimum, there exists
+    some value $x_2$ such that $f(x_2) < f(x_1)$.  By Jensen's inequality,
+    $f(\lambda x_1 + (1-\lambda) x_2) \le \lambda f(x_1) + (1-\lambda) f(x_2)$,
+    for $0 \le \lambda \le 1$.  Since $x_1$ is a local minimum, there is a $y$
+    in the neighborhood of $x_1$ which is between $x_1$ and $x_2$, for which
+    $f(y) \ge f(x)$.  So, for $\lambda_y$ corresponding to $y$, we must have
+    $f(\lambda_y x_1 + (1-\lambda_y) x_2) \le \lambda_y f(x_1) + (1-\lambda_y)
+    f(x_2)$.
+    Since $f(x_2) < f(x_1)$, we know that
+    $\lambda_y f(x_1) + (1-\lambda_y) f(x_2) < f(x_1)$.  But since
+    $\lambda_y x_1 + (1-\lambda_y) x_2 = y$, this gives us the inequality
+    $f(y) < f(x_1)$, which contradicts the earlier statement that
+    $f(y) \ge f(x_1)$.  This contradiction proves the original statement.
   \end{problem}
 
   \begin{problem}{3}
