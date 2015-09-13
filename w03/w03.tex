@@ -72,6 +72,70 @@
       settings and representations we have discussed.  Especially interesting
       discussion may receive bonus points. (15 points)
     \end{question}
+
+    \textbf{Task 1: Bioinformatics.}  Cancer is a very complex and heterogeneous
+    disease.  Two cancers of the same organ may have entirely separate causes
+    and mechanisms.  Therefore, when choosing treatments, it is important to
+    choose those which target the mechanisms of the particular cancer you're
+    treating.  Since the mechanisms and treatments of cancer are still an area
+    of active research, it is important to be able to choose the best treatment
+    regardless of whether the mechanisms have been pinned down yet.  This leads
+    to the following machine learning problem: given clinical information about
+    a cancer patient, choose a treatment that will maximize their lifetime.
+
+    \begin{itemize}
+    \item Performance measure: amount of time since diagnosis a patient
+      survives.
+    \item Examples: clinical data (somatic mutations, gene expression levels,
+      demographic information, medical history, etc.) from previous cancer
+      patients (readily available from sources such as The Cancer Genome Atlas).
+    \end{itemize}
+
+    This task lends itself to the feature vector representation of its examples.
+    One potential hypothesis space would be the set of all available cancer
+    treatments.  A more interesting hypothesis space could be the set of all
+    subsets of cancer treatments (since many patients are treated with multiple
+    drugs, it can be difficult to separate out the effects of each drug, and the
+    results may in fact be due to that particular combination of drugs).
+    However, neither of these hypothesis spaces would restrict the machine
+    learning algorithms enough to prevent overfitting, so it would be important
+    to emphasize cross validation or restricting the hypothesis space to a
+    subset of the available treatments.
+
+    Since there are already large databases of example data available, this
+    problem would be well suited for a supervised learning algorithm.
+
+    \textbf{Task 2: Advertising.}  To large retailers (especially online),
+    making more sales is very important.  These retailers have a good deal of
+    data available to them: namely, the lists of items that customers purchase
+    in a single trip (or shopping cart).  They may be able to make more sales by
+    advertising other products to customers as they shop.  A machine learning
+    approach to this problem would be an excellent way to try to increase sales.
+
+    \begin{itemize}
+    \item Performance measure: amount of money spent by a customer, or perhaps
+      the amount of items purchased by the customer.
+    \item Examples: shopping baskets of previous customers.  Perhaps even more
+      interesting would be if the retailer tracked what was already in a
+      customer's cart when they added a new item.  In this case, the examples
+      might be items along with the shopping cart contents they are added to.
+    \end{itemize}
+
+    This task would lend itself to a somewhat more complex representation of
+    examples.  Since retailers may have vast amounts of products, a feature
+    vector would be huge, and probably contain too many features to accurately
+    predict any meaningful behavior from.  The examples might be better
+    represented in something like Multiple-Instance Representation.  It may also
+    be wise to try to reduce the number of features by using the category of the
+    product, or by grouping all the similar products (of different brands) into
+    the same feature.
+
+    This advertising task would also be very good for unsupervised learning.
+    The algorithm could take action by choosing advertisements to display to the
+    user, and it could determine for itself whether its advertisement was
+    successful by looking at its performance measure.  In this case, it may be
+    even more useful to include in the performance measure things like whether
+    or not the user clicked on the advertisement.
   \end{problem}
 
   \begin{problem}{4}
