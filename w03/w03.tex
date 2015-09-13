@@ -5,7 +5,7 @@
 \assignment{Written Homework 3}
 \duedate{September 15, 2015}
 
-%\usepackage{mathtools}
+\usepackage{mathtools}
 %\usepackage{graphicx}
 
 \begin{document}
@@ -17,6 +17,19 @@
       definitions, prove that for any two independent random variables $X$ and
       $Y$, $V(X + Y) = V(X) + V(Y)$. (10 points)
     \end{question}
+
+    \begin{align*}
+      V(X + Y) &= E((X+Y-E(X+Y))^2) \\
+               &= E(((X-E(X)) + (Y-E(Y)))^2) \\
+               &= E((X-E(X))^2 + 2(X-E(X))(Y-E(Y)) + (Y-E(Y))^2) \\
+               &= E((X-E(X))^2) + E(2(X-E(X))(Y-E(Y))) + E((Y-E(Y))^2) \\
+               &= V(X) + V(Y) + 2E(XY - XE(Y) - YE(X) + E(X)E(Y)) \\
+               &= V(X) + V(Y) + 2(E(X)E(Y) - E(X)E(Y) - E(X)E(Y) + E(X)E(Y)) \\
+               &= V(X) + V(Y)
+    \end{align*}
+
+    The critical step that needs justification here is going from $E(XY)$ to
+    $E(X)E(Y)$, which is only true because $X$ and $Y$ are independent.
   \end{problem}
 
   \begin{problem}{2}
