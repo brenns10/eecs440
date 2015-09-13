@@ -148,6 +148,31 @@
       hypothesis in the space.  Give a rigorous justification for your
       answer. (8 points)
     \end{question}
+
+    Since there are $n$ attributes which can take on 2 values each, there would
+    be $2^n$ possible examples with those attributes.  However, this assumes
+    that all examples with the exact same attribute values must have the exact
+    same category label.  While this may make sense for many applications, there
+    are plenty of applications (such as my own research field, Bioinformatics)
+    where you may encounter examples with the same attributes and different
+    categories.  In a situation like this, there would therefore be $2^{n+1}$
+    possible examples (assuming a binary category label).
+
+    In terms of the number of possible decision trees, this issue was already
+    discussed in class.  Essentially, a decision tree does the same thing as a
+    Boolean function: it assigns a class label to an example.  Any Boolean
+    function could be represented by a decision tree, by simply creating a
+    complete binary tree with $n$ levels of internal nodes, and assigning class
+    labels as the children according to the truth table of the function
+    (obviously, you could simplify the tree from there).  From the flip side,
+    you could come up with a Boolean function for any decision tree by testing
+    it for every possible example, populating a truth table, and then creating a
+    Boolean function in Disjunctive Normal Form directly from the truth table.
+    Therefore, the problem of counting the number of ``distinct'' trees is the
+    same as counting the number of distinct Boolean functions of $n$ variables,
+    which we determined in class to be $2^{2^n}$.  This result is because a
+    Boolean function is a subset of a truth table.  A truth table with $n$
+    variables has $2^n$ rows, and there are $2^{2^n}$ subsets of such a table.
   \end{problem}
 
   \begin{problem}{5}
