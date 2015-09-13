@@ -1,0 +1,67 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written Homework 3}
+\duedate{September 9, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      Let $V(X)$ denote the variance of a random variable $X$.  From the
+      definitions, prove that for any two independent random variables $X$ and
+      $Y$, $V(X + Y) = V(X) + V(Y)$. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      A function $f$ is said to have a global minimum at $x$ if for all $y$,
+      $f(y) \ge f(x)$.  It is said to have a local minimum at $x$ if there
+      exists a neighborhood $H$ around $x$ so that for all $y$ in $H$,
+      $f(y) \ge f(x)$.  Show that, if $f$ is convex, every local minimum is a
+      global minimum.  [Hint: Prove by contradiction using Jensen's inequality.]
+      (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Describe two learning tasks that might be suitable for machine learning
+      approaches.  For each task, write down a goal, a possible performance
+      measure, what examples you might get, and what a suitable hypothesis space
+      might be.  What learning setting (supervised, unsupervised, etc.) seems
+      most appropriate for each task?  What example representation seems most
+      appropriate?  Be original -- don't write about tasks discussed in class or
+      described in the text.  Preferably select tasks from your research area.
+      Describe any aspect of the task(s) that may not fit well with the learning
+      settings and representations we have discussed.  Especially interesting
+      discussion may receive bonus points. (15 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      Consider a learning problem where the examples are described by $n$
+      Boolean attributes, and the hypothesis space is the space of all Boolean
+      functions on $n$ variables.  How many distinct examples can you have in
+      this setting?  How many distinct decision trees can you construct in this
+      setting?  ``Distinct'' means that each tree must represent a different
+      hypothesis in the space.  Give a rigorous justification for yor answer. (8
+      points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{5}
+    \begin{question}
+      Show that the entropy of a Bernoulli random variable is a concave function
+      (i.e. the negative entropy is a convex function). (7 points)
+    \end{question}
+  \end{problem}
+
+\end{document}
