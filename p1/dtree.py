@@ -4,8 +4,8 @@ The Decision Tree Classifier
 import numpy as np
 import scipy
 
-class DecisionTree(object):
 
+class DecisionTree(object):
 
     def __init__(self, depth=None):
         """
@@ -40,4 +40,3 @@ class DecisionTree(object):
         (A tree with a single root node has depth 0)
         """
         pass
-

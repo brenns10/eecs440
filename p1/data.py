@@ -5,6 +5,7 @@ import os
 import numpy as np
 from scipy.io import loadmat
 
+
 class Schema(object):
 
     def __init__(self, ids, feature_names, is_nominal, nominal_values):
@@ -21,6 +22,7 @@ class Schema(object):
 
     def is_nominal(self, feature_index):
         return self._is_nominal[feature_index]
+
 
 def get_dataset(dataset_name, base_directory='.'):
     """
