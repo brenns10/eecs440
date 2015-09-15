@@ -3,3 +3,5 @@
 *.log
 *.dvi
 .ipynb_checkpoints
+*.py[cod]
+*/data/*
