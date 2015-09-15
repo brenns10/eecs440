@@ -180,6 +180,25 @@
       Show that the entropy of a Bernoulli random variable is a concave function
       (i.e. the negative entropy is a convex function). (7 points)
     \end{question}
+
+    The entropy of a Bernoulli random variable can be represented by
+    $H(p) = - p \log{p} - (1-p) \log{1-p}$, where $0 \le p \le 1$ is the success
+    probability of the variable.  We will define
+    $h(p) = -H(p) = p \log{p} + (1-p) \log{1-p}$, and show that $h$ is convex.
+    To do this, we show that the second derivative is always positive.
+
+    \begin{align*}
+      \frac{dh}{dp} &= 1 \log{p} + p \frac{1}{p} + (-1) \log (1-p) + (1-p) \frac{1}{(1-p)} (-1) \\
+                    &= 1 + \log{p} - \log (1-p) - 1 \\
+                    &= \log{p} - \log (1-p) \\
+      \frac{d^2h}{dp^2} &= \frac{1}{p} - \frac{1}{1-p} (-1) \\
+                    &= \frac{1}{p} + \frac{1}{1-p} \\
+    \end{align*}
+
+    In the case where $0 < p < 1$, this second derivative is positive.  When $p$
+    is 0 or 1, we have a degenerate case, but in the limit the second derivative
+    is positive infinity.  Therefore, $h$ is convex, and so the entropy of the
+    Bernoulli variable is concave.
   \end{problem}
 
 \end{document}
