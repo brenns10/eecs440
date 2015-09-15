@@ -65,6 +65,7 @@ def get_folds(X, y, k):
     @param k : number of folds
     @return (train_X, train_y, test_X, test_y) for each fold
     """
+    print X
     pass  # add code here
 
     return zip(train_X, train_y, test_X, test_y)
@@ -118,7 +119,7 @@ def main(**options):
 
     print('      Accuracy: %.03f %.03f'
           % stats_manager.get_statistic('accuracy', pooled=False))
-        '''
+    '''
 print ('     Precision: %.03f %.03f'
 % stats_manager.get_statistic('precision', pooled=False))
 
