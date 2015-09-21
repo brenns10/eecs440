@@ -5,7 +5,7 @@
 \assignment{Written 4}
 \duedate{September 22, 2015}
 
-%\usepackage{mathtools}
+\usepackage{mathtools}
 %\usepackage{graphicx}
 
 \begin{document}
@@ -84,6 +84,87 @@
       binary classification task, the information gain $IG(X)$ for any binary
       split variable $X$ is always non negative. (10 points).
     \end{question}
+
+    The information gain $IG(X)$ with respect to class labels $Y$ is defined as:
+
+    \begin{align*}
+      IG(X) &= H(Y) - H(Y|X) \\
+            &= H(Y) - \sum_{x \in X} p(x) H(Y|X=x) \\
+            &= H(Y) + \sum_{x \in X} \sum_{y \in Y} p(x) p(y|x) \log p(y|x) \\
+            &= H(Y) + \sum_{x \in X} \sum_{y \in Y} p(x, y) \log \frac{p(x,y)}{p(x)} \\
+            &= H(Y) + \sum_{x \in X} \sum_{y \in Y} p(x, y) \log p(x,y) - \sum_{x \in x} \sum_{y \in Y} p(x,y) \log p(x) \\
+            &= H(Y) - H(X,Y) - \sum_{x \in X} p(x) \log p(x) \\
+            &= H(Y) + H(X) - H(X,Y)
+    \end{align*}
+
+    Here, $H(X,Y)$ is the joint entropy of the attribute $X$ and the class
+    labels $Y$.  For any $X$ and $Y$, therefore, $IG(X) \ge 0$ iff
+    $H(Y) + H(X) \ge H(X,Y)$.
+
+    For binary $X$ and $Y$ (as the problem stipulates), the probability
+    distribution of the joint variable $X,Y$ is defined by three probabilities:
+    $p_x$ (probability $X$ is positive), $p_y$ (probability $Y$ is positive),
+    and $p_{xy}$ (probability $X$ and $Y$ are both positive).  Using these three
+    variables, we can write the probability distribution of $X,Y$:
+
+    \begin{tabular}{l|ll}
+           & $Y+$     & $Y-$ \\
+      \hline
+      $X+$ & $p_{xy}$ & $p_x - p_{xy}$ \\
+      $X-$ & $p_y - p_{xy}$ & $1 - p_x - p_y + p_{xy}$ \\
+    \end{tabular}
+
+    Now, we will hold $p_x$ and $p_y$ constant, and find what value of $p_{xy}$
+    (in terms of $p_x$ and $p_y$) maximizes $H(X,Y)$.  For ease of arithmetic,
+    we will minimize $h = -H$.  So, we begin by writing out $h(p_{xy})$:
+
+    \begin{align*}
+      h(p_{xy}) =& -H(X,Y) = \sum_{x \in X} \sum_{y \in Y} p(x,y) \log p(x,y) \\
+                =& p_{xy} \log p_{xy} + (p_x - p_{xy}) \log (p_x - p_{xy}) + (p_y - p_{xy}) \log (p_y - p_{xy})\\
+                 &+ (1 - p_x - p_y + p_{xy}) \log (1 - p_x - p_y + p_{xy})\\
+      \frac{dh}{dp_{xy}} =& \log p_{xy} - \log (p_x - p_{xy}) - \log (p_y - p_{xy}) + \log (1 - p_x - p_y + p_{xy}) \\
+      =& \log \frac{p_{xy}(1-p_x-p_y+p_{xy})}{(p_x - p_{xy})(p_y-p_{xy})}\\
+      \frac{d^2h}{dp_{xy}^2} =& \frac{1}{p_{xy}} + \frac{1}{p_x-p_{xy}} + \frac{1}{p_y-p_{xy}} + \frac{1}{1 - p_x - p_y + p_{xy}} \\
+    \end{align*}
+
+    We find critical points where $\frac{dh}{dp_{xy}}=0$:
+
+    \begin{align*}
+      0 &= \log \frac{p_{xy}(1-p_x-p_y+p_{xy})}{(p_x - p_{xy})(p_y-p_{xy})} \\
+      1 &= \frac{p_{xy}(1-p_x-p_y+p_{xy})}{(p_x - p_{xy})(p_y-p_{xy})} \\
+      p_{xy}(1-p_x-p_y+p_{xy}) &= (p_x - p_{xy})(p_y-p_{xy}) \\
+      p_{xy} - p_x p_{xy} - p_y p_{xy} + p_{xy}^2 &= p_x p_y - p_x p_{xy} - p_y p_{xy} + p_{xy}^2 \\
+      p_{xy} &= p_x p_y \\
+    \end{align*}
+
+    We calculate $\frac{d^2h}{dp_{xy}^2}$ at this point:
+
+    \begin{align*}
+      \frac{d^2h}{dp_{xy}^2} &= \frac{1}{p_{xy}} + \frac{1}{p_x-p_{xy}} + \frac{1}{p_y-p_{xy}} + \frac{1}{1 - p_x - p_y + p_{xy}} \\
+      &= \frac{1}{p_{x}p_{y}} + \frac{1}{p_x(1-p_y)} + \frac{1}{p_y(1-p_x)} + \frac{1}{(1 - p_x)(1 - p_y)} \\
+    \end{align*}
+
+    Since $p_x$ and $p_y$ are probabilities, the whole thing is positive, and
+    therefore this critical point minimizes $h$, and therefore maximizes
+    $H(X,Y)$.  The value of $H(X,Y)$ at this point is:
+
+    \begin{align*}
+      H(X,Y) =& - \sum_{x \in X} \sum_{y \in Y} p(x,y) \log p(x,y) \\
+             =& -p_x p_y \log (p_x p_y) - (p_x)(1-p_y) \log (p_x)(1-p_y) \\
+              &- (1-p_x)(p_y) \log (1-p_x)(p_y) - (1-p_x)(1-p_y) \log (1-p_x)(1-p_y) \\
+    \end{align*}
+
+    When we separate out the log products and combine like terms, we find that
+    $H(X,Y) = H(X) + H(Y)$ at its maximal value (for any $X$ or $Y$).
+    Therefore, we can see that $H(X) + H(Y) \ge H(X,Y)$ is always true, and
+    therefore, the information gain of $X$ is always positive.
+
+    It is worth noting that there is probably a much shorter way to do this
+    proof that I didn't come up with.  Also, this inequality $IG(X) \ge 0$ holds
+    true for any $X$ and $Y$ (not just binary), due to the much more general
+    statement that the mutual information between two discrete random variables
+    is always non-negative.  Of course, I could not use that statement for this
+    proof!
   \end{problem}
 
   \begin{problem}{4}
