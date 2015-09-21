@@ -97,7 +97,7 @@ def mutual_info_fast(l1, l2, l1_entropy, l2_entropy):
 
 class DecisionTree(object):
 
-    def __init__(self, depth=None, schema=None):
+    def __init__(self, depth=None, schema=None, used=None):
         """
         Constructs a Decision Tree Classifier
 
@@ -106,10 +106,19 @@ class DecisionTree(object):
         """
         if schema is None:
             raise ValueError('Must provide schema to DecisionTree!')
+        # Schema will tell us whether each attribute is nominal or continuous.
         self._schema = schema
+        # How many more levels down we can go.
         self._allowed_depth = depth
+        # A numpy.array of booleans, used[i]=True if attribute i has been used.
+        self._used = used
+        # None if internal node, otherwise the label.
         self._label = None
+        # Attribute that we test.
         self._attribute = None
+        # If we're testing a continuous attribute, this is the cutoff
+        self._cutoff = None
+        # Dictionary of children.
         self._children = {}
 
     def _gain_ratio(self, splits, y):
@@ -135,6 +144,7 @@ class DecisionTree(object):
             if ig > max_ig:
                 max_ig = ig
                 max_idx = attr
+                max_split = split
         return max_ig, max_idx, max_split
 
     def fit(self, X, y, sample_weight=None):
@@ -153,12 +163,29 @@ class DecisionTree(object):
         # Otherwise, choose the attribute to split that maximizes the gain
         # ratio.
         ig, attr, split = self._max_gain_ratio_split(X, y)
-        new_X = np.delete(X, attr, axis=1)
+
+        # Mark this attribute as used.
+        if self._used is None:
+            self._used = np.zeros(X.shape[1], dtype=np.bool)
+        self._used[attr] = True
+
+        # Fit the children!
+        for value in np.unique(split):
+            new_X = X[split == value]
+            new_y = y[split == value]
+            child = DecisionTree(depth=self._allowed_depth-1,
+                                 schema=self._schema,
+                                 used=self._used)
+            child.fit(new_X, new_y, sample_weight=sample_weight)
+            self._children[value] = child
 
     def predict(self, X):
         """ Return the -1/1 predictions of the decision tree """
+        # If this node has a label, return it.
         if self._label is not None:
             return self._label
+        # Otherwise, use the child to predict!
+        return self._children[X[self._attribute]].predict(X)
 
     def predict_proba(self, X):
         """ Return the probabilistic output of label prediction """
@@ -168,11 +195,19 @@ class DecisionTree(object):
         """
         Return the number of nodes in the tree
         """
-        pass
+        size = 1
+        for child in self._children.values():
+            size += child.size()
+        return size
 
     def depth(self):
         """
         Returns the maximum depth of the tree
         (A tree with a single root node has depth 0)
         """
-        pass
+        depth = 1
+        for child in self._children.values():
+            child_depth = child.depth()
+            if child_depth + 1 > depth:
+                depth = child_depth
+        return depth
