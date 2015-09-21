@@ -19,6 +19,36 @@
       representation is important for learning.  Try to use good, intuitive
       examples from human learning to motivate your arguments. (10 points)
     \end{question}
+
+    \textbf{(i)} Memorization is not a valid approach to learning because the
+    memorized concept can not be applied to new examples of the same problem.
+    When humans learn to do simple arithmetic, memorizing multiplication tables
+    is a common starting point.  However, if you have memorized a multiplication
+    table, you are powerless to multiply two numbers if one is not included in
+    the table.  It's not until you learn how to do multiplication generally
+    (which frequently uses the tables) that you have actually learned the
+    concept of multiplication and can apply it to any two numbers.
+
+    \textbf{(ii)} When creating a learning system, you must take into account
+    the ``hypothesis space'' that your system will search.  It's not guaranteed
+    that the actual concept your system should learn is contained within this
+    space.  If you make your hypothesis space general enough to guarantee that
+    the target concept is contained by it, you also include the concept that
+    memorizes your examples, which will match the examples at least as well as
+    the target concept, and probably better.  Your learning system will
+    therefore always memorize rather than learn.  Therefore, you must use some
+    sort of prior knowledge to restrict this hypothesis space.  This means you
+    must start with some sort of knowledge or bias in your hypothesis space,
+    instead of beginning from a blank slate (or tabula rasa).
+
+    \textbf{(iii)} When a human learns multiplication, it's usually helpful to
+    start with groups of small objects, demonstrating how multiplication is
+    actually repeated addition.  Although this is possible to see with a normal
+    representation of numbers, using small objects like coins, beans, or candy
+    frequently makes the concept much more obvious to the human mind.  In the
+    same way, when designing a machine learning system, it is important to give
+    examples to the system in a way that will make the target concept more
+    apparent to the system.
   \end{problem}
 
   \begin{problem}{2}
