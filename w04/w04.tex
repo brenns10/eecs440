@@ -1,0 +1,55 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 4}
+\duedate{September 22, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      Explain in your own words: \textbf{(i)} why memorization should not be
+      considered a valid learning approach, \textbf{(ii)} why tabula rasa
+      learning is impossible, and \textbf{(iii)} why picking a good example
+      representation is important for learning.  Try to use good, intuitive
+      examples from human learning to motivate your arguments. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      Do you think it might be possible to have a ``best'' learning algorithm,
+      that would outperform all other algorithms on all learning problems?
+      Explain why or why not.  (Hint: think about the consequences of the
+      proposition that tabula rasa learning is impossible.) (10 points).
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      From first principles (without using other results), prove that in a
+      binary classification task, the information gain $IG(X)$ for any binary
+      split variable $X$ is always non negative. (10 points).
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      Show that for a continuous attribute $X$, the only split values we need to
+      check to determine a split with max $IG(X)$ lie between points with
+      different labels.  (Hint: consider the following setting for $X$: there is
+      a candidate split point $S$ in the middle of $N$ examples with the same
+      label, to the right of $n$ such examples.  To the left, there are $L_0$
+      examples with label negative and $L_1$ with label positive, and likewise
+      to the right.  Express the information gain of $S$ as a function of $n$.
+      Then show that this function is maximized either when $n=0$ or $n=N$.) (20
+      points)
+    \end{question}
+  \end{problem}
+
+\end{document}
