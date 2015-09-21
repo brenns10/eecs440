@@ -59,7 +59,7 @@ class StatisticsManager(object):
 
 
 def accuracy(labels, predictions):
-    pass
+    return sum(labels == predictions) / len(labels)
 
 
 def precision(labels, predictions):
