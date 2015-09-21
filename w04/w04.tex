@@ -58,6 +58,24 @@
       Explain why or why not.  (Hint: think about the consequences of the
       proposition that tabula rasa learning is impossible.) (10 points).
     \end{question}
+
+    Almost certainly such an algorithm would not be possible.  Expanding on my
+    explanation of ``no tabula rasa learning'' from \textbf{(1.ii)}, in order to
+    have an effective learning system that avoids memorization, you must
+    restrict the hypothesis space of your algorithm.  In doing so, you create an
+    inductive bias for your system that takes into account some of your prior
+    knowledge about the problem.  A generalized algorithm could not come up with
+    this restriction because it has no prior knowledge of the problems it would
+    be applied to.
+
+    Even if there were some automated way to come up with an appropriate
+    inductive bias for a problem, designing an algorithm that can search some
+    arbitrary subset of a huge hypothesis space is not trivial--a general
+    approach would likely be inefficient.
+
+    Finally, a learning algorithm is frequently heavily coupled with the example
+    representation it uses.  Having an algorithm that works generally for any
+    representation is unlikely at best.
   \end{problem}
 
   \begin{problem}{3}
