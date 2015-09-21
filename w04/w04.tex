@@ -179,6 +179,66 @@
       Then show that this function is maximized either when $n=0$ or $n=N$.) (20
       points)
     \end{question}
+
+    Using the hint in the question statement above, we write the information
+    gain of $X$ split at $S$ as a function of $n$.  We assume without loss of
+    generality that the $N$ examples are labeled positive.  Additionally, since
+    $H(Y)$ is constant with respect to $n$, we disregard it in the information
+    gain.
+
+    \begin{align*}
+      IG(X)
+      =& H(Y) - H(Y|X) \\
+      =& -p(X \le S) H(Y|X \le S) - p(X > S) H(Y|X > S) \\
+      =& \frac{L_0+L_1+n}{L_0+L_1+N+R_0+R_1} \left(
+           p(Y=0|X \le S) \log p(Y=0| X \le S) + p(Y=1|X \le S) \log p(Y=1|X \le S)
+         \right)\\
+       &+ \frac{R_0+R_1+N-n}{L_0+L_1+N+R_0+R_1} \left(
+           p(Y=0|X > S) \log p(Y=0| X > S) + p(Y=1|X > S) \log p(Y=1|X > S)
+         \right) \\
+      =& \frac{L_0+L_1+n}{L_0+L_1+N+R_0+R_1} \left(
+           \frac{L_0}{L_0+L_1+n} \log \frac{L_0}{L_0+L_1+n}
+           + \frac{L_1+n}{L_0+L_1+n} \log \frac{L_1+n}{L_0+L_1+n}
+         \right)\\
+       &+ \frac{R_0+R_1+N-n}{L_0+L_1+N+R_0+R_1} \bigg(
+         \frac{R_0}{R_0+R_1+N-n} \log \frac{R_0}{R_0+R_1+N-n}\\
+       &+ \frac{R_1+N-n}{R_0+R_1+N-n} \log \frac{R_1+N-n}{R_0+R_1+N-n} \bigg) \\
+    \end{align*}
+
+    Simplifying further, we obtain:
+
+    \begin{equation*}
+      IG(X) = \frac{1}{L_0+L_1+N+R_0+R_1} \left(
+    \begin{aligned}
+      L_0 \log \frac{L_0}{L_0+L_1+n}+ &(L_1+n) \log \frac{L_1+n}{L_0+L_1+n}+ \\
+      R_0 \log \frac{R_0}{R_0+R_1+N-n}+ &(R_1+N-n) \log \frac{R_1+N-n}{R_0+R_1+N-n}\\
+    \end{aligned} \right)
+    \end{equation*}
+
+    Taking the derivative and simplifying, we obtain:
+
+    \begin{equation*}
+      \frac{dIG}{dn} = \frac{1}{L_0+L_1+N+R_0+R_1} \log \frac{(L_1+n)(R_0+R_1+N-n)}{(L_0+L_1+n)(R_1+N-n)}
+    \end{equation*}
+
+    The critical points of $IG$ are when $n=0$, $n=N$, and when this derivative
+    is 0.  In order for the derivative to be $0$, the $\log$ must be 1.  Or, the
+    numerator and denominator of the inside fraction must be the same:
+
+    \begin{align*}
+      (L_1+n)(R_0+R_1+N-n) &= (L_0+L_1+n)(R_1+N-n) \\
+      (L_1+n)(R_1+N-n) + (L_1+n)R_0 &= (L_1+n)(R_1+N-n) + L_0(R_1+N-n) \\
+      L_1 R_0 + R_0 n &= L_0 R_1 + L_0 N - L_0 n \\
+      (R_0 + L_0) n &= L_0 R_1 + L_0 N - L_1 R_0 \\
+      n &= \frac{L_0 R_1 + L_0 N - L_1 R_0}{R_0 + L_0} \\
+    \end{align*}
+
+    At this point, I would attempt to show that the second derivative evaluated
+    at this point is positive, and therefore this point is a minimum, not a
+    maximum.  With that, I could say that either $n=0$ or $n=N$ is the value
+    that maximizes the information gain.  However, I believe there may be some
+    error in my computation up to this point, because the next steps cannot be
+    practically computed by hand.
   \end{problem}
 
 \end{document}
