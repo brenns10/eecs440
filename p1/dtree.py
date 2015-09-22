@@ -6,6 +6,7 @@ from __future__ import division
 
 import numpy as np
 from scipy.stats import mode
+from scipy.ndimage.interpolation import shift
 import logging
 log = logging.getLogger('dtree')
 log.setLevel(logging.CRITICAL)
@@ -154,6 +155,41 @@ class DecisionTree(object):
 
         return gain_ratio
 
+    def _find_cutoff(self, X, y, attr, H_y):
+        """
+        Return the cutoff, IG, and array for a continuous attribute.
+        :param X: examples
+        :param y: labels
+        :param attr: which attribute
+        :param H_y: entropy of y, to avoid recomputation
+        :returns: A 3-tuple:
+          [0]: cutoff
+          [1]: IG of the split
+          [2]: split array
+        """
+        # Get coordinately sorted copies of X and y.
+        argsort = X[:, attr].argsort()
+        Xs = X[argsort]
+        ys = y[argsort]
+
+        # Create a y array shifted one index up
+        yshift = shift(ys, 1, cval=np.NaN)
+
+        # Iterate over every index where the label isn't the same as the
+        # previous one.
+        max_ig = -1
+        changes = np.where(ys != yshift)[0]
+        for index in changes:
+            cutoff = Xs[index][attr]
+            split =X[:, attr] < cutoff
+            ig = self._gain_ratio(split, y, H_y)
+            if ig > max_ig:
+                max_ig = ig
+                max_cutoff = cutoff
+                max_split = split
+        return max_cutoff, max_ig, max_split
+
+
     def _max_gain_ratio_split(self, X, y):
         """
         Return the attribute and split that maximizes the gain ratio.
@@ -172,8 +208,7 @@ class DecisionTree(object):
 
         # Initial values for our return value.
         max_ig = -1
-        max_idx = -1
-        max_split = None
+        cutoff = None
 
         # Precompute the entropy of the examples, since we'll reuse it.  Also,
         # I'm changing the label -1 to 0, mostly so that my entropy
@@ -191,26 +226,30 @@ class DecisionTree(object):
                 # For nominal attributes, just use the attribute itself as the
                 # split.
                 split = X[:, attr]
+                ig = self._gain_ratio(split, y, H_y)
             else:
-                pass  # TODO: implement for continuous!
+                cutoff, ig, split = self._find_cutoff(X, y, attr, H_y)
 
-            # Get the information gain for this attribute.
-            ig = self._gain_ratio(split, y, H_y)
             # Hold onto it if it's the best so far.
             if ig > max_ig:
                 max_ig = ig
                 max_idx = attr
                 max_split = split
+                max_cutoff = cutoff
 
         if self._schema.is_nominal(max_idx):
             # If we chose a nominal attribute, we can't use it again.  We could
             # reuse a continuous attribute.
             self._used[max_idx] = True
+        else:
+            self._cutoff = max_cutoff
 
         return max_ig, max_idx, max_split
 
     def fit(self, X, y, sample_weight=None):
         """ Build a decision tree classifier trained on data (X, y) """
+        #from smbio.util.repl import repl; repl()
+
         # If we have a pure tree, we're done.
         unique_labels = np.unique(y)
         if len(unique_labels) == 1:
@@ -259,7 +298,10 @@ class DecisionTree(object):
             return self._label
 
         # Otherwise, get the corresponding child node for this example.
-        subtree = self._children.get(x[self._attribute])
+        if self._schema.is_nominal(self._attribute):
+            subtree = self._children.get(x[self._attribute])
+        else:
+            subtree = self._children.get(int(x[self._attribute]<self._cutoff))
 
         # If there is no subtree, the algorithm must not have had an example
         # like this in training.  For now, predict negative.
