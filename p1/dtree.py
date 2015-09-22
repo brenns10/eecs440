@@ -1,13 +1,16 @@
 """
 The Decision Tree Classifier
 """
+from __future__ import print_function
+from __future__ import division
+
 import numpy as np
 from scipy.stats import mode
 
 
 def entropy(l):
     """
-    Return the entropy of any vector of discrete values.
+    Return the entropy of a vector of nonnegative discrete integers.
 
     Shannon Entropy is a measure of the "information content" of a random
     variable.  The more widely dispersed the possible values of the RV, the
@@ -19,7 +22,7 @@ def entropy(l):
 
         :math:`H(X) = - \sum_{x\in X} p(X=x) \log_2(p(X=x))`
 
-    :param l: Array of integers/bools.
+    :param l: Array of nonnegative integers/bools.
     :type l: numpy.array or similar
     :returns: The entropy of the array.
     """
@@ -28,6 +31,7 @@ def entropy(l):
     with np.errstate(divide='ignore'):  # ignore log(0) errors, we'll handle
         log_probabilities = np.log2(probabilities)
         log_probabilities[~np.isfinite(log_probabilities)] = 0
+        log_probabilities[np.isnan(log_probabilities)] = 0
     return -np.sum(probabilities * log_probabilities)
 
 
@@ -101,8 +105,11 @@ class DecisionTree(object):
         """
         Constructs a Decision Tree Classifier
 
-        @param depth=None : maximum depth of the tree,
-                            or None for no maximum depth
+        :param depth: maximum depth of the tree, or None for no maximum depth
+        :param schema: schema of the attributes, so we can tell nominal from
+          continuous attributes
+        :param used: array of bools, used[i] == True if attribute i has already
+          been used.
         """
         if schema is None:
             raise ValueError('Must provide schema to DecisionTree!')
@@ -110,6 +117,8 @@ class DecisionTree(object):
         self._schema = schema
         # How many more levels down we can go.
         self._allowed_depth = depth
+        self._depth = 1
+        self._size = 1
         # A numpy.array of booleans, used[i]=True if attribute i has been used.
         self._used = used
         # None if internal node, otherwise the label.
@@ -121,18 +130,60 @@ class DecisionTree(object):
         # Dictionary of children.
         self._children = {}
 
-    def _gain_ratio(self, splits, y):
-        """Return the gain ratio of some split of the examples."""
+    def _gain_ratio(self, splits, y, H_y):
+        """
+        Return the gain ratio of some split of the examples.
+
+        :param splits: Array of integers corresponding to which split each
+          example is in.
+        :param y: The labels of the examples.
+        :param H_y: The entropy of the labels (so we don't recompute)
+        """
         H_splits = entropy(splits)
-        H_y = entropy(y)
         information_gain = mutual_info_fast(splits, y, H_splits, H_y)
-        return float(information_gain) / H_splits
+
+        with np.errstate(divide='ignore'):
+            gain_ratio = information_gain / H_splits
+
+        # We treate 0/0 as 0 here
+        if np.isnan(gain_ratio):
+            gain_ratio = 0
+
+        return gain_ratio
 
     def _max_gain_ratio_split(self, X, y):
-        max_ig = 0
+        """
+        Return the attribute and split that maximizes the gain ratio.
+
+        :param X: examples
+        :param y: labels
+        :returns: a 3-tuple:
+          [0]: IG of the split
+          [1]: index of the attribute used to split
+          [2]: array containing categories for each example
+        """
+        # Initialize our "used" array (if it wasn't already).  This is so we
+        # don't reuse nominal attributes.
+        if self._used is None:
+            self._used = np.zeros(X.shape[1], dtype=np.bool)
+
+        # Initial values for our return value.
+        max_ig = -1
         max_idx = -1
         max_split = None
-        for attr in X.shape[1]:
+
+        # Precompute the entropy of the examples, since we'll reuse it.  Also,
+        # I'm changing the label -1 to 0, mostly so that my entropy
+        # implementation works properly.
+        y[y == -1] = 0
+        H_y = entropy(y)
+
+        # Iterate over each attribute, keeping track of the best one.
+        for attr in range(X.shape[1]):
+            # Skip attributes we've already used.
+            if self._used[attr]:
+                continue
+
             if self._schema.is_nominal(attr):
                 # For nominal attributes, just use the attribute itself as the
                 # split.
@@ -140,11 +191,19 @@ class DecisionTree(object):
             else:
                 pass  # TODO: implement for continuous!
 
-            ig = self._gain_ratio(split, y)
+            # Get the information gain for this attribute.
+            ig = self._gain_ratio(split, y, H_y)
+            # Hold onto it if it's the best so far.
             if ig > max_ig:
                 max_ig = ig
                 max_idx = attr
                 max_split = split
+
+        if self._schema.is_nominal(max_idx):
+            # If we chose a nominal attribute, we can't use it again.  We could
+            # reuse a continuous attribute.
+            self._used[max_idx] = True
+
         return max_ig, max_idx, max_split
 
     def fit(self, X, y, sample_weight=None):
@@ -155,37 +214,56 @@ class DecisionTree(object):
             self._label = unique_labels[0]
             return 1
 
-        # If we are at the maximum depth, choose the majority class.
-        if self._allowed_depth == 1:
+        # If we are at the maximum depth, or if we've used all of our
+        # attributes, choose the majority class.
+        if self._allowed_depth == 1 or np.all(self._used):
             self._label = mode(unique_labels).mode[0]
             return 1
 
         # Otherwise, choose the attribute to split that maximizes the gain
         # ratio.
-        ig, attr, split = self._max_gain_ratio_split(X, y)
+        ig, self._attribute, split = self._max_gain_ratio_split(X, y)
 
         # Mark this attribute as used.
-        if self._used is None:
-            self._used = np.zeros(X.shape[1], dtype=np.bool)
-        self._used[attr] = True
+        self._used[self._attribute] = True
 
         # Fit the children!
         for value in np.unique(split):
+            # Choose the examples that fit this branch.
             new_X = X[split == value]
             new_y = y[split == value]
+            # Create a new child with adjusted parameters.
             child = DecisionTree(depth=self._allowed_depth-1,
                                  schema=self._schema,
-                                 used=self._used)
-            child.fit(new_X, new_y, sample_weight=sample_weight)
+                                 used=np.copy(self._used))
+            d = child.fit(new_X, new_y, sample_weight=sample_weight)
+            if d + 1 > self._depth:
+                self._depth = d + 1
+            self._size += child._size
             self._children[value] = child
 
     def predict(self, X):
         """ Return the -1/1 predictions of the decision tree """
+        return np.array([self.predict_one(x) for x in X])
+
+    def predict_one(self, x):
+        """Return the prediction for a single example."""
         # If this node has a label, return it.
         if self._label is not None:
             return self._label
-        # Otherwise, use the child to predict!
-        return self._children[X[self._attribute]].predict(X)
+
+        # Otherwise, get the corresponding child node for this example.
+        subtree = self._children.get(x[self._attribute])
+
+        # If there is no subtree, the algorithm must not have had an example
+        # like this in training.  For now, predict negative.
+        if subtree is None:
+            print('No branch available. (x[%d]=%d), children=%r' %
+                  (self._attribute, x[self._attribute], self._children.keys()))
+            return -1
+
+        # Return the subtree's prediction on this example.
+        return subtree.predict_one(x)
 
     def predict_proba(self, X):
         """ Return the probabilistic output of label prediction """
@@ -195,19 +273,36 @@ class DecisionTree(object):
         """
         Return the number of nodes in the tree
         """
-        size = 1
-        for child in self._children.values():
-            size += child.size()
-        return size
+        return self._size
 
     def depth(self):
         """
         Returns the maximum depth of the tree
         (A tree with a single root node has depth 0)
         """
-        depth = 1
-        for child in self._children.values():
-            child_depth = child.depth()
-            if child_depth + 1 > depth:
-                depth = child_depth
-        return depth
+        return self._depth
+
+    def __str_recurse(self, depth, cond):
+        """
+        Return a string representation of this tree, for printouts.
+        This is a recursive helper function for __str__.
+
+        :param depth: How many levels deep is this node?
+        :param cond: What is the string condition to go to this node?
+        """
+        if self._label is None:
+            # For an internal node, show the condition, followed by the next
+            # attribute you will test.
+            s = ('--'*depth) + cond + ' => test x[%r]' % self._attribute + '\n'
+            # Then print the children.
+            for k,v in self._children.iteritems():
+                s += v.__str_recurse(depth+1, 'x[%r]==%r' % (self._attribute, k))
+        else:
+            # For a leaf node, show the condition, followed by the label you
+            # predict.
+            s = ('--'*depth) + cond + ' => label %r'% self._label + '\n'
+        return s
+
+    def __str__(self):
+        """Return a string representation of this tree."""
+        return self.__str_recurse(0, 'root')
