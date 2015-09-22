@@ -6,6 +6,9 @@ from __future__ import division
 
 import numpy as np
 from scipy.stats import mode
+import logging
+log = logging.getLogger('dtree')
+log.setLevel(logging.CRITICAL)
 
 
 def entropy(l):
@@ -245,7 +248,9 @@ class DecisionTree(object):
 
     def predict(self, X):
         """ Return the -1/1 predictions of the decision tree """
-        return np.array([self.predict_one(x) for x in X])
+        rv = np.array([self.predict_one(x) for x in X])
+        rv[rv == 0] = -1
+        return rv
 
     def predict_one(self, x):
         """Return the prediction for a single example."""
@@ -259,9 +264,10 @@ class DecisionTree(object):
         # If there is no subtree, the algorithm must not have had an example
         # like this in training.  For now, predict negative.
         if subtree is None:
-            print('No branch available. (x[%d]=%d), children=%r' %
-                  (self._attribute, x[self._attribute], self._children.keys()))
-            return -1
+            log.error('No branch available. (x[%d]=%d), children=%r',
+                      self._attribute, x[self._attribute],
+                      self._children.keys())
+            return 0
 
         # Return the subtree's prediction on this example.
         return subtree.predict_one(x)
