@@ -142,7 +142,7 @@ class DecisionTree(object):
         H_splits = entropy(splits)
         information_gain = mutual_info_fast(splits, y, H_splits, H_y)
 
-        with np.errstate(divide='ignore'):
+        with np.errstate(divide='ignore', invalid='ignore'):
             gain_ratio = information_gain / H_splits
 
         # We treate 0/0 as 0 here
@@ -241,6 +241,7 @@ class DecisionTree(object):
                 self._depth = d + 1
             self._size += child._size
             self._children[value] = child
+        return self._depth
 
     def predict(self, X):
         """ Return the -1/1 predictions of the decision tree """
