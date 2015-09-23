@@ -224,9 +224,10 @@ class DecisionTree(object):
 
             if self._schema.is_nominal(attr):
                 # For nominal attributes, just use the attribute itself as the
-                # split.
+                # split.  Some nominal attributes are still stored as floats, so
+                # I have to explicitly cast to integer.
                 split = X[:, attr]
-                ig = self._gain_ratio(split, y, H_y)
+                ig = self._gain_ratio(split.astype(int), y, H_y)
             else:
                 cutoff, ig, split = self._find_cutoff(X, y, attr, H_y)
 
