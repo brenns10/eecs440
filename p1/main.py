@@ -170,8 +170,6 @@ def main(**options):
     options['schema'] = schema
     folds = get_folds(X, y, k)
     stats_manager = StatisticsManager()
-    import pdb
-    pdb.set_trace()
     for train_X, train_y, test_X, test_y in folds:
 
         # Construct classifier instance
