@@ -226,7 +226,7 @@ class DecisionTree(object):
                 # For nominal attributes, just use the attribute itself as the
                 # split.
                 split = X[:, attr]
-                ig = self._gain_ratio(split, y, H_y)
+                ig = self._gain_ratio(split.astype(int), y, H_y)
             else:
                 cutoff, ig, split = self._find_cutoff(X, y, attr, H_y)
 
