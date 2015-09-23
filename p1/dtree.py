@@ -9,7 +9,8 @@ from scipy.stats import mode
 from scipy.ndimage.interpolation import shift
 import logging
 log = logging.getLogger('dtree')
-log.setLevel(logging.CRITICAL)
+log.addHandler(logging.StreamHandler())
+#log.setLevel(logging.DEBUG)
 
 
 def entropy(l):
@@ -227,10 +228,12 @@ class DecisionTree(object):
                 # split.
                 split = X[:, attr]
                 ig = self._gain_ratio(split.astype(int), y, H_y)
+                log.debug('Consider %d (nominal), ig=%r', attr, ig)
             else:
                 cutoff, ig, split = self._find_cutoff(X, y, attr, H_y)
+                log.debug('Consider %r (continueous), cutoff=%r, ig=%r', attr, cutoff, ig)
 
-            # Hold onto it if it's the best so far.
+            # Hold onto it if it's thmax()e best so far.
             if ig > max_ig:
                 max_ig = ig
                 max_idx = attr
@@ -243,29 +246,30 @@ class DecisionTree(object):
             self._used[max_idx] = True
         else:
             self._cutoff = max_cutoff
-
         return max_ig, max_idx, max_split
 
     def fit(self, X, y, sample_weight=None):
         """ Build a decision tree classifier trained on data (X, y) """
         #from smbio.util.repl import repl; repl()
-
+        log.debug('Starting fit()')
         # If we have a pure tree, we're done.
         unique_labels = np.unique(y)
         if len(unique_labels) == 1:
             self._label = unique_labels[0]
+            log.debug('Found pure node.  Choosing pure label %d', self._label)
             return 1
 
         # If we are at the maximum depth, or if we've used all of our
         # attributes, choose the majority class.
         if self._allowed_depth == 1 or np.all(self._used):
-            self._label = mode(unique_labels).mode[0]
+            self._label = mode(y).mode[0]
+            log.debug('Maximum depth.  Choosing max label %d', self._label)
             return 1
 
         # Otherwise, choose the attribute to split that maximizes the gain
         # ratio.
         ig, self._attribute, split = self._max_gain_ratio_split(X, y)
-
+        log.debug('Choose attribute %r', self._attribute)
         # Fit the children!
         for value in np.unique(split):
             # Choose the examples that fit this branch.
