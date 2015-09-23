@@ -224,10 +224,9 @@ class DecisionTree(object):
 
             if self._schema.is_nominal(attr):
                 # For nominal attributes, just use the attribute itself as the
-                # split.  Some nominal attributes are still stored as floats, so
-                # I have to explicitly cast to integer.
+                # split.
                 split = X[:, attr]
-                ig = self._gain_ratio(split.astype(int), y, H_y)
+                ig = self._gain_ratio(split, y, H_y)
             else:
                 cutoff, ig, split = self._find_cutoff(X, y, attr, H_y)
 
@@ -266,9 +265,6 @@ class DecisionTree(object):
         # Otherwise, choose the attribute to split that maximizes the gain
         # ratio.
         ig, self._attribute, split = self._max_gain_ratio_split(X, y)
-
-        # Mark this attribute as used.
-        self._used[self._attribute] = True
 
         # Fit the children!
         for value in np.unique(split):
