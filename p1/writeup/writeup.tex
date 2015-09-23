@@ -1,0 +1,62 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Programming 1}
+\duedate{September 24, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{a}
+    \begin{question}
+      What is the accuracy of the classifier on each dataset when the depth is
+      set to 1? (i.e. the tree has just 1 test)
+    \end{question}
+    To answer this problem, I set the depth to be 2, because my implementation
+    includes the leaf nodes in the accounting of depth.
+
+    \begin{tabular}{ll}
+      Dataset & Accuracy \\
+      \hline
+      Voting & 0.984 \\
+      Volcanoes & 0.674 \\
+      Spam & -- \\
+    \end{tabular}
+  \end{problem}
+
+  \begin{problem}{b}
+    \begin{question}
+      For \textit{spam} and \textit{voting}, look at first test picked by your
+      tree. Do you think this intuitively looks like a sensible test to perform
+      for these problems?  Explain.
+    \end{question}
+
+    For \textit{voting}, the first test picked by my tree was attribute 0.
+    Unfortunately, the \texttt{voting.info} file did not provide reference for
+    what each bill is.  However, in the \textit{voting} problem, it would make
+    sense that any partisan bill would be highly predictive.
+
+    For \textit{spam}, the first test picked by my tree was ``is the
+    geographical distance less than 2.69''.  If true, it would predict negative
+    (not spam).  If false, it would predict positive (spam).  This makes a lot
+    of sense, given that a person is probably more likely to want mail from
+    somebody close to them, and spam is more likely sent from a central place
+    that is far away from most of its recipients.  This strategy alone results
+    in 63.7\% accuracy in 5-fold validation, if you limit to a depth of two.
+  \end{problem}
+
+  \begin{problem}{c}
+    \begin{question}
+      For \textit{volcanoes} and \textit{spam}, plot the accuracy as the depth
+      of the tree is increased. On the x-axis, choose depth values to test so
+      there are at least five evenly spaced points. Does the accuracy improve
+      smoothly as the depth of the tree increases? Can you explain the pattern
+      of the graph?
+    \end{question}
+  \end{problem}
+
+\end{document}
