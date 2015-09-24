@@ -170,7 +170,6 @@ class DecisionTree(object):
         """
         # Get coordinately sorted copies of X and y.
         argsort = X[:, attr].argsort()
-        Xs = X[argsort]
         ys = y[argsort]
 
         # Create a y array shifted one index up
@@ -180,9 +179,9 @@ class DecisionTree(object):
         # previous one.
         max_ig = -1
         changes = np.where(ys != yshift)[0]
-        for index in changes:
-            cutoff = Xs[index][attr]
-            split =X[:, attr] < cutoff
+        cutoffs = np.unique(X[changes, attr])
+        for cutoff in cutoffs:
+            split = X[:, attr] < cutoff
             ig = self._gain_ratio(split, y, H_y)
             if ig > max_ig:
                 max_ig = ig
