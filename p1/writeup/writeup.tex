@@ -16,16 +16,25 @@
       What is the accuracy of the classifier on each dataset when the depth is
       set to 1? (i.e. the tree has just 1 test)
     \end{question}
-    To answer this problem, I set the depth to be 2, because my implementation
+    To answer this question, I set the depth to be 2, because my implementation
     includes the leaf nodes in the accounting of depth.
 
-    \begin{tabular}{ll}
-      Dataset & Accuracy \\
+    \begin{tabular}{lll}
+      \textbf{Dataset} & \textbf{Accuracy} & \textbf{Majority Prop.} \\
       \hline
-      Voting & 0.984 \\
-      Volcanoes & 0.674 \\
-      Spam & -- \\
+      \textit{Voting} & 0.984 & 0.555 \\
+      \textit{Volcanoes} & 0.674 & 0.672 \\
+      \textit{Spam} & 0.643 & 0.625 \\
     \end{tabular}
+
+    I've provided the accuracy at depth 2 along with the majority class label,
+    since the baseline for accuracy comparison should be the accuracy you would
+    get by predicting the majority class label, which is simply the proportion
+    of examples which have the majority class label.  By showing this on the
+    same chart, you can see that \textit{voting} was by far the most successful
+    with just a single test, and that although \textit{spam} had a lower
+    accuracy than \textit{volcanoes} with a single test, it represented a much
+    more meaningful improvement from the baseline than \textit{volcanoes} had.
   \end{problem}
 
   \begin{problem}{b}
@@ -46,7 +55,7 @@
     of sense, given that a person is probably more likely to want mail from
     somebody close to them, and spam is more likely sent from a central place
     that is far away from most of its recipients.  This strategy alone results
-    in 63.7\% accuracy in 5-fold validation, if you limit to a depth of two.
+    in 64.3\% accuracy in 5-fold validation, if you limit to a depth of two.
   \end{problem}
 
   \begin{problem}{c}
