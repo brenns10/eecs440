@@ -342,10 +342,17 @@ class DecisionTree(object):
         if self._label is None:
             # For an internal node, show the condition, followed by the next
             # attribute you will test.
-            s = ('--'*depth) + cond + ' => test x[%r]' % self._attribute + '\n'
+            attr = self._schema.feature_names[self._attribute]
+            s = ('--'*depth) + cond + ' => test %s' % attr + '\n'
             # Then print the children.
-            for k,v in self._children.iteritems():
-                s += v.__str_recurse(depth+1, 'x[%r]==%r' % (self._attribute, k))
+            for k, v in self._children.iteritems():
+                if self._schema.is_nominal(self._attribute):
+                    newcond = attr + '=' + str(k)
+                elif k:
+                    newcond = attr + '<' + str(k)
+                else:
+                    newcond = attr + '>=' + str(k)
+                s += v.__str_recurse(depth+1, newcond)
         else:
             # For a leaf node, show the condition, followed by the label you
             # predict.
