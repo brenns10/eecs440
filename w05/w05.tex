@@ -5,7 +5,7 @@
 \assignment{Written 5}
 \duedate{September 29, 2015}
 
-%\usepackage{mathtools}
+\usepackage{mathtools}
 %\usepackage{graphicx}
 
 \begin{document}
@@ -39,6 +39,19 @@
       measures obtained.  Is this sound empirical methodology?  Explain why or
       why not. (10 points)
     \end{question}
+
+    No, at least not if person $X$ then tried to use the mean and standard
+    deviation obtained from these experiments to represent the performance of
+    the algorithm on the whole population.  When you evaluate the performance of
+    a learning algorithm, you do so by attempting to estimate the parameters of
+    the error rate distribution on all training sets (of some size) from the
+    population.  Since you do not have all training sets, you pretend you do by
+    using $k$ fold validation.  This can give you maximum likelihood estimates
+    of the parameters of the true performance, and a confidence interval.  When
+    you repeat the experiment many times, you are really measuring the
+    performance of the algorithm on the various subsets of your training sample,
+    and so the mean and variance of the $N$ iterations will not be a reliable
+    estimate of the true performance of the algorithm.
   \end{problem}
 
   \begin{problem}{3}
