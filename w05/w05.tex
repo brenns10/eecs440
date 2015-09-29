@@ -16,6 +16,17 @@
       Can you think of any circumstances when it might be \textit{beneficial} to
       overfit? (5 points)
     \end{question}
+
+    Yes.  If you encountered a situation where you were certain your training
+    data were accurate, and that your training data represents pretty much all
+    that your classifier will see later, then overfitting would be good.
+    However, in situations like this, machine learning is not usually the
+    appropriate approach.  When you have this much knowledge about the target
+    concept, you're probably better off trying to use this knowledge directly
+    instead of training a classifier with it.  Machine learning is most
+    applicable for situations where the target concept is unknown, or too
+    complex to directly write it, and in these cases overfitting is not
+    desirable.
   \end{problem}
 
   \begin{problem}{2}
