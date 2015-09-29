@@ -1,0 +1,65 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 5}
+\duedate{September 29, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      Can you think of any circumstances when it might be \textit{beneficial} to
+      overfit? (5 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      Person $X$ wishes to evaluate the performance of a learning algorithm on a
+      set of $n$ examples.  $X$ employs the following strategy: Divide the $n$
+      examples randomly into two equal-sized disjoint sets, $A$ and $B$.  Then
+      train the algorithm on $A$ and evaluate it on $B$.  Repeat the previous
+      two steps for $N$ iterations ($N$ large), then average the $N$ performance
+      measures obtained.  Is this sound empirical methodology?  Explain why or
+      why not. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Two classifiers $A$ and $B$ are evaluated on a sample with $P$ positive
+      examples and $N$ negative examples, and their ROC graphs are plotted.  It
+      is found that the ROC of $A$ \textit{dominates} that of $B$, i.e. for
+      every FP rate, TP rate of $A \ge$ TP rate of $B$.  Discuss what the
+      relationship is between the precision-recall graphs of $A$ and $B$ on the
+      same sample. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      Explain why: \textbf{(i)} an ROC graph must be monotonically increasing,
+      \textbf{(ii)} the ROC graph of a majority class classifier is a diagonal
+      line, \textbf{(iii)} the ROC graph of a random classifier that ignores
+      attributes and guesses each class with equal probability is a diagonal
+      line. (15 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{5}
+    \begin{question}
+      Derive the backpropagation weight updates for hidden-to-output and
+      input-to-hidden weights when the loss function is cross entropy with a
+      weight decay term.  Cross entropy is defined as
+      $L(\vec{w}) = -\sum_i y_i \log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)$,
+      where $y_i$ is true label (assumed 0/1) and $\hat{y}_i$ is the estimated
+      label for the $i\textsuperscript{th}$ example. (10 points)
+    \end{question}
+  \end{problem}
+
+\end{document}
