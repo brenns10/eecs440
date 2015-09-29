@@ -11,6 +11,19 @@
 \begin{document}
   \maketitle
 
+  In this assignment, I implemented a decision tree learning algorithm.  For the
+  most part, the implementation was straightforward, although a major concern
+  was the runtime of the cutoff selection for continuous attributes.  My
+  implementations run rather slowly, but I was able to get complete data by
+  running many processes on my research computing server.
+
+  It would be very useful if in the future, the code template was designed such
+  that we could produce accuracy vs depth data by training partially,
+  predicting, and then training further, and then predicting again.  This would
+  be much more efficient, since when we run the code multiple times at different
+  depths, we waste time retraining the smaller depths of the tree before getting
+  to the larger depths.
+
   \begin{problem}{a}
     \begin{question}
       What is the accuracy of the classifier on each dataset when the depth is
@@ -44,10 +57,10 @@
       for these problems?  Explain.
     \end{question}
 
-    For \textit{voting}, the first test picked by my tree was attribute 0.
-    Unfortunately, the \texttt{voting.info} file did not provide reference for
-    what each bill is.  However, in the \textit{voting} problem, it would make
-    sense that any partisan bill would be highly predictive.
+    For \textit{voting}, the first test picked by my tree was attribute 0.  This
+    was a bill about repealing the Affordable Health Care Act, which is a
+    \textit{quite} polarizing issue.  It makes complete sense that this was the
+    most predictive attribute, given the highly partisan nature of the bill.
 
     For \textit{spam}, the first test picked by my tree was ``is the
     geographical distance less than 2.69''.  If true, it would predict negative
@@ -66,6 +79,20 @@
       smoothly as the depth of the tree increases? Can you explain the pattern
       of the graph?
     \end{question}
+    
+    Plots are presented below.  I found that \textit{volcanoes} had very bad
+    overall accuracy: it did not improve beyond the proportion of majority class
+    labels.  The variance that can be seen in the plot is likely explained due
+    to the variability in the sampling in the $k$ fold validation.  On the other
+    hand, \textit{spam} shows mild improvement as the depth increases at first,
+    but doesn't increase much beyond a small depth.  I would expect that this is
+    because some of the attributes provide duplicate information, and also that
+    the decision tree quickly reaches the limit of the decision surface it can
+    represent.
+
+    \includegraphics[width=0.48\textheight]{volcanoes.pdf}
+
+    \includegraphics[width=0.48\textheight]{spam.pdf}
   \end{problem}
 
 \end{document}
