@@ -63,6 +63,25 @@
       relationship is between the precision-recall graphs of $A$ and $B$ on the
       same sample. (10 points)
     \end{question}
+
+    Since $A$ and $B$ are evaluated on the same sample, we know that the
+    statement ``TP rate of $A \ge$ TP rate of $B$'' is equivalent to saying
+    $TP_A \ge TP_B$.  Since the ROC graph is monotonically increasing, $A$
+    dominating $B$ also means that for every TP rate, FP rate of $A \le$ FP rate
+    of $B$, which is the same as $FP_A \le FP_B$.
+
+    Since Recall is plotted on the $x$ axis of the Precision-Recall graph, $A$
+    will be to the right of $B$ (since we already have that $TPR_A \ge TPR_B$.
+    Precision is defined as $\frac{TP}{TP+FP}$, which can be equivalently
+    written as:
+
+    \begin{equation*}
+      \frac{1}{1+\frac{FP}{TP}}
+    \end{equation*}
+
+    Since $FP_A \le FP_B$ and $TP_A \ge TP_B$, $Precision_A \ge Precision_B$,
+    and therefore the Precision-Recall plot of $A$ will be above and to the
+    right of $B$ (whenever they differ, that is).
   \end{problem}
 
   \begin{problem}{4}
