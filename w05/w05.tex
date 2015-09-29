@@ -92,6 +92,36 @@
       attributes and guesses each class with equal probability is a diagonal
       line. (15 points)
     \end{question}
+
+    \textbf{(i)} In order to create an ROC graph, you vary the confidence cutoff
+    for predictions, and plot the TPR on the $y$ axis, and FPR on the $x$ axis.
+    Each prediction has a constant cutoff.  Whenever the FPR increases, the
+    cutoff must have been lowered.  This means that the TPR must have either
+    increased or remained the same.  The TPR could not have decreased, because
+    all of the confidences for the true positives are still greater than or
+    equal to the cutoff.  So, the ROC must be monotonically increasing.
+
+    \textbf{(ii)} A majority class classifier would always predict the majority
+    class, and it would do so with confidence equal to the proportion of the
+    majority class.  When the confidence is below that proportion, the TPR is 0,
+    but so is the FPR.  When the confidence threshold reaches that proportion,
+    the classifier will do one of two things:
+    \begin{itemize}
+    \item If ``positive'' is the majority class, it predicts everything
+      positive.  The true positive rate is 1, and the false positive rate is
+      also 1.
+    \item If ``negative'' is the majority class, it predicts everything
+      negative.  The true and false positive rates are 0, since nothing is
+      predicted positive anyway.
+    \end{itemize}
+    In either case, since we start ROC curves at the origin and draw them to
+    $(1,1)$, we have a diagonal line.
+
+    \textbf{(iii)} We assume that a random classifier would predict randomly
+    with confidence of $0.5$.  Since the classifier is completely random, the
+    proportion of positives that are predicted positive is $0.5$, and similarly
+    for the FPR.  So, the ROC curve goes from $(0,0)$ to $(0.5, 0.5)$ to
+    $(1,1)$, and is therefore a diagonal line.
   \end{problem}
 
   \begin{problem}{5}
@@ -103,6 +133,84 @@
       where $y_i$ is true label (assumed 0/1) and $\hat{y}_i$ is the estimated
       label for the $i\textsuperscript{th}$ example. (10 points)
     \end{question}
+
+    We will denote the overall loss function (with weight decay term) as
+    $L_{OC}$.  Since $L_{OC} = L + \gamma \sum_{i,j} w_{ji}^2$, we have
+    $\frac{\partial L_{OC}}{\partial w_{ji}} = \frac{\partial L}{\partial
+      w_{ji}} + 2 \gamma w_{ji}$.
+    So we will first compute $\frac{\partial L}{\partial w_{ji}}$ and then add
+    in the $2\gamma w_{ji}$ term at the end.
+
+    We will use the same variable conventions as presented in the slides.
+    Assuming a sigmoid activation function $h(u)$, we have
+    $\frac{dh}{du} = h(u)(1-h(u))$.  In order to compute
+    $\frac{\partial L}{\partial w_{ji}}$, we do the same decomposition as
+    presented in class:
+    $\frac{\partial L}{\partial w_{ji}} = \frac{\partial L}{\partial n_{j}}
+    \frac{\partial n_j}{\partial w_{ji}} = \frac{\partial L}{\partial n_j}
+    x_{ji}$.
+    We start with the output layer, computing $\frac{\partial L}{\partial n_j}$:
+
+    \begin{align*}
+      \frac{\partial L}{\partial n_j}\
+      &= \frac{d}{dn_j} \left(L(y_j, \hat{y}_j) \right)\\
+      &= \frac{d}{dn_j} \left(L(y_j, h(n_j)) \right)\\
+      &= \frac{d}{dn_j} \left(-y_j \log h(n_j) - (1-y_j)\log(1-h(n_j)) \right)\\
+      &= -\frac{y_j}{h(n_j)} \frac{dh(n_j)}{dn_j} - \frac{1-y_j}{1-h(n_j)} \left(- \frac{dh(n_j)}{dn_j}\right)\\
+      &= -\frac{y_j}{h(n_j)} h(n_j)(1-h(n_j)) + \frac{1-y_j}{1-h(n_j)} h(n_j)(1-h(n_j))\\
+      &= -y_j (1-h(n_j)) + (1-y_j)h(n_j)\\
+      &= -y_j + y_j h(n_j) + h(n_j) - y_j h(n_j) \\
+      &= h(n_j) - y_j
+    \end{align*}
+
+    This gives us the final partial derivatives for the outer layers.
+
+    \begin{align*}
+      \frac{\partial L}{\partial w_{ji}} &= (h(n_j) - y_j) x_{ji} \\
+      \frac{\partial L_{OC}}{\partial w_{ji}} &= (h(n_j) - y_j) x_{ji} + 2
+                                                \gamma w_{ji} \\
+    \end{align*}
+
+    For input-hidden layers (at node $i$), we do a similar process.  We start by
+    finding $\frac{\partial L}{\partial n_j}$:
+
+    \begin{align*}
+      \frac{\partial L}{\partial n_j}
+      &= \sum_{k\in Downstream(j)} \frac{\partial L}{\partial n_k}
+        \frac{\partial n_k}{\partial n_j} \\
+    \end{align*}
+
+    Since $n_k = \sum_l w_{kl}h(n_l)$, we have:
+
+    \begin{align*}
+      \frac{\partial n_k}{\partial n_j} = w_{kj} h(n_j)(1-h(n_j))
+    \end{align*}
+
+    So,
+    \begin{align*}
+      \frac{\partial L}{\partial n_j}
+      &= \sum_{k\in Downstream(j)} \frac{\partial L}{\partial n_k}
+        \frac{\partial n_k}{\partial n_j} \\
+      &= h(n_j)(1-h(n_j)) \sum_{k\in Downstream(j)} \frac{\partial L}{\partial
+        n_k} w_{kj}\\
+      &= h(n_j)(1-h(n_j)) \sum_{k\in Downstream(j)} \frac{\partial L}{\partial
+        w_{kj}} \frac{w_{kj}}{x_{kj}}
+    \end{align*}
+
+    And finally, since
+    $\frac{\partial L}{\partial w_{ji}} = \frac{\partial L}{\partial n_j}
+    x_{ji}$, we have:
+
+    \begin{align*}
+      \frac{\partial L}{\partial w_{ji}}
+      &= h(n_j)(1-h(n_j)) x_{ji} \sum_{k\in Downstream(j)} \frac{\partial L}{\partial w_{kj}} \frac{w_{kj}}{w_{kj}} \\
+      \frac{\partial L_{OC}}{\partial w_{ji}}
+      &= 2 \gamma w_{ji} + h(n_j)(1-h(n_j)) x_{ji} \sum_{k\in Downstream(j)} \frac{\partial L}{\partial w_{kj}} \frac{w_{kj}}{x_{kj}} \\
+    \end{align*}
   \end{problem}
+
+  The parameter update is simply
+  $\vec{w} \gets \vec{w} - \eta \frac{\delta L_{OC}}{\delta \vec{w}}$, using the
+  partial derivatives calculated above.
 
 \end{document}
