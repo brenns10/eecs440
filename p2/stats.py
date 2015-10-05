@@ -57,14 +57,18 @@ class StatisticsManager(object):
                 stats.append(statistic(l, p))
             return np.average(stats), np.std(stats)
 
+
 def accuracy(labels, predictions):
-    pass
+    return sum(labels == predictions) / len(labels)
+
 
 def precision(labels, predictions):
     pass
 
+
 def recall(labels, predictions):
     pass
+
 
 def auc(labels, predictions):
     pass
