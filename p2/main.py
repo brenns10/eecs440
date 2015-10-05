@@ -2,6 +2,7 @@
 """
 The main script for running experiments
 """
+from __future__ import print_function
 import time
 import numpy as np
 
@@ -43,8 +44,11 @@ FS_ALGORITHMS = {
 
 
 def get_classifier(**options):
-    """ Create an instance of the classifier and return it.  If using bagging/boosting,
-        create an instance of that instead, using the classifier name and options """
+    """
+    Create an instance of the classifier and return it.  If using
+    bagging/boosting, create an instance of that instead, using the classifier
+    name and options
+    """
     classifier_name = options.pop('classifier')
     if classifier_name not in CLASSIFIERS:
         raise ValueError('"%s" classifier not implemented.' % classifier_name)
@@ -52,7 +56,8 @@ def get_classifier(**options):
     if "meta_algorithm" in options:
         meta = options.pop("meta_algorithm")
         iters = options.pop("meta_iters")
-        return META_ALGORITHMS[meta](algorithm=classifier_name, iters=iters, **options)
+        return META_ALGORITHMS[meta](algorithm=classifier_name, iters=iters,
+                                     **options)
     else:
         return CLASSIFIERS[classifier_name](**options)
 
@@ -113,7 +118,6 @@ def get_folds(X, y, k):
     surplus_y = surplus_y[p]
     partitions_X = map(concat, partitions_X, np.array_split(surplus_X, k))
     partitions_y = map(concat, partitions_y, np.array_split(surplus_y, k))
-    #print_part_statistics(partitions_X, partitions_y)
 
     # Now, we take the partitioned examples and labels, and we recombine them
     # into training sets.  We'll just use the existing partitions as the list
@@ -125,7 +129,6 @@ def get_folds(X, y, k):
         train_X.append(np.concatenate(partitions_X[:i] + partitions_X[i+1:]))
         train_y.append(np.concatenate(partitions_y[:i] + partitions_y[i+1:]))
 
-    #print_fold_statistics(train_X, train_y, partitions_X, partitions_y)
     return zip(train_X, train_y, partitions_X, partitions_y)
 
 
@@ -152,7 +155,7 @@ def main(**options):
     for train_X, train_y, test_X, test_y in folds:
 
         # Construct classifier instance
-        print options
+        print(options)
         classifier = get_classifier(**options)
 
         # Train classifier
@@ -172,16 +175,14 @@ def main(**options):
             scores = scores[:,1]    # Get the column for label 1
         stats_manager.add_fold(test_y, predictions, scores, train_time)
 
-    print ('      Accuracy: %.03f %.03f'
-        % stats_manager.get_statistic('accuracy', pooled=False))
-    print ('     Precision: %.03f %.03f'
-        % stats_manager.get_statistic('precision', pooled=False))
-    print ('        Recall: %.03f %.03f'
-        % stats_manager.get_statistic('recall', pooled=False))
-    print ('Area under ROC: %.03f'
-        % stats_manager.get_statistic('auc', pooled=True))
-
-                
+    print('      Accuracy: %.03f %.03f'
+          % stats_manager.get_statistic('accuracy', pooled=False))
+    print('     Precision: %.03f %.03f'
+          % stats_manager.get_statistic('precision', pooled=False))
+    print('        Recall: %.03f %.03f'
+          % stats_manager.get_statistic('recall', pooled=False))
+    print('Area under ROC: %.03f'
+          % stats_manager.get_statistic('auc', pooled=True))
 
 
 if __name__ == "__main__":
