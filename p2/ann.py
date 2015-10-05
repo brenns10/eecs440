@@ -2,6 +2,7 @@
 The Artificial Neural Network
 """
 
+from __future__ import division
 import numpy as np
 import scipy
 
@@ -60,36 +61,35 @@ class ArtificialNeuralNetwork(object):
 
 
     def fit_iter(self, X, y):
+        # Convenience variables:
+        # k - number of examples
+        # m - number of hidden units
+        # n - number of attributes
+        k, m, n = len(X), self._num_hidden, self._num_attrs
+
         # Feed examples through network.
-        hidden_ns = np.dot(self._weights, X.T)
-        hidden_outs = sigmoid(hidden_ns)
-        outer_ns = np.dot(hidden_outs.T, self._out_weights)
-        outer_out = sigmoid(outer_ns)
+        hidden_ns = np.dot(self._weights, X.T)  # m*k
+        hidden_outs = sigmoid(hidden_ns)  # m*k
+        outer_ns = np.dot(hidden_outs.T, self._out_weights)  # k
+        outer_out = sigmoid(outer_ns)  # k
+        #print('%03f/%r' % (outer_out[0], y[0]))
 
         # Get partial derivatives for outer unit.
-        outer_deriv = outer_out * (1 - outer_out) * (outer_out - y)
-        outer_deriv = outer_deriv.reshape((len(outer_deriv), 1))
-        outer_deriv = outer_deriv * hidden_outs.T
+        outer_deriv = outer_out * (1 - outer_out) * (outer_out - y)  # k
+        outer_deriv = outer_deriv.reshape((k, 1))  # k*1
+        outer_deriv = outer_deriv * hidden_outs.T  # k*m
         # Add weight decay term
-        outer_deriv = outer_deriv + 2 * self._gamma * self._out_weights.reshape((1, len(self._out_weights)))
+        outer_deriv = outer_deriv + 2 * self._gamma * self._out_weights.reshape((1, m))
         outer_deriv_total = outer_deriv.sum(axis=0)
 
         # Get partial derivatives for hidden units.
-        for unit in range(self._num_hidden):
-            dl = (hidden_outs[unit] * (1 - hidden_outs[unit])).reshape(hidden_outs.shape[1], 1)
-            dl = dl * X * (outer_deriv[:, unit] * self._out_weights[unit] / hidden_outs[unit]).reshape(len(X), 1)
-            # weight decay term:
-            dl = dl + 2 * self._gamma * self._weights[unit].reshape(1, len(self._weights[unit]))
-            # sum over all examples
-            dl = dl.sum(axis=0)
-            self._weights[unit] = self._weights[unit] - self._eta * dl
-        # ho_shape = (hidden_outs.shape[0], 1, hidden_outs.shape[1])
-        # x_shape = (1, X.shape[0], X.shape[1])
-        # hidden_deriv = (hidden_outs * (1 - hidden_outs)).reshape(ho_shape)
-        # hidden_deriv *= X.T.reshape(x_shape)
-        # hidden_deriv *= outer_deriv.T.reshape(ho_shape)
-        # hidden_deriv *= self._out_weights.reshape((self._out_weights, 1, 1))
-        # hidden_deriv /= hidden_outs.
+        dl = (hidden_outs * (1 - hidden_outs)).reshape(m, k, 1) # m*k
+        dl = dl * X.reshape(1, k, n) * (outer_deriv.T * self._out_weights.reshape(m, 1) / hidden_outs).reshape(m, k, 1)  # m*k*n
+        # weight decay term:
+        dl = dl + 2 * self._gamma * self._weights.reshape(m, 1, n)
+        # sum over all examples
+        dl = dl.sum(axis=1)
+        self._weights = self._weights - self._eta * dl
 
         self._out_weights = self._out_weights - self._eta * outer_deriv_total
 
