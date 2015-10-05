@@ -79,19 +79,20 @@ class ArtificialNeuralNetwork(object):
         outer_deriv = outer_deriv.reshape((k, 1))  # k*1
         outer_deriv = outer_deriv * hidden_outs.T  # k*m
         # Add weight decay term
-        outer_deriv = outer_deriv + 2 * self._gamma * self._out_weights.reshape((1, m))
-        outer_deriv_total = outer_deriv.sum(axis=0)
+        outer_deriv_total = outer_deriv.sum(axis=0)  # m
+        outer_deriv_total = outer_deriv_total + 2 * self._gamma * self._out_weights
 
         # Get partial derivatives for hidden units.
         dl = (hidden_outs * (1 - hidden_outs)).reshape(m, k, 1) # m*k
         dl = dl * X.reshape(1, k, n) * (outer_deriv.T * self._out_weights.reshape(m, 1) / hidden_outs).reshape(m, k, 1)  # m*k*n
-        # weight decay term:
-        dl = dl + 2 * self._gamma * self._weights.reshape(m, 1, n)
         # sum over all examples
         dl = dl.sum(axis=1)
-        self._weights = self._weights - self._eta * dl
+        # weight decay term:
+        dl = dl + 2 * self._gamma * self._weights
 
+        # Update outer and hidden weights.
         self._out_weights = self._out_weights - self._eta * outer_deriv_total
+        self._weights = self._weights - self._eta * dl
 
     def predict(self, X):
         """ Predict -1/1 output """
