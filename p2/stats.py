@@ -85,4 +85,4 @@ def recall(labels, predictions):
 
 
 def auc(labels, predictions):
-    pass
+    return 0
