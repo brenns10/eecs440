@@ -66,9 +66,67 @@ def get_folds(X, y, k):
     @param k : number of folds
     @return (train_X, train_y, test_X, test_y) for each fold
     """
-    pass #add code here
+    # We start by creating k partitions, which will then be combined in various
+    # ways to create the folds.  First, initialize the partitions.
+    partitions_X = [np.empty(shape=(0, X.shape[1]), dtype=X.dtype)
+                    for _ in range(k)]
+    partitions_y = [np.empty(shape=0, dtype=y.dtype) for _ in range(k)]
 
-    return zip(train_X, train_y, test_X, test_y)
+    # Surplus will contain the examples for each label that can't be evenly
+    # split across the partitions.
+    surplus_X = np.empty(shape=(0, X.shape[1]), dtype=X.dtype)
+    surplus_y = np.empty(shape=0, dtype=y.dtype)
+
+    # This helper function will ignore when we try to concatenate empty lists
+    # onto other lists, which may raise an error with np.concatenate.
+    def concat(x, y):
+        if y.size == 0:
+            return x
+        else:
+            return np.concatenate([x, y])
+
+    # Evenly divide the examples for each label into the partitions, and store
+    # any surplus.
+    for label in np.unique(y):
+        # Get all X and y with this label.
+        indexer = (y == label)
+        label_X = X[indexer]
+        label_y = y[indexer]
+
+        # Randomly permute X and y (preserving example/label relationship)
+        p = np.random.permutation(len(label_X))
+        label_X = label_X[p]
+        label_y = label_y[p]
+
+        # Put the surplus (that can't be evenly split) away to be added last.
+        neven = len(label_X) - (len(label_X) % k)
+        surplus_X = concat(surplus_X, label_X[neven:])
+        surplus_y = concat(surplus_y, label_y[neven:])
+
+        # Partition the ones that can be evenly split into k sublists.
+        partitions_X = map(concat, partitions_X, np.split(label_X[:neven], k))
+        partitions_y = map(concat, partitions_y, np.split(label_y[:neven], k))
+
+    # Now randomly permute the surplus and add them to the partitions.
+    p = np.random.permutation(len(surplus_X))
+    surplus_X = surplus_X[p]
+    surplus_y = surplus_y[p]
+    partitions_X = map(concat, partitions_X, np.array_split(surplus_X, k))
+    partitions_y = map(concat, partitions_y, np.array_split(surplus_y, k))
+    #print_part_statistics(partitions_X, partitions_y)
+
+    # Now, we take the partitioned examples and labels, and we recombine them
+    # into training sets.  We'll just use the existing partitions as the list
+    # of testing sets, and compose our training sets accordingly.
+    train_X = []
+    train_y = []
+    for i in range(k):
+        # Training set contains everything that isn't this partition.
+        train_X.append(np.concatenate(partitions_X[:i] + partitions_X[i+1:]))
+        train_y.append(np.concatenate(partitions_y[:i] + partitions_y[i+1:]))
+
+    #print_fold_statistics(train_X, train_y, partitions_X, partitions_y)
+    return zip(train_X, train_y, partitions_X, partitions_y)
 
 
 def main(**options):
@@ -90,7 +148,7 @@ def main(**options):
     schema, X, y = get_dataset(dataset, dataset_directory)
     folds = get_folds(X, y, k)
     stats_manager = StatisticsManager()
-    import pdb;pdb.set_trace()
+    #import pdb;pdb.set_trace()
     for train_X, train_y, test_X, test_y in folds:
 
         # Construct classifier instance
