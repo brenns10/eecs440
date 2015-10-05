@@ -1,6 +1,7 @@
 """
 Statistics Computations
 """
+from __future__ import division
 import numpy as np
 import scipy
 
@@ -59,15 +60,28 @@ class StatisticsManager(object):
 
 
 def accuracy(labels, predictions):
+    """
+    What fraction of the predictions are the same as the labels?
+    """
     return sum(labels == predictions) / len(labels)
 
 
 def precision(labels, predictions):
-    pass
+    """
+    What fraction of the examples predicted positive are actually positive?
+    """
+    pos_pred = (predictions == 1)
+    #                  True              Positives / All positive predictions
+    return sum((labels == predictions) & pos_pred) / sum(pos_pred)
 
 
 def recall(labels, predictions):
-    pass
+    """
+    What fraction of the positive examples were predicted positive?
+    """
+    pos_label = (labels == 1)
+    #                 True               Positives  / All positive labels
+    return sum((labels == predictions) & pos_label) / sum(pos_label)
 
 
 def auc(labels, predictions):
