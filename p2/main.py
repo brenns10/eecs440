@@ -109,15 +109,15 @@ def get_folds(X, y, k):
         surplus_y = concat(surplus_y, label_y[neven:])
 
         # Partition the ones that can be evenly split into k sublists.
-        partitions_X = map(concat, partitions_X, np.split(label_X[:neven], k))
-        partitions_y = map(concat, partitions_y, np.split(label_y[:neven], k))
+        partitions_X = list(map(concat, partitions_X, np.split(label_X[:neven], k)))
+        partitions_y = list(map(concat, partitions_y, np.split(label_y[:neven], k)))
 
     # Now randomly permute the surplus and add them to the partitions.
     p = np.random.permutation(len(surplus_X))
     surplus_X = surplus_X[p]
     surplus_y = surplus_y[p]
-    partitions_X = map(concat, partitions_X, np.array_split(surplus_X, k))
-    partitions_y = map(concat, partitions_y, np.array_split(surplus_y, k))
+    partitions_X = list(map(concat, partitions_X, np.array_split(surplus_X, k)))
+    partitions_y = list(map(concat, partitions_y, np.array_split(surplus_y, k)))
 
     # Now, we take the partitioned examples and labels, and we recombine them
     # into training sets.  We'll just use the existing partitions as the list
@@ -149,6 +149,7 @@ def main(**options):
         fs_n = options.pop("fs_features")
 
     schema, X, y = get_dataset(dataset, dataset_directory)
+    options['schema'] = schema
     folds = get_folds(X, y, k)
     stats_manager = StatisticsManager()
     #import pdb;pdb.set_trace()
