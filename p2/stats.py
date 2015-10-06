@@ -84,5 +84,36 @@ def recall(labels, predictions):
     return sum((labels == predictions) & pos_label) / sum(pos_label)
 
 
+def specificity(labels, predictions):
+    """
+    What fraction of the negative examples were predicted negative?
+    """
+    neg_label = (labels == -1)
+    #                 True               Negatives  / All negative labels
+    return sum((labels == predictions) & neg_label) / sum(neg_label)
+
+
 def auc(labels, predictions):
-    return 0
+    cutoffs = np.sort(np.unique(np.append(predictions, [0, 1])), )
+    auc = 0
+    prev_tpr = 1
+    prev_fpr = 1
+    tprs = []
+    fprs = []
+    for x in cutoffs:
+        pred = np.where(predictions > x, 1, -1)
+        tpr = recall(labels, pred)
+        fpr = 1 - specificity(labels, pred)
+        auc += (prev_fpr - fpr) * (tpr + prev_tpr) * 0.5
+        prev_tpr = tpr
+        prev_fpr = fpr
+        tprs.append(tpr)
+        fprs.append(fpr)
+    import matplotlib.pyplot as plt
+    #plt.use('ggplot')
+    fig, ax = plt.subplots()
+    ax.plot(fprs, tprs)
+    ax.set_xlabel('false positive rate')
+    ax.set_ylabel('true positive rate')
+    fig.savefig('roc.pdf')
+    return auc
