@@ -120,6 +120,7 @@ class ArtificialNeuralNetwork(object):
     def predict_proba(self, X):
         """ Predict probabilistic output """
         # Feed examples through network.
+        X = X.astype(np.float64)  # avoid uint8 overflows
         hidden_ns = np.dot(self._weights, X.T)
         hidden_outs = sigmoid(hidden_ns)
         outer_ns = np.dot(hidden_outs.T, self._out_weights)
