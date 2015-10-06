@@ -5,7 +5,8 @@
 \assignment{Written 6}
 \duedate{October 6, 2015}
 
-%\usepackage{mathtools}
+\usepackage{mathtools}
+\newcommand{\sigmoid}{\:\text{sigmoid}}
 %\usepackage{graphicx}
 
 \begin{document}
@@ -45,9 +46,37 @@
       activation functions and a single output unit also with a sigmoid
       activation, and fixed weights. Show that there exists an equivalent
       network, which computes exactly the same function, where the hidden unit
-      activations are the tanh function described in class, and the output unit
-      still has a sigmoid activation. (10 points)
+      activations are the $tanh$ function described in class, and the output
+      unit still has a sigmoid activation. (10 points)
     \end{question}
+
+    Consider the hyperbolic tangent function:
+
+    \begin{align*}
+      \tanh(u, a, b) &= a\frac{e^{bu} - e^{-bu}}{e^{bu} + e^{-bu}} \\
+                     &= a\left(\frac{e^{bu}}{e^{bu}}\right) \frac{e^{bu} - e^{-bu}}{e^{bu} + e^{-bu}} \\
+                     &= a\frac{e^{2bu} - 1}{e^{2bu} + 1} \\
+                     &= a\frac{e^{2bu} + 1}{e^{2bu} + 1} - a\frac{2}{e^{2bu} + 1} \\
+                     &= a - 2 a\frac{1}{1 + e^{2bu}} \\
+    \end{align*}
+
+    When $a = b = -\frac{1}{2}$:
+
+    \begin{align*}
+      \tanh\left(u, -\frac{1}{2}, -\frac{1}{2}\right)
+      &= -\frac{1}{2} + \frac{1}{1 + e^{-u}} \\
+      &= -\frac{1}{2} + \sigmoid(u) \\
+    \end{align*}
+
+    Using this, we could replace each sigmoid hidden unit with a tanh hidden
+    unit where $a = b = -\frac{1}{2}$, whose output will only differ by a
+    constant of $-\frac{1}{2}$.  This will cause the input to the output unit's
+    sigmoid function to be $w \cdot (-\frac{1}{2} + x)$, which is off by a
+    constant value of $-w \cdot (\frac{1}{2}, \frac{1}{2}, ...)$ In order to
+    eliminate this difference, we can simply add a dummy input to the output
+    unit which is always 1.  We set the weight of that input to
+    $(\frac{1}{2}, \frac{1}{2}, \dots) \cdot w$, and the resulting network will
+    produce the exact same function as the original network.
   \end{problem}
 
   \begin{problem}{3}
