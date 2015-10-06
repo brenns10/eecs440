@@ -1,0 +1,84 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 6}
+\duedate{October 6, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      Suggest modifications for backpropagation for non-feedforward neural
+      network structures: \textbf{(i)} Edges are allowed between nodes in the
+      same layer as well as between successive layers, but the graph is still
+      directed acyclic. In other words, nodes in layer $k$, $x_{k1}$, $x_{k2}$,
+      ..., $x_{kn}$ can have edges between them as well as to the k+1 layer, as
+      long as no cycle is created. \textbf{(ii)} Edges are allowed from a layer
+      to preceding layers but not into the input layer, so the graph is directed
+      cyclic, but the input layer only has outgoing edges. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      Consider a neural network with a single hidden layer with sigmoid
+      activation functions and a single output unit also with a sigmoid
+      activation, and fixed weights. Show that there exists an equivalent
+      network, which computes exactly the same function, where the hidden unit
+      activations are the tanh function described in class, and the output unit
+      still has a sigmoid activation. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Draw an artificial neural network structure which can perfectly classify
+      the examples shown in the table below. Treat attributes as
+      continuous. Show all of the weights on the edges. For this problem, assume
+      that the activation functions are sign functions instead of
+      sigmoids. Propagate each example through your network and show that the
+      classification is indeed correct. (10 points)
+
+      \begin{tabular}{|rr|c|}
+        \hline
+        $x_1$ & $x_2$ & Class \\
+        \hline
+        -4 & -4 & - \\
+        -1 & -1 & + \\
+        1 & 1 & + \\
+        4 & 4 & - \\
+        \hline
+      \end{tabular}
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      Using R/Matlab/Mathematica/your favorite math software, plot the decision
+      boundary for an ANN with two inputs, two hidden units and one output. All
+      activation functions are sigmoids.  Each layer is fully connected to the
+      next. Assume the inputs range between −5 to 5 and fix all activation
+      thresholds to 0. Plot the decision boundaries for the weights except the
+      thresholds randomly chosen between \textbf{(i)} $(−10,10)$, \textbf{(ii)}
+      $(−3,3)$, \textbf{(iii)} $(−0.1,0.1)$ (one random set for each case is
+      enough). Use your plots to show that weight decay can be used to control
+      overfitting for ANNs. (If you use Matlab, the following commands might be
+      useful: meshgrid and surf). (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{5}
+    \begin{question}
+      When learning the weights for the perceptron, we dropped the $sign()$
+      activation function to make the objective smooth. Show that the same
+      strategy does not work for an arbitrary ANN.  (Hint: consider the shape of
+      the decision boundary if we did this.) (10 points)
+    \end{question}
+  \end{problem}
+
+\end{document}
