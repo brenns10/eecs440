@@ -22,6 +22,21 @@
       to preceding layers but not into the input layer, so the graph is directed
       cyclic, but the input layer only has outgoing edges. (10 points)
     \end{question}
+
+    \textbf{(i)} So long as there are no cycles, you can go layer by layer, and
+    backpropagate the nodes of each layer in an ordering such that each
+    successor node is backpropagated before its predecessor.  More generally,
+    for any directed acyclic graph, doing backpropagation in the order produced
+    by a topological sort will always work.
+
+    \textbf{(ii)} When cycles are introduced, backpropagation can no longer work
+    by doing a single pass over the network of nodes.  Instead, you could use an
+    iterative approach.  Each iteration, do a pass over every node (probably
+    starting at the output layers) computing estimates of the partial
+    derivatives.  When you require a partial derivative you haven't computed
+    yet, use the previous iteration's estimate (or a random number during the
+    first iteration).  Repeat this process until the partial derivative
+    estimates for the input layer ``converge'' given some $\epsilon$.
   \end{problem}
 
   \begin{problem}{2}
