@@ -4,7 +4,7 @@ The Artificial Neural Network
 
 from __future__ import division
 import numpy as np
-import scipy
+import sys
 
 
 def sigmoid(X):
@@ -47,18 +47,34 @@ class ArtificialNeuralNetwork(object):
         self._weights = np.random.uniform(-0.1, 0.1, self._shape)
         self._out_weights = np.random.uniform(-0.1, 0.1, self._num_hidden)
 
+    def standardize_inputs(self, X):
+        X = X.astype(np.float64)
+        for i, name in enumerate(self._schema.feature_names):
+            if self._schema.is_nominal(i):
+                X[:, i] += 1  # values should be 1 to k, not 0 to k-1
+            else:
+                # normalize!
+                attr = X[:, i]
+                mean = attr.mean()
+                std = attr.std()
+                X[:, i] = (attr - mean) / std
+        return X
+
     def fit(self, X, y, sample_weight=None):
         """
         Fit a neural network of layer_sizes * num_hidden hidden units using X,y
         """
-        print(X.shape)
+        X = self.standardize_inputs(X)
         # Create a 0-1 copy of y.
         y01 = y.copy()
         y01[y01 == -1] = 0
 
-        for _ in range(self._max_iters):
+        for i in range(self._max_iters):
+            print('\b' * 11, end='')
+            print('iter % 6d' % (i + 1), end='')
+            sys.stdout.flush()
             self.fit_iter(X, y01)
-
+        print()
 
     def fit_iter(self, X, y):
         # Convenience variables:
@@ -66,7 +82,6 @@ class ArtificialNeuralNetwork(object):
         # m - number of hidden units
         # n - number of attributes
         k, m, n = len(X), self._num_hidden, self._num_attrs
-
         # Feed examples through network.
         hidden_ns = np.dot(self._weights, X.T)  # m*k
         hidden_outs = sigmoid(hidden_ns)  # m*k
@@ -76,17 +91,18 @@ class ArtificialNeuralNetwork(object):
 
         # Get partial derivatives for outer unit.
         outer_deriv = outer_out * (1 - outer_out) * (outer_out - y)  # k
-        outer_deriv = outer_deriv.reshape((k, 1))  # k*1
-        outer_deriv = outer_deriv * hidden_outs.T  # k*m
+        outer_deriv = outer_deriv.reshape((k, 1)) * hidden_outs.T  # k*m
         # Add weight decay term
         outer_deriv_total = outer_deriv.sum(axis=0)  # m
         outer_deriv_total = outer_deriv_total + 2 * self._gamma * self._out_weights
 
         # Get partial derivatives for hidden units.
-        dl = (hidden_outs * (1 - hidden_outs)).reshape(m, k, 1) # m*k
-        dl = dl * X.reshape(1, k, n) * (outer_deriv.T * self._out_weights.reshape(m, 1) / hidden_outs).reshape(m, k, 1)  # m*k*n
+        # m * k
+        dl = (1 - hidden_outs) * outer_deriv.T * self._out_weights.reshape(m, 1)
+        # (m * k * n) = (m * k * 1) (1 * k * n)
+        dl = dl.reshape(m, k, 1) * X.reshape(1, k, n)
         # sum over all examples
-        dl = dl.sum(axis=1)
+        dl = dl.sum(axis=1)  # m*n
         # weight decay term:
         dl = dl + 2 * self._gamma * self._weights
 
