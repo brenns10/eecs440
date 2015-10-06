@@ -99,6 +99,26 @@
         \hline
       \end{tabular}
     \end{question}
+
+    My network is shown below.  Weights are labeled next to their edges, and
+    $\sigma$ values are labeled above their units.  Since $x_2$ provides no
+    additional information, I left it out of my network!
+    \begin{center}
+      \includegraphics[width=0.6\textwidth]{net.pdf}      
+    \end{center}
+
+    Propagated examples: \\
+
+    \begin{tabular}{|rr|rrrrr|}
+      \hline
+      $x_1$ & $x_2$ & $u_1$ & $u_2$ & $u_3$ & $u_4$ & $u_5$ \\
+      \hline
+      -4 & -4 & -1 & -1 & 1 & -1 & -1 \\
+      -1 & -1 & -1 & 1 & -1 & -1 & 1 \\
+      1 & 1 & -1 & 1 & -1 & -1 & 1 \\
+      4 & 4 & 1 & 1 & -1 & 1 & -1 \\
+      \hline
+    \end{tabular}
   \end{problem}
 
   \begin{problem}{4}
