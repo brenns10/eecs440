@@ -217,9 +217,16 @@
     \begin{question}
       When learning the weights for the perceptron, we dropped the $sign()$
       activation function to make the objective smooth. Show that the same
-      strategy does not work for an arbitrary ANN.  (Hint: consider the shape of
-      the decision boundary if we did this.) (10 points)
+      strategy does not work for an arbitrary ANN.  (Hint: consider the shape the
+      of decision boundary if we did this.) (10 points)
     \end{question}
+
+    When we train a single perceptron, we drop the $sign()$ function because it
+    is not differentiable, and dropping the sign function will give us the same
+    result for classification.  However, in an ANN, the output of a unit will be
+    used by units in the next layer.  It is important that the activation
+    function retains the properties of the $sign()$ function so that these units
+    receive consistent input.
   \end{problem}
 
   \newpage
