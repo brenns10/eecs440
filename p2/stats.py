@@ -71,8 +71,10 @@ def precision(labels, predictions):
     What fraction of the examples predicted positive are actually positive?
     """
     pos_pred = (predictions == 1)
+    if pos_pred.sum() == 0:
+        return 1.0
     #                  True              Positives / All positive predictions
-    return sum((labels == predictions) & pos_pred) / sum(pos_pred)
+    return ((labels == predictions) & pos_pred).sum() / pos_pred.sum()
 
 
 def recall(labels, predictions):
@@ -80,8 +82,10 @@ def recall(labels, predictions):
     What fraction of the positive examples were predicted positive?
     """
     pos_label = (labels == 1)
+    if pos_label.sum() == 0:
+        return 1.0
     #                 True               Positives  / All positive labels
-    return sum((labels == predictions) & pos_label) / sum(pos_label)
+    return ((labels == predictions) & pos_label).sum() / pos_label.sum()
 
 
 def specificity(labels, predictions):
@@ -89,8 +93,10 @@ def specificity(labels, predictions):
     What fraction of the negative examples were predicted negative?
     """
     neg_label = (labels == -1)
+    if neg_label.sum() == 0:
+        return 1.0
     #                 True               Negatives  / All negative labels
-    return sum((labels == predictions) & neg_label) / sum(neg_label)
+    return ((labels == predictions) & neg_label).sum() / neg_label.sum()
 
 
 def auc(labels, predictions):
