@@ -29,9 +29,6 @@ class ArtificialNeuralNetwork(object):
         """
         # Save parameters.
         self._gamma = gamma
-        if layer_sizes != 1:
-            raise ValueError('Assignment description specifies a single hidden'
-                             ' layer.')
         self._num_layers = layer_sizes
         self._num_hidden = num_hidden
         self._epsilon = epsilon
