@@ -31,7 +31,10 @@ class ArtificialNeuralNetwork(object):
         self._gamma = gamma
         self._num_layers = layer_sizes
         self._num_hidden = num_hidden
-        self._epsilon = epsilon
+        if epsilon is None:
+            self._epsilon = 0
+        else:
+            self._epsilon = epsilon
         self._max_iters = max_iters
         self._schema = schema
         if self._schema is None:
@@ -78,6 +81,37 @@ class ArtificialNeuralNetwork(object):
                 X[:, i] = (attr - mean) / std
         return X
 
+    def fitloop_count(self, X, y01):
+        """Do the looping portion for a specified number of iterations."""
+        # Do training iterations.
+        for i in range(self._max_iters):
+            # Update the iteration count on the same line so we have status
+            # info without flooding the console.
+            print('\b' * 11, end='')
+            print('iter % 6d' % (i + 1), end='')
+            sys.stdout.flush()
+            # Do a single training iteration.
+            self.fit_iter(X, y01)
+
+        # Newline after the iteration count line.
+        print()
+
+    def fitloop_converge(self, X, y01):
+        """Do the looping portion for a specified number of iterations."""
+        # Do training iterations.
+        i = 0
+        print('iter % 6d' % (i + 1), end='')
+        while not self.fit_iter(X, y01):
+            i += 1
+            # Update the iteration count on the same line so we have status
+            # info without flooding the console.
+            print('\b' * 11, end='')
+            print('iter % 6d' % (i + 1), end='')
+            sys.stdout.flush()
+
+        # Newline after the iteration count line.
+        print()
+
     def fit(self, X, y, sample_weight=None):
         """
         Fit a neural network of layer_sizes * num_hidden hidden units using X,y
@@ -91,18 +125,10 @@ class ArtificialNeuralNetwork(object):
         y01 = y.copy()
         y01[y01 == -1] = 0
 
-        # Do training iterations.
-        for i in range(self._max_iters):
-            # Update the iteration count on the same line so we have status
-            # info without flooding the console.
-            print('\b' * 11, end='')
-            print('iter % 6d' % (i + 1), end='')
-            sys.stdout.flush()
-            # Do a single training iteration.
-            self.fit_iter(X, y01)
-
-        # Newline after the iteration count line.
-        print()
+        if self._max_iters is None:
+            self.fitloop_converge(X, y01)
+        else:
+            self.fitloop_count(X, y01)
 
     def _feed_forward(self, X):
         """
@@ -182,6 +208,7 @@ class ArtificialNeuralNetwork(object):
 
         # Do parameter updates!
         new_layers = []
+        convergences = []
         for i, layer in enumerate(self._layers):  # zipping gave errors :(
             gradient = gradients[i]
             # sum up gradients across k:
@@ -190,7 +217,9 @@ class ArtificialNeuralNetwork(object):
             gradient = gradient + 2 * self._gamma * layer
             # do layer weight update
             new_layers.append(layer - self._eta * gradient)
+            convergences.append(np.all(np.abs(gradient) < self._epsilon))
         self._layers = new_layers
+        return all(convergences)
 
     def predict(self, X):
         """ Predict -1/1 output """
