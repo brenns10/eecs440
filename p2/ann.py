@@ -43,17 +43,38 @@ class ArtificialNeuralNetwork(object):
         self._eta = 0.01
 
         # Create layer weights:
-        self._shape = (self._num_hidden, self._num_attrs)
-        self._weights = np.random.uniform(-0.1, 0.1, self._shape)
-        self._out_weights = np.random.uniform(-0.1, 0.1, self._num_hidden)
+        self._layers = []
+        prev_input = self._num_attrs
+        for _ in range(self._num_layers):
+            print('%d x ' % prev_input, end='')
+            shape = (prev_input, self._num_hidden)
+            weights = np.random.uniform(-0.1, 0.1, shape)
+            self._layers.append(weights)
+            prev_input = shape[1]
+        print('%d x 1' % prev_input)
+        out_weights = np.random.uniform(-0.1, 0.1, (prev_input, 1))
+        self._layers.append(out_weights)
 
     def standardize_inputs(self, X):
+        """
+        Standardize the values of X that go into the ANN.
+
+        As per the assignment description, nominal attributes should be encoded
+        1 to k.  Continuous attributes are normalized.
+        :param X: k by n matrix of input data
+        """
+        # Float64 can hold all uint8 values, and won't overflow so quickly when
+        # you do stuff with it.
         X = X.astype(np.float64)
+
+        # Iterate over each attribute.
         for i, name in enumerate(self._schema.feature_names):
             if self._schema.is_nominal(i):
-                X[:, i] += 1  # values should be 1 to k, not 0 to k-1
+                # Nominal values should be 1 to k.  They come 0 to k-1, so just
+                # increase them by one.
+                X[:, i] += 1
             else:
-                # normalize!
+                # Normalize the continuous values.
                 attr = X[:, i]
                 mean = attr.mean()
                 std = attr.std()
@@ -63,52 +84,116 @@ class ArtificialNeuralNetwork(object):
     def fit(self, X, y, sample_weight=None):
         """
         Fit a neural network of layer_sizes * num_hidden hidden units using X,y
+
+        :param X: k by n matrix of inputs.
+        :param y: k-length list of outputs.
+        :param sample_weight: ignored right now <3
         """
         X = self.standardize_inputs(X)
-        # Create a 0-1 copy of y.
+        # Create a 0/1 copy of y, instead of -1/1.
         y01 = y.copy()
         y01[y01 == -1] = 0
 
+        # Do training iterations.
         for i in range(self._max_iters):
+            # Update the iteration count on the same line so we have status
+            # info without flooding the console.
             print('\b' * 11, end='')
             print('iter % 6d' % (i + 1), end='')
             sys.stdout.flush()
+            # Do a single training iteration.
             self.fit_iter(X, y01)
+
+        # Newline after the iteration count line.
         print()
 
+    def _feed_forward(self, X):
+        """
+        Feed an example or list of examples through the network.
+        :param X: k by n matrix of examples.
+        :returns: list of (k by m) matrices of layer outputs, one per layer
+        """
+        X = X.astype(np.float64)
+        layer_outputs = []
+        for weights in self._layers:
+            X = sigmoid(np.dot(X, weights))
+            layer_outputs.append(X)
+        return layer_outputs
+
+    def _gradient_outer(self, X, y_hat, y):
+        """
+        Return the gradient for an outer layer.
+        :param X: inputs to this layer (k by n)
+        :param y_hat: outputs (predictions) from this layer (k by m)
+        :param y: expected output from this layer (k)
+        :return: gradients of outer layer weights for each example (k*n*m)
+        """
+        k, n = X.shape
+        m = y_hat.shape[1]  # m should be 1, but just in case
+        y = y.reshape(y_hat.shape)  # make y  k by m (just in case)
+        # Compute dl/dw
+        dl = y_hat * (1 - y_hat) * (y_hat - y)  # k by m
+        dl = dl.reshape(k, 1, m) * X.reshape(k, n, 1)
+        return dl
+
+    def _gradient_hidden(self, X, outs, dL_next, W_next):
+        """
+        Return the gradient for a hidden layer.
+        :param X: inputs to this layer (k by n)
+        :param outs: outputs from this layer (k by m)
+        :param dL_next: gradients from the following layer (k by m by p)
+        :param W_next: (m by p)
+        :return: gradients of hidden layer weights for each example (k*n*m)
+        """
+        k, n, m, p = X.shape[0], X.shape[1], outs.shape[1], W_next.shape[1]
+        # The formula is:
+        # dl/dw = h(n_j) (1 - h(n_j)) x_{ji}
+        #         \sum_{k\in Downstream(j)} (dl/dw_{jk}) (w_{kj}/x_{kj})
+        # However, h(n_j) is the same as x_{kj}, so it cancels out!
+
+        # Compute the summation portion of of the above formula.
+        downstream = (W_next.reshape(1, m, p) *
+                      dL_next).sum(axis=2).reshape(k, 1, m)
+        # Finish computing dl/dw
+        dl = (1 - outs).reshape(k, 1, m) * downstream
+        dl = dl * X.reshape(k, n, 1)
+        return dl  # k by n by m
+
     def fit_iter(self, X, y):
-        # Convenience variables:
-        # k - number of examples
-        # m - number of hidden units
-        # n - number of attributes
-        k, m, n = len(X), self._num_hidden, self._num_attrs
         # Feed examples through network.
-        hidden_ns = np.dot(self._weights, X.T)  # m*k
-        hidden_outs = sigmoid(hidden_ns)  # m*k
-        outer_ns = np.dot(hidden_outs.T, self._out_weights)  # k
-        outer_out = sigmoid(outer_ns)  # k
-        #print('%03f/%r' % (outer_out[0], y[0]))
+        outputs = self._feed_forward(X)
 
-        # Get partial derivatives for outer unit.
-        outer_deriv = outer_out * (1 - outer_out) * (outer_out - y)  # k
-        outer_deriv = outer_deriv.reshape((k, 1)) * hidden_outs.T  # k*m
-        # Add weight decay term
-        outer_deriv_total = outer_deriv.sum(axis=0)  # m
-        outer_deriv_total = outer_deriv_total + 2 * self._gamma * self._out_weights
+        # The inputs to each layer are just the outputs shifted.
+        inputs = [X] + outputs[:-1]
+        # We'll also need the weights of the "next" layer.
+        layers_shifted = self._layers[1:] + [self._layers[0]]
 
-        # Get partial derivatives for hidden units.
-        # m * k
-        dl = (1 - hidden_outs) * outer_deriv.T * self._out_weights.reshape(m, 1)
-        # (m * k * n) = (m * k * 1) (1 * k * n)
-        dl = dl.reshape(m, k, 1) * X.reshape(1, k, n)
-        # sum over all examples
-        dl = dl.sum(axis=1)  # m*n
-        # weight decay term:
-        dl = dl + 2 * self._gamma * self._weights
+        # Do backpropagation, starting with output layer.
+        prev_grad = None  # hold the gradient from the last layer for backprop
+        gradients = []
+        for x, y_hat, W_next in reversed(list(zip(inputs, outputs, layers_shifted))):
+            if prev_grad is None:
+                # For the output layer:
+                prev_grad = self._gradient_outer(x, y_hat, y)
+            else:
+                # For all the other layers:
+                prev_grad = self._gradient_hidden(x, y_hat, prev_grad, W_next)
+            gradients.append(prev_grad)
 
-        # Update outer and hidden weights.
-        self._out_weights = self._out_weights - self._eta * outer_deriv_total
-        self._weights = self._weights - self._eta * dl
+        # Now we have a list of k by (n by m) gradients, one for each layer.
+        gradients.reverse()
+
+        # Do parameter updates!
+        new_layers = []
+        for i, layer in enumerate(self._layers):  # zipping gave errors :(
+            gradient = gradients[i]
+            # sum up gradients across k:
+            gradient = gradient.sum(axis=0)
+            # add in weight decay term
+            gradient = gradient + 2 * self._gamma * layer
+            # do layer weight update
+            new_layers.append(layer - self._eta * gradient)
+        self._layers = new_layers
 
     def predict(self, X):
         """ Predict -1/1 output """
@@ -120,9 +205,6 @@ class ArtificialNeuralNetwork(object):
     def predict_proba(self, X):
         """ Predict probabilistic output """
         # Feed examples through network.
-        X = X.astype(np.float64)  # avoid uint8 overflows
-        hidden_ns = np.dot(self._weights, X.T)
-        hidden_outs = sigmoid(hidden_ns)
-        outer_ns = np.dot(hidden_outs.T, self._out_weights)
-        outer_out = sigmoid(outer_ns)
-        return outer_out
+        results = self._feed_forward(X)
+        # Output will expect k-length list, not k by 1 matrix.
+        return results[-1].reshape(X.shape[0])
