@@ -1,0 +1,92 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Programming 2}
+\duedate{October 7, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \section{Implementation Commentary}
+
+  Unlike the decision tree implementation, artificial neural networks readily
+  suggest a matrix based implementation, which can be done using more native
+  NumPy code and less pure Python code, which makes the overall implementation
+  fairly efficient.  I chose to express each layer as a matrix, where each
+  column represents the weights for a unit in that layer.  This means that
+  feeding a matrix $X$ through a layer $W$ is as simple as computing
+  $X \cdot W$, followed by computing the sigmoid function of the result.
+  Training can be accomplished using elementwise arithmetic on these matrices,
+  using NumPy's broadcasting capabilitiess to account for differences in matrix
+  sizes.
+
+  I use several single letter indexing variables to denote sizes, both in
+  comments and in code.  Here are the conventions I used throughout the code,
+  which should make understanding the code (especially the gradient
+  computations) easier.
+
+  \begin{itemize}
+  \item Where $k$ is used as a variable, it refers to the number of examples
+    provided.
+  \item Where $n$ is used as a variable, it refers to the number of inputs to a
+    layer.  When talking about the first layer, this is the number of
+    attributes.  For the second layer, this is the number of units it the first
+    layer, etc.
+  \item Where $m$ is used as a variable, it refers to the number of units in a
+    layer (which is also the number of outputs of that layer).
+  \item Where $p$ is used as a variable, it refers to the number of units in the
+    subsequent layer.
+  \end{itemize}
+
+  Also, this implementation strategy is only valid since each layer is
+  completely connected to each subsequent layer.  If the network topology were
+  different, I would have to use a different (and probably much slower)
+  implementation strategy.
+
+  Finally, the implementation should generalize well into architectures with any
+  number of hidden layers (including 0).  The constructor always creates
+  ``rectangular'' hidden layers, but it would only take slight modifications to
+  the constructor to allow any number of units in any hidden layer.
+
+  \section{Questions}
+
+  \begin{problem}{a}
+    \begin{question}
+      What is the area under ROC of the ANN with no hidden units on each
+      dataset? Set the weight decay coefficient $\gamma = 0$, and train to
+      convergence. This approximates the perceptron, which uses a step function
+      instead of a sigmoid. How does this compare to the decision stump/tree
+      results in the previous assignment?
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{b}
+    \begin{question}
+      For \textit{volcanoes} and \textit{spam}, and explore how the AROC changes
+      as learning iterations are increased. Fix the number of hidden units to 5
+      and $\gamma = 0.01$ for these experiments. Plot AROC results for at least
+      three values of learning iterations evenly spaced between 100 and
+      10,000. Compare your results to the “perceptron” in part
+      \textbf{(a)}. Does the introduction of hidden units lead to improved
+      accuracy? How many iterations does this ANN need to converge compared to
+      the “perceptron”?
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{c}
+    \begin{question}
+      Explore how the AROC changes as the number of hidden units are varied on
+      volcanoes and voting.  Plot AROC results for at least three values of
+      hidden units evenly spaced between 3 and $f$, where $f$ is the number of
+      input units. Set $\gamma=0.01$ and the learning iterations to $100f$, with
+      a minimum of 10,000.  Compare the ROC and training times to the results in
+      parts \textbf{(a)} and \textbf{(b)}. Warning: This experiment may take a
+      long time to run.
+    \end{question}
+  \end{problem}
+
+\end{document}
