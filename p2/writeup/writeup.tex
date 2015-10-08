@@ -146,19 +146,43 @@
       long time to run.
     \end{question}
 
-    Since \textit{volcanoes} has 226 attributes, I set it to 22600 iterations.
-    Since \textit{voting} only has 11 attributes, I set it to 10000 iterations.
+    Since \textit{voting} only has 11 attributes, I set it to 10,000 iterations.
+    While I wanted to get \textit{volcanoes} to the full 22,600 iterations
+    corresponding to its 226 attributes, I wasn't able to get the 226 hidden
+    unit trial to complete in a reasonable amount of time.  So, I set
+    \textit{volcanoes} to 10,000 iterations as well.
+
+    Plots for my results are provided as Figures~\ref{fig:part-c-volcanoes}
+    and~\ref{fig:part-c-voting}.  The plot for \textit{volcanoes} looks like an
+    upside-down volcano, which is unfortunate, because I can't really draw too
+    many conclusions from it.  The plot of \textit{voting} is similarly
+    uninformative.
+
+    \begin{figure}
+      \centering
+      \caption{AUC vs Hidden Units, Volcanoes (part c)}
+      \includegraphics[width=0.7\textwidth]{partc-volcanoes.pdf}
+      \label{fig:part-c-volcanoes}
+    \end{figure}
+
+    \begin{figure}
+      \centering
+      \caption{AUC vs Hidden Units, Voting (part c)}
+      \includegraphics[width=0.7\textwidth]{partc-voting.pdf}
+      \label{fig:part-c-voting}
+    \end{figure}
 
     \begin{tabular}{|lrr|}
       \hline
       Dataset & Units & AUC \\
       \hline
-      Volcanoes & 3 & 0.704 \\
-      Volcanoes & 110 & 0.608 \\
-      Volcanoes & 226 &  \\
+      Volcanoes & 3 & 0.681 \\
+      Volcanoes & 110 & 0.655 \\
+      Volcanoes & 226 & 0.691 \\
       Voting & 3 & 0.993 \\
       Voting & 7 & 0.994 \\
       Voting & 11 & 0.994 \\
+      \hline
     \end{tabular}
 
   \end{problem}
