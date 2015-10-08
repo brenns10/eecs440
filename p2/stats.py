@@ -115,11 +115,15 @@ def auc(labels, predictions):
         prev_fpr = fpr
         tprs.append(tpr)
         fprs.append(fpr)
-    import matplotlib.pyplot as plt
-    #plt.use('ggplot')
-    fig, ax = plt.subplots()
-    ax.plot(fprs, tprs)
-    ax.set_xlabel('false positive rate')
-    ax.set_ylabel('true positive rate')
-    fig.savefig('roc.pdf')
+    try:
+        # This automatically makes an ROC curve for you, if you have matplotlib
+        import matplotlib.pyplot as plt
+        plt.style.use('ggplot')
+        fig, ax = plt.subplots()
+        ax.plot(fprs, tprs)
+        ax.set_xlabel('false positive rate')
+        ax.set_ylabel('true positive rate')
+        fig.savefig('roc.pdf')
+    except:
+        pass
     return auc
