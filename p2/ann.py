@@ -55,6 +55,12 @@ class ArtificialNeuralNetwork(object):
         out_weights = np.random.uniform(-0.1, 0.1, (prev_input, 1))
         self._layers.append(out_weights)
 
+    def standardize_nominal(self, X, i):
+        nom_vals = np.array(self._schema.nominal_values[i], dtype=np.float64)
+        sorter = np.argsort(nom_vals)
+        new_vals = sorter[np.searchsorted(nom_vals, X[:, i], sorter=sorter)]
+        return new_vals.astype(np.float64) + 1
+
     def standardize_inputs(self, X):
         """
         Standardize the values of X that go into the ANN.
@@ -70,15 +76,10 @@ class ArtificialNeuralNetwork(object):
         # Iterate over each attribute.
         for i, name in enumerate(self._schema.feature_names):
             if self._schema.is_nominal(i):
-                # Nominal values should be 1 to k.  They come 0 to k-1, so just
-                # increase them by one.
-                X[:, i] += 1
+                X[:, i] = self.standardize_nominal(X, i)
             else:
-                # Normalize the continuous values.
-                attr = X[:, i]
-                mean = attr.mean()
-                std = attr.std()
-                X[:, i] = (attr - mean) / std
+                # Normalize the cvolcanoesontinuous values.
+                X[:, i] = (X[:, i] - self._means[i]) / self._stds[i]
         return X
 
     def fitloop_count(self, X, y01):
@@ -120,6 +121,8 @@ class ArtificialNeuralNetwork(object):
         :param y: k-length list of outputs.
         :param sample_weight: ignored right now <3
         """
+        self._means = np.mean(X, 0)
+        self._stds = np.std(X, 0)
         X = self.standardize_inputs(X)
         # Create a 0/1 copy of y, instead of -1/1.
         y01 = y.copy()
@@ -223,6 +226,7 @@ class ArtificialNeuralNetwork(object):
 
     def predict(self, X):
         """ Predict -1/1 output """
+        X = self.standardize_inputs(X)
         proba = self.predict_proba(X)
         proba[proba <= 0.5] = -1
         proba[proba != -1] = 1
