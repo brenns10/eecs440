@@ -62,6 +62,29 @@
       instead of a sigmoid. How does this compare to the decision stump/tree
       results in the previous assignment?
     \end{question}
+
+    \begin{tabular}{|lr|rrrr|}
+      \hline
+      Dataset & $\epsilon$ & Accuracy & Precision & Recall & AUC \\
+      \hline
+      Voting & 0.01 & $0.986 \pm 0.009$ & $0.995 \pm 0.010$ & $0.974 \pm 0.016$ & 0.994 \\
+      Volcanoes & 0.01 & $0.806 \pm 0.051$ & $0.760 \pm 0.063$ & $0.635 \pm 0.252$ & 0.719\\
+      Spam & 0.2 & $0.663 \pm 0.013$ & $0.632 \pm 0.011$ & $0.991 \pm 0.012$ & 0.525 \\
+      \hline
+    \end{tabular}
+
+    \vspace{4mm}
+
+    Unfortunately, there was no ``solid'' definition of convergence that I could
+    use in my code.  So, I defined convergence as: ``all elements of the
+    gradient are less than $\epsilon$.''  This worked alright, but the amount of
+    time my ANN took to converge varied wildly, even across folds.  My attempts
+    to get the \textit{spam} dataset to converge with $\epsilon=0.01$ never
+    completed.  $\epsilon = 0.2$ was the first value that I obtained any
+    convergence for (and it converged after about 1000 iterations on each fold).
+    Meanwhile, \textit{volcanoes} took in the tens of thousands of iterations to
+    converge at $\epsilon = 0.01$, and \textit{voting} took anywhere from a few
+    hundred to several thousand at the same $\epsilon$.
   \end{problem}
 
   \begin{problem}{b}
@@ -75,6 +98,41 @@
       accuracy? How many iterations does this ANN need to converge compared to
       the “perceptron”?
     \end{question}
+
+    \begin{tabular}{|lrr|}
+      \hline
+      Dataset & Iterations & AUC \\
+      \hline
+      Volcanoes & 100 & 0.671 \\
+      Volcanoes & 500 & 0.758 \\
+      Volcanoes & 1000 & 0.679 \\
+      Volcanoes & 2000 & 0.659 \\
+      Volcanoes & 5000 & 0.653 \\
+      Volcanoes & 10000 & 0.672 \\
+      Spam & 100 & 0.497 \\
+      Spam & 500 & 0.506 \\
+      Spam & 1000 & 0.506 \\
+      Spam & 2000 & 0.507 \\
+      Spam & 5000 & 0.508 \\
+      Spam & 10000 & 0.491 \\
+      \hline
+    \end{tabular}
+
+    The table above shows the results from my experimenting by varying the
+    number of iterations, and the data are plotted in Figure~\ref{fig:part-b}.
+    I'm not sure whether the \textit{volcanoes} 500 iteration data point is an
+    outlier, or whether 500 iterations is some sort of ``sweet spot'' for this
+    setup (I would imagine it is more likely to be an outlier).  In any case,
+    adding the 5 unit hidden layer doesn't improve ROC over the ``perceptron''
+    much except in that data point.  It's a but unfortunate to see that there
+    isn't a reliable upward trend either.
+
+    \begin{figure}
+      \centering
+      \caption{AUC vs training iterations, on both volcanoes and spam (part b).}
+      \includegraphics[width=0.7\textwidth]{partb.pdf}
+      \label{fig:part-b}
+    \end{figure}
   \end{problem}
 
   \begin{problem}{c}
@@ -87,6 +145,22 @@
       parts \textbf{(a)} and \textbf{(b)}. Warning: This experiment may take a
       long time to run.
     \end{question}
+
+    Since \textit{volcanoes} has 226 attributes, I set it to 22600 iterations.
+    Since \textit{voting} only has 11 attributes, I set it to 10000 iterations.
+
+    \begin{tabular}{|lrr|}
+      \hline
+      Dataset & Units & AUC \\
+      \hline
+      Volcanoes & 3 & 0.704 \\
+      Volcanoes & 110 & 0.608 \\
+      Volcanoes & 226 &  \\
+      Voting & 3 & 0.993 \\
+      Voting & 7 & 0.994 \\
+      Voting & 11 & 0.994 \\
+    \end{tabular}
+
   \end{problem}
 
 \end{document}
