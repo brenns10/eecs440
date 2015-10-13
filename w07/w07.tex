@@ -1,0 +1,65 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 7}
+\duedate{October 13, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      A binary classifier is tested on $N$ independent test sets.  The
+      classifier makes $r_i$ errors on the $i\textsuperscript{th}$ set, which
+      has size $n_i$.  Find the maximum likelihood estimate of the true error
+      rate of the classifier. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      Two classifiers $A$ and $B$ are evaluated on samples of size $n$ and found
+      to have error rates $e_A$ and $e_B$ such that $e_A - e_B = 0.1$.  If the
+      true error rates of $A$ and $B$ are indeed different, how large does $n$
+      have to be to \textbf{guarantee} we can establish the difference at a 95\%
+      confidence level? (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Professor X tests a classifier on a test set of size $n$ and determines
+      the C\% confidence interval to be $(a,b)$.  Professor Y performs an
+      independent test of the same classifier with another test set of size
+      $n$.  What is the probability that the sample error rate found by Y will
+      lie in $(a,b)$? (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      A revolutionary new classifier, the Bayesian Deep Kernel Support Neural
+      Tree Machine, has been invented.  Professors Bayesian Bob and Neural Nan
+      have independently evaluated such a classifier on test sets of size $n$.
+      Over dinner, they share their confidence interval findings with each
+      other.  Unfortunately, they are overheard by Professor Band Wagon, who
+      wants to scoop them without doing the experiment.  What is the best
+      confidence interval that Professor Wagon could report that would be
+      consistent with Profs. Bob and Nan's findings? (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{5}
+    \begin{question}
+      The maximum margin formulation for a linear classifier does not include
+      $b$, the constant term, in the objective.  In other words, the choice of
+      $b$ plays no role in improving generalizing ability.  Explain intuitively
+      why this makes sense. (10 points)
+    \end{question}
+  \end{problem}
+
+\end{document}
