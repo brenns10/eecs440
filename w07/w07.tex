@@ -85,7 +85,30 @@
       have to be to \textbf{guarantee} we can establish the difference at a 95\%
       confidence level? (10 points)
     \end{question}
+
+    In order to establish the difference at a 95\% confidence level, we must
+    have $0.1 - 1.96\sigma > 0$:
+
+    \begin{align}
+      \sigma &< \frac{0.1}{1.96} \\
+      Var(Err_A - Err_B) &< \frac{0.1^2}{1.96^2} \\
+      \frac{e_A(1-e_A) + e_B(1-e_B)}{n} &< \frac{0.1^2}{1.96^2} \\ 
+    \end{align}
+
+    First, we note that this variance is never negative, so we do not need to
+    consider the second case of the inequality caused by the square root.  By
+    experience, we know that expression $p(1-p)$ is maximized when $p=0.5$, so
+    to guarantee the inequality holds:
+
+    \begin{align}
+      \frac{0.5}{n} &< \frac{0.1^2}{1.96^2} \\
+      n &> \frac{0.5 * 1.96^2}{0.1^2} \\
+      n &> 434.16
+    \end{align}
   \end{problem}
+
+  So, a sample of size 435 or greater would guarantee that we can establish the
+  difference with 95\%.
 
   \begin{problem}{3}
     \begin{question}
