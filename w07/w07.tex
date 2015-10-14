@@ -121,9 +121,15 @@
 
     When Professor X creates a $C\%$ confidence interval of $(a,b)$, this means
     that the classifier's true error rate will lie within $(a,b)$ with $C\%$
-    probability.  However, this is not the same as saying that the sample error
-    rate on an independent sample will lie within $(a,b)$ with that same
-    probability.
+    probability.  This is not the same as saying that the sample error rate on
+    an independent sample will lie within $(a,b)$ with that same probability.
+
+    The true parameter values of the sampling distribution of the classifier on
+    a sample of size $n$ could be used to give us the probability we're looking
+    for.  However, the only estimates of these parameter values are the ones we
+    have from Professor X's maximum likelihood estimate.  So, the only answer we
+    can give is to use those parameter estimates, giving us a $C\%$ probability
+    that the sample error rate found by Y will lie in the confidence interval.
   \end{problem}
 
   \begin{problem}{4}
