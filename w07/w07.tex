@@ -113,11 +113,17 @@
   \begin{problem}{3}
     \begin{question}
       Professor X tests a classifier on a test set of size $n$ and determines
-      the C\% confidence interval to be $(a,b)$.  Professor Y performs an
-      independent test of the same classifier with another test set of size
-      $n$.  What is the probability that the sample error rate found by Y will
-      lie in $(a,b)$? (10 points)
+      the $C\%$ confidence interval to be $(a,b)$.  Professor Y performs an
+      independent test of the same classifier with another test set of size $n$.
+      What is the probability that the sample error rate found by Y will lie in
+      $(a,b)$? (10 points)
     \end{question}
+
+    When Professor X creates a $C\%$ confidence interval of $(a,b)$, this means
+    that the classifier's true error rate will lie within $(a,b)$ with $C\%$
+    probability.  However, this is not the same as saying that the sample error
+    rate on an independent sample will lie within $(a,b)$ with that same
+    probability.
   \end{problem}
 
   \begin{problem}{4}
@@ -140,6 +146,17 @@
       $b$ plays no role in improving generalizing ability.  Explain intuitively
       why this makes sense. (10 points)
     \end{question}
-  \end{problem}
+
+    When we train a linear classifier, we look for values of the parameters
+    $\vec{w}$ and $b$ that satisfy certain constraints.  The constraints are
+    that for positive examples $\vec{w}\vec{x} + b \ge 1$, and for negative
+    examples $\vec{w}\vec{x} + b \le -1$.  We aim to maximize the margin
+    (i.e. distance) between these two planes.  When you think of computing the
+    distance between the two planes, you think of subtracting, and it
+    intuitively makes sense that the value for $b$ would cancel out as you
+    determine this distance.  So if you believe that maximizing margin means
+    maximizing generalizing ability, it should make sense that $b$ doesn't
+    matter for that.
+ \end{problem}
 
 \end{document}
