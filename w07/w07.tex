@@ -149,8 +149,8 @@
 
     When we train a linear classifier, we look for values of the parameters
     $\vec{w}$ and $b$ that satisfy certain constraints.  The constraints are
-    that for positive examples $\vec{w}\vec{x} + b \ge 1$, and for negative
-    examples $\vec{w}\vec{x} + b \le -1$.  We aim to maximize the margin
+    that for positive examples $\vec{w}\cdot\vec{x} + b \ge 1$, and for negative
+    examples $\vec{w}\cdot\vec{x} + b \le -1$.  We aim to maximize the margin
     (i.e. distance) between these two planes.  When you think of computing the
     distance between the two planes, you think of subtracting, and it
     intuitively makes sense that the value for $b$ would cancel out as you
