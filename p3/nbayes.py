@@ -6,13 +6,14 @@ from __future__ import division
 import numpy as np
 import scipy
 
+from util import internal_cross_validation
 
 NUM_BINS = 10
 
 
 class NaiveBayes(object):
 
-    def __init__(self, m=None, schema=None):
+    def __init__(self, m_value=None, schema=None):
         """
         Constructs a Naive Bayes classifier
 
@@ -21,9 +22,7 @@ class NaiveBayes(object):
         :param schema: Schema object generated from data.py.
         """
         # Save parameters.
-        self._m = m
-        if m is None:
-            self._m = 0
+        self._m = m_value
         if schema is None:
             raise ValueError('Must provide input data schema.')
         self._schema = schema
@@ -118,22 +117,29 @@ class NaiveBayes(object):
         """
         # Standardize everything.
         Xstd = self._standardize_inputs(X)
-        y = y.copy()
-        y[y == -1] = 0
-        yvals = np.bincount(y)
+        ystd = y.copy()
+        ystd[y == -1] = 0
+        yvals = np.bincount(ystd)
+
+        # Select parameter m by internal cross validation.
+        if self._m is None:
+            self._m = internal_cross_validation(
+                NaiveBayes, {'schema': self._schema}, 'm_value',
+                [0, 0.001, 0.001, 0.1, 1, 10, 100], 'accuracy', X, y
+            )
 
         # Set the conditional probabilities using smoothing.
         for i, matrix in enumerate(self._params):
             mp = self._m * matrix
             for yval, count in enumerate(yvals):
-                Xrel = Xstd[y == yval]
-                colbincount = np.bincount(Xrel[:, i])
+                Xrel = Xstd[ystd == yval]
+                colbincount = np.bincount(Xrel[:, i], minlength=mp.shape[1])
                 matrix[yval] = (mp[yval] + colbincount)
                 matrix[yval] = matrix[yval] / (count + self._m)
             self._params[i] = matrix
 
         # Set the probabilities of y.
-        self._yparam = yvals / len(y)
+        self._yparam = yvals / len(ystd)
 
     def predict(self, X):
         """
@@ -157,9 +163,20 @@ class NaiveBayes(object):
                 # This is a v-length vector of probabilities conditioned on y
                 probabilities = matrix[y]
                 # The X values are indices into this vector!  We just sum up
-                # logs (instead of multiplying)
-                Pacc[y] += np.log(probabilities[Xstd[:, i].astype(int)])
+                # logs (instead of multiplying).  We silence divide by zero
+                # errors because that's what NumPy gives when it takes the log
+                # of 0.  Thankfully, np.log(0) = -inf, and np.exp(-np.inf) = 0,
+                # so we're safe here!
+                with np.errstate(divide='ignore'):
+                    Pacc[y] += np.log(probabilities[Xstd[:, i].astype(int)])
             Pacc[y] += np.log(yprob)
         # Now, return the probability Y is positive conditioned on X!
         probs = np.exp(Pacc)
-        return probs[1] / (probs[0] + probs[1])
+        with np.errstate(invalid='ignore'):
+            # We silence invalid value warnings here, because that's what we
+            # get when we do 0/0.  In this case, we haven't seen any training
+            # examples with those values, and m is set to 0, so we just go
+            # 50/50 and assign 0.5!
+            rv = probs[1] / (probs[0] + probs[1])
+        rv[np.isnan(rv)] = 0.5
+        return rv
