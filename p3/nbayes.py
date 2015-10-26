@@ -62,7 +62,7 @@ class NaiveBayes(object):
         nom_vals = np.array(self._schema.nominal_values[i], dtype=np.float64)
         sorter = np.argsort(nom_vals)
         new_vals = sorter[np.searchsorted(nom_vals, X[:, i], sorter=sorter)]
-        return new_vals.astype(np.float64)
+        return new_vals
 
     def _standardize_continuous(self, X, i):
         """
@@ -73,13 +73,13 @@ class NaiveBayes(object):
         """
         col = X[:, i]
         # If we haven't gotten mins and maxs yet, save them.
-        if self.maxs[i] is None:
-            self.maxs[i] = col.max()
-            self.mins[i] = col.min()
+        if self._maxs[i] is None:
+            self._maxs[i] = col.max()
+            self._mins[i] = col.min()
         # Now subtract out the mins and divide by the step to get which bin
         # each item is in.
-        col = col - self.mins[i]
-        col = col / (self.maxs[i] - self.mins[i]) * NUM_BINS
+        col = col - self._mins[i]
+        col = col / (self._maxs[i] - self._mins[i]) * NUM_BINS
         col = np.floor(col)
         # Assign values that are above/below the max/min to the highest/lowest
         # bin (since there's no guarantee that training data will include the
@@ -100,7 +100,7 @@ class NaiveBayes(object):
                 X[:, i] = self._standardize_nominal(X, i)
             else:
                 X[:, i] = self._standardize_continuous(X, i)
-        return X
+        return X.astype(int)
 
     def fit(self, X, y):
         """
