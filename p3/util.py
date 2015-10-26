@@ -60,11 +60,12 @@ def internal_cross_validation(cls, kwargs, paramname, paramrange, statistic,
     # Get values for our statistic of interest.
     stat_values = []
     for i, mgr in enumerate(stats_managers):
-        stat = mgr.get_statistic(statistic, pooled=False)
+        # pooled might as well be True, since we don't want a std
+        stat = mgr.get_statistic(statistic, pooled=True)
         stat_values.append(stat)
         log.debug('internal-cv gets %s=%r for param %s=%r' %
                   (statistic, stat, paramname, paramrange[i]))
-
+    log.debug('internal-cv gets argmax=%d' % np.argmax(stat_values))
     # Get the parameter value that maximizes our statistic.
     selection = paramrange[np.argmax(stat_values)]
     log.info('internal-cv selects %s=%r' % (paramname, selection))
