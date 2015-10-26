@@ -1,11 +1,12 @@
 """
 The Naive Bayes Classifier
 """
+
 import numpy as np
 import scipy
 
-class NaiveBayes(object):
 
+class NaiveBayes(object):
 
     def __init__(self, alpha=0):
         """
@@ -15,10 +16,10 @@ class NaiveBayes(object):
         """
 
     def fit(self, X, y):
-        pass #add code here
+        pass  # add code here
 
     def predict(self, X):
-        pass  #add code here
+        pass  # add code here
 
     def predict_proba(self, X):
-        pass  #add code here
+        pass  # add code here
