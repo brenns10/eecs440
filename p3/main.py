@@ -247,9 +247,9 @@ if __name__ == "__main__":
     # with quadratic kernel (x'*y+1)^2
 
     nbayes_parser = subparsers.add_parser('nbayes', help='Naive Bayes')
-    nbayes_parser.add_argument('--m', type=float,
+    nbayes_parser.add_argument('--m_value', type=float,
                                help='Smoothing parameter for Naive Bayes',
-                               default=1)
+                               default=None)
 
     lr_parser = subparsers.add_parser('logistic_regression',
                                       help='Logistic Regression')
