@@ -255,7 +255,7 @@ if __name__ == "__main__":
                                       help='Logistic Regression')
     lr_parser.add_argument('--lambda', type=float,
                            help='Regularization parameter for Logistic'
-                           ' Regression', default=10)
+                           ' Regression', default=None)
 
     args = parser.parse_args()
     main(**vars(args))
