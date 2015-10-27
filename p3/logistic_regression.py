@@ -8,19 +8,115 @@ import scipy
 
 class LogisticRegression(object):
 
-    def __init__(self, c):
+    def __init__(self, schema=None, **kwargs):
         """
         Constructs a logistic regression classifier
 
         @param lambda : Regularisation constant parameter
         """
-        pass
+        # lambda is a keyword in Python... I have to use kwargs.get instead of
+        # listing it as a keyword argument.
+        self._lambda = kwargs.get('lambda', None)
+
+        if schema is None:
+            raise ValueError('Must provide input data schema.')
+        self._schema = schema
+
+        # Randomly initialize parameters from [-1, 1]
+        self._w = np.random.uniform(-1, 1, size=len(schema.feature_names, 1))
+        self._b = np.random.uniform(-1, 1)
+
+        # eta controls the rate of gradient descent
+        self._eta = 0.01  # as in ann.py
+
+        # cutoff - the value that the l1 norm of the gradient vector should
+        # drop below as a termination condition for gradient descent
+        self._cutoff = 0.01  # this is arbitrary right now
+
+    def _standardize_continuous(self, X, i):
+        """
+        Standardize continuous attributes, by normalizing them.
+        :param X: example-by-features NumPy matrix
+        :param i: index of feature to standardize
+        :returns: vector of normalized values
+        """
+        return (X[:, i] - self._means[i]) / self._stds[i]
+
+    def _standardize_nominal(self, X, i):
+        """
+        Standardize nominal attributes, mapping them to an int 1 ... v.
+        :param X: example-by-features NumPy matrix
+        :param i: index of feature to standardize
+        :returns: 1...v values
+        """
+        nom_vals = np.array(self._schema.nominal_values[i], dtype=np.float64)
+        sorter = np.argsort(nom_vals)
+        new_vals = sorter[np.searchsorted(nom_vals, X[:, i], sorter=sorter)]
+        return new_vals.astype(np.float64) + 1
+
+    def _standardize_inputs(self, X):
+        """
+        Return updated inputs modified for the classifier.
+        :param X: example-by-features NumPy matrix
+        :returns: new, standardized feature matrix
+        """
+        X = X.copy()
+        for i, name in enumerate(self._schema.feature_names):
+            if self._schema.is_nominal(i):
+                X[:, i] = self._standardize_nominal(X, i)
+            else:
+                X[:, i] = self._standardize_continuous(X, i)
+        return X.astype(np.float64)
 
     def fit(self, X, y):
-        pass  # add code here
+        """
+        Fit the logistic regression classifier to data.
+        :param X: example-by-features NumPy matrix
+        :param y: example-length vector of class labels
+        """
+        self._means = np.mean(X, 0)
+        self._stds = np.std(X, 0)
+        X = self._standardize_inputs(self, X)
+        ymat = y.reshape((y.shape[0], 1))
+
+        # Gradient formulae:
+        # - For weights:
+        #   \frac{d}{dw} = \frac{1}{1+e^{y_i(w \cdot x_i + b)}} (-y_i x_i)
+        # - For b:
+        #   \frac{d}{dw} = \frac{1}{1+e^{y_i(w \cdot x_i + b)}} (-y_i)
+        # This is summed up for each example, multiplied by C, and then the
+        # penalty term is added.
+
+        # We will break out of this loop by checking termination condition at
+        # bottom.
+        while True:
+            # (k by 1) = (k by n) dot (n by 1)
+            dotprod = np.dot(X, self._w)
+            # (k by 1) still
+            fraction = 1/(1 + ymat * np.exp(dotprod + self._b)) * (-ymat)
+            # GRADIENT FOR W: (k by n) again
+            wgrad = fraction * X
+            # sum across the k examples to get (n) length vector
+            wgrad = wgrad.sum(axis=0)
+            # bring it back to an (n by 1) matrix
+            wgrad = wgrad.reshape(wgrad.shape[0], 1)
+            # now weight decay term and lambda
+            wgrad = self._lambda * wgrad + self._w
+            # GRADIENT FOR B: (k by 1)
+            bgrad = fraction
+            # Sum over all k, multiply by lambda, and add in weight decay term
+            bgrad = self._lambda * bgrad.sum() + self._b
+
+            # Do the parameter update.
+            self._w = self._w - self._eta * wgrad
+            self._b = self._b - self._eta * bgrad
+
+            # Check for termination condition.
+            if np.abs(wgrad).sum() + np.abs(bgrad) < self._cutoff:
+                break
 
     def predict(self, X):
-        pass  # add code here
+        return self._predict_proba(X) > 0
 
     def predict_proba(self, X):
-        pass  # add code here
+        return np.dot(X, self._w) + self._b
