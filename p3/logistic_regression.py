@@ -2,8 +2,12 @@
 The Logistic Regression Classifier
 """
 
+from __future__ import division
+
 import numpy as np
 import scipy
+
+from util import internal_cross_validation
 
 
 class LogisticRegression(object):
@@ -23,15 +27,15 @@ class LogisticRegression(object):
         self._schema = schema
 
         # Randomly initialize parameters from [-1, 1]
-        self._w = np.random.uniform(-1, 1, size=len(schema.feature_names, 1))
+        self._w = np.random.uniform(-1, 1, size=(len(schema.feature_names), 1))
         self._b = np.random.uniform(-1, 1)
 
         # eta controls the rate of gradient descent
-        self._eta = 0.01  # as in ann.py
+        self._eta = 0.1  # as in ann.py
 
         # cutoff - the value that the l1 norm of the gradient vector should
         # drop below as a termination condition for gradient descent
-        self._cutoff = 0.01  # this is arbitrary right now
+        self._cutoff = 1e-3  # this is arbitrary right now
 
     def _standardize_continuous(self, X, i):
         """
@@ -76,8 +80,14 @@ class LogisticRegression(object):
         """
         self._means = np.mean(X, 0)
         self._stds = np.std(X, 0)
-        X = self._standardize_inputs(self, X)
+        X = self._standardize_inputs(X)
         ymat = y.reshape((y.shape[0], 1))
+
+        if self._lambda is None:
+            self._lambda = internal_cross_validation(
+                LogisticRegression, {'schema': self._schema}, 'lambda',
+                [0, 0.001, 0.01, 0.1, 1, 10, 100], 'accuracy', X, y
+            )
 
         # Gradient formulae:
         # - For weights:
@@ -101,22 +111,40 @@ class LogisticRegression(object):
             # bring it back to an (n by 1) matrix
             wgrad = wgrad.reshape(wgrad.shape[0], 1)
             # now weight decay term and lambda
-            wgrad = self._lambda * wgrad + self._w
+            wgrad = wgrad + self._lambda * self._w
             # GRADIENT FOR B: (k by 1)
             bgrad = fraction
             # Sum over all k, multiply by lambda, and add in weight decay term
-            bgrad = self._lambda * bgrad.sum() + self._b
+            bgrad = bgrad.sum() + self._lambda * self._b
 
             # Do the parameter update.
             self._w = self._w - self._eta * wgrad
             self._b = self._b - self._eta * bgrad
 
             # Check for termination condition.
-            if np.abs(wgrad).sum() + np.abs(bgrad) < self._cutoff:
+            l1norm = np.abs(wgrad).sum() + np.abs(bgrad)
+            #print(wgrad.reshape(wgrad.shape[0]))
+            #print('%r, %r' % (l1norm, bgrad))
+            if np.all(np.abs(wgrad) < self._cutoff) and \
+               np.abs(bgrad) < self._cutoff:
                 break
 
     def predict(self, X):
-        return self._predict_proba(X) > 0
+        rv = np.where(self.predict_proba(X) > 0.5, 1, -1)
+        ## The following code checks the predict_proba output by computing wx +
+        ## b > 0.  Just as a sanity check.
+        # rv2 = np.where(np.dot(X, self._w) + self._b > 0, 1, -1)
+        # rv2 = rv2.reshape(rv.shape[0])
+        # if np.any(rv != rv2):
+        #     print('badness!')
+        #     print(rv2)
+        return rv
 
     def predict_proba(self, X):
-        return np.dot(X, self._w) + self._b
+        X = self._standardize_inputs(X)
+        p_pos = (1 / (1 + np.exp(-np.dot(X, self._w) - self._b)))
+        p_neg = (1 / (1 + np.exp(np.dot(X, self._w) + self._b)))
+        rv_mat = p_pos / (p_pos + p_neg)
+        rv = rv_mat.reshape(rv_mat.shape[0])
+        #print(rv)
+        return rv
