@@ -287,6 +287,30 @@
       dataset.  Use a log-scale for the y-axis.  Discuss what these choices
       imply about the data and the algorithms.
     \end{question}
+
+    The parameter choices for $m$ in na\"ive Bayes are plotted below:
+
+    \includegraphics[width=0.8\textwidth]{nbayes_m.pdf}
+
+    It's worth noting that for voting, one of the folds chose $m=0$.  For any
+    folds where a parameter was 0, I removed those instances (since the minimum
+    couldn't be displayed).  The only dataset that had a notably consistent
+    choice of parameter was spam, which always chose 1.  The others chose values
+    less than or equal to 10, meaning that they didn't put very high emphasis on
+    the prior ``knowledge'' that each of the conditional probabilities were
+    equal.
+
+    \includegraphics[width=0.8\textwidth]{logreg_lambda.pdf}
+
+    Since $\lambda$ was the coefficient of the weight penalty term, it follows
+    that lower choices for $\lambda$ correspond to datasets that require more
+    complex models.  Spam here had clearly the lowest choices of $\lambda$,
+    including three folds where $\lambda=0$, which could not be plotted here.
+
+    In other words, the plots for both $m$ and $\lambda$ seem to imply that spam
+    was consistently a complex problem that required more complex models, and
+    thus less emphasis on prior knowledge or small weights.
+    
   \end{problem}
 
   \begin{problem}{d}
