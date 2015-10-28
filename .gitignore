@@ -6,3 +6,4 @@
 *.py[cod]
 */data/*
 *.prof
+data
