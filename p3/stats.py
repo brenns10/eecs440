@@ -5,8 +5,8 @@ Statistics Computations
 from __future__ import division
 
 import numpy as np
-import scipy
 
+SAVE_PLOTS = False
 
 class StatisticsManager(object):
 
@@ -116,11 +116,12 @@ def auc(labels, predictions):
         prev_fpr = fpr
         tprs.append(tpr)
         fprs.append(fpr)
-    import matplotlib.pyplot as plt
-    plt.style.use('ggplot')
-    fig, ax = plt.subplots()
-    ax.plot(fprs, tprs)
-    ax.set_xlabel('false positive rate')
-    ax.set_ylabel('true positive rate')
-    fig.savefig('roc.pdf')
+    if SAVE_PLOTS:
+        import matplotlib.pyplot as plt
+        plt.style.use('ggplot')
+        fig, ax = plt.subplots()
+        ax.plot(fprs, tprs)
+        ax.set_xlabel('false positive rate')
+        ax.set_ylabel('true positive rate')
+        fig.savefig('roc.pdf')
     return auc
