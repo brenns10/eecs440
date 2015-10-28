@@ -2,6 +2,7 @@
 *.aux
 *.log
 *.dvi
+*.out
 .ipynb_checkpoints
 *.py[cod]
 */data/*
