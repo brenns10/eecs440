@@ -125,7 +125,7 @@ class NaiveBayes(object):
         if self._m is None:
             self._m = internal_cross_validation(
                 NaiveBayes, {'schema': self._schema}, 'm_value',
-                [0, 0.001, 0.001, 0.1, 1, 10, 100], 'accuracy', X, y
+                [0, 0.001, 0.001, 0.1, 1, 10, 100], 'auc', X, y
             )
 
         # Set the conditional probabilities using smoothing.
