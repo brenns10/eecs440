@@ -5,7 +5,7 @@ The Logistic Regression Classifier
 from __future__ import division
 
 import numpy as np
-import scipy
+import scipy.optimize
 
 from util import internal_cross_validation
 
@@ -25,17 +25,11 @@ class LogisticRegression(object):
         if schema is None:
             raise ValueError('Must provide input data schema.')
         self._schema = schema
+        nfeatures = len(schema.feature_names)
 
-        # Randomly initialize parameters from [-1, 1]
-        self._w = np.random.uniform(-1, 1, size=(len(schema.feature_names), 1))
-        self._b = np.random.uniform(-1, 1)
-
-        # eta controls the rate of gradient descent
-        self._eta = 0.1  # as in ann.py
-
-        # cutoff - the value that the l1 norm of the gradient vector should
-        # drop below as a termination condition for gradient descent
-        self._cutoff = 1e-3  # this is arbitrary right now
+        # Initialize parameters to 0.
+        self._w = np.zeros((nfeatures, 1))
+        self._b = 0
 
     def _standardize_continuous(self, X, i):
         """
@@ -72,6 +66,59 @@ class LogisticRegression(object):
                 X[:, i] = self._standardize_continuous(X, i)
         return X.astype(np.float64)
 
+    def loss(self, w_and_b, X, ymat):
+        """
+        Return the value of the loss function.
+        """
+        w = w_and_b[:-1]
+        w = w.reshape((np.product(w.shape), 1))
+        b = w_and_b[-1]
+
+        # (k by 1) = (k by n) dot (n by 1)
+        dotprod = np.dot(X, w)
+        # still (k by 1)
+        log = np.log(1 + np.exp(- ymat * (dotprod + b)))
+        # now a scalar
+        log_sum = log.sum()
+        # loss = (1/2) lambda ||w||^2 + sum log( 1 + exp(...))
+        loss = 0.5 * self._lambda * np.dot(w.T, w) + log_sum
+        return loss
+
+    def jac(self, w_and_b, X, ymat):
+        """
+        Return the Jacobian (gradient) of the loss function.
+        """
+        w = w_and_b[:-1]
+        w = w.reshape((w.shape[0], 1))
+        b = w_and_b[-1]
+
+        # Gradient formulae:
+        # - For weights:
+        #   \frac{dL}{dw} = \frac{1}{1+e^{y_i(w \cdot x_i + b)}} (-y_i x_i)
+        # - For b:
+        #   \frac{dL}{db} = \frac{1}{1+e^{y_i(w \cdot x_i + b)}} (-y_i)
+        # This is summed up for each example, multiplied by C, and then the
+        # penalty term is added.
+
+        # (k by 1) = (k by n) dot (n by 1)
+        dotprod = np.dot(X, w)
+        # (k by 1) still
+        fraction = 1/(1 + np.exp(ymat * (dotprod + b))) * (-ymat)
+        # GRADIENT FOR W: (k by n) again
+        wgrad = fraction * X
+        # sum across the k examples to get (n) length vector
+        wgrad = wgrad.sum(axis=0)
+        # bring it back to an (n by 1) matrix
+        wgrad = wgrad.reshape(wgrad.shape[0], 1)
+        # now weight decay term and lambda
+        wgrad = wgrad + self._lambda * w
+        # GRADIENT FOR B: (k by 1)
+        bgrad = fraction
+        # Sum over all k, multiply by lambda
+        bgrad = bgrad.sum()
+
+        return np.append(wgrad.reshape(wgrad.shape[0]), [bgrad])
+
     def fit(self, X, y):
         """
         Fit the logistic regression classifier to data.
@@ -80,71 +127,36 @@ class LogisticRegression(object):
         """
         self._means = np.mean(X, 0)
         self._stds = np.std(X, 0)
+
+        Xold = X
         X = self._standardize_inputs(X)
         ymat = y.reshape((y.shape[0], 1))
 
         if self._lambda is None:
             self._lambda = internal_cross_validation(
                 LogisticRegression, {'schema': self._schema}, 'lambda',
-                [0, 0.001, 0.01, 0.1, 1, 10, 100], 'accuracy', X, y
+                [0, 0.001, 0.01, 0.1, 1, 10, 100], 'auc', Xold, y
             )
 
-        # Gradient formulae:
-        # - For weights:
-        #   \frac{d}{dw} = \frac{1}{1+e^{y_i(w \cdot x_i + b)}} (-y_i x_i)
-        # - For b:
-        #   \frac{d}{dw} = \frac{1}{1+e^{y_i(w \cdot x_i + b)}} (-y_i)
-        # This is summed up for each example, multiplied by C, and then the
-        # penalty term is added.
+        optres = scipy.optimize.minimize(self.loss,
+                                         np.append(self._w, [self._b]),
+                                         args=(X, ymat), jac=self.jac,
+                                         method='CG')
 
-        # We will break out of this loop by checking termination condition at
-        # bottom.
-        while True:
-            # (k by 1) = (k by n) dot (n by 1)
-            dotprod = np.dot(X, self._w)
-            # (k by 1) still
-            fraction = 1/(1 + ymat * np.exp(dotprod + self._b)) * (-ymat)
-            # GRADIENT FOR W: (k by n) again
-            wgrad = fraction * X
-            # sum across the k examples to get (n) length vector
-            wgrad = wgrad.sum(axis=0)
-            # bring it back to an (n by 1) matrix
-            wgrad = wgrad.reshape(wgrad.shape[0], 1)
-            # now weight decay term and lambda
-            wgrad = wgrad + self._lambda * self._w
-            # GRADIENT FOR B: (k by 1)
-            bgrad = fraction
-            # Sum over all k, multiply by lambda, and add in weight decay term
-            bgrad = bgrad.sum() + self._lambda * self._b
-
-            # Do the parameter update.
-            self._w = self._w - self._eta * wgrad
-            self._b = self._b - self._eta * bgrad
-
-            # Check for termination condition.
-            l1norm = np.abs(wgrad).sum() + np.abs(bgrad)
-            #print(wgrad.reshape(wgrad.shape[0]))
-            #print('%r, %r' % (l1norm, bgrad))
-            if np.all(np.abs(wgrad) < self._cutoff) and \
-               np.abs(bgrad) < self._cutoff:
-                break
+        self._w = optres.x[:-1]
+        self._w = self._w.reshape((self._w.shape[0], 1))  # make it a matrix
+        self._b = optres.x[-1]
 
     def predict(self, X):
+        """Return a vector of -1/+1 predictions."""
         rv = np.where(self.predict_proba(X) > 0.5, 1, -1)
-        ## The following code checks the predict_proba output by computing wx +
-        ## b > 0.  Just as a sanity check.
-        # rv2 = np.where(np.dot(X, self._w) + self._b > 0, 1, -1)
-        # rv2 = rv2.reshape(rv.shape[0])
-        # if np.any(rv != rv2):
-        #     print('badness!')
-        #     print(rv2)
         return rv
 
     def predict_proba(self, X):
+        """Return the probability of positive."""
         X = self._standardize_inputs(X)
         p_pos = (1 / (1 + np.exp(-np.dot(X, self._w) - self._b)))
         p_neg = (1 / (1 + np.exp(np.dot(X, self._w) + self._b)))
         rv_mat = p_pos / (p_pos + p_neg)
         rv = rv_mat.reshape(rv_mat.shape[0])
-        #print(rv)
         return rv
