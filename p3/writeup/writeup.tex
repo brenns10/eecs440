@@ -1,0 +1,126 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Programming 3}
+\duedate{October 29, 2015}
+
+\usepackage{hyperref}
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \section{Implementation Commentary}
+
+  \subsection{Na\"{i}ve Bayes}
+
+  The implementation of Na\"{i}ve Bayes is fairly straightforward compared to
+  the artificial neural networks of the previous assignment.  The training phase
+  is especially so.  I didn't encounter any issues with this implementation.
+
+  \subsection{Logistic Regression}
+
+  The implementation of logistic regression was only slightly more difficult
+  than the Na\"ive Bayes implementation.  In this, we were required to minimize
+  the loss function:
+
+  \begin{equation}
+    L(\vec{w},b) = \frac{1}{2} \lambda ||\vec{w}||^2 + \sum_{i} \log \left(1 + e^{-y_i(\vec{w}\cdot\vec{x} + b)}\right)
+  \end{equation}
+
+  I computed the following partial derivative (for each $w_j$):
+
+  \begin{equation}
+    \frac{\partial L}{\partial w_J} = \lambda w_j + \sum_{i} \frac{1}{1 + e^{y_i(\vec{w}\cdot\vec{x_i} + b)}} (-y_i x_{ij})
+  \end{equation}
+
+  And this partial derivative for $b$:
+
+  \begin{equation}
+    \frac{\partial L}{\partial b} = \sum_{i} \frac{1}{1 + e^{y_i(\vec{w}\cdot\vec{x_i} + b)}} (-y_i)
+  \end{equation}
+
+  Initially, I tried implementing my own gradient descent.  However, after much
+  fiddling of the step size and termination conditions without successful
+  results, I decided that I should use a NumPy/SciPy minimization routine.  I
+  implemented both the loss function and the gradient as Python functions, and
+  used the \texttt{scipy.optimize.minimize} function.  This is actually a
+  gateway to a number of different minimization algorithms.  I tried three:
+  ``CG'', ``BFGS'', and ``Netwon-CG'' (documented with references in
+  \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html}{SciPy's
+    documentation}).  I discovered that all except ``Newton-CG'' gave strange
+  errors and floating point overflow messages, so I stuck with ``Newton-CG''.
+
+  \subsection{Internal Cross Validation}
+
+  I was able to implement internal cross validation very simply.  I wrote a
+  generic \texttt{internal\_cross\_validation()} function that trains and tests
+  a classifier for each parameter value in a range, using 5-fold validation.  It
+  chooses the best parameter value using any statistic you'd like (I use AUC
+  throughout) and returns it.  Since the function just takes the class name of
+  the classifier, I was able to add in internal cross validation through a
+  single function call in both classifiers' \texttt{fit()} methods.
+
+  \subsection{Command Line Interface}
+
+  I made some modifications to the command line interface (as mentioned in an
+  email conversation).  However, these make \textit{no impact} on the prescribed
+  behavior in the assignment.
+
+  \begin{itemize}
+  \item The command line parameter \texttt{--m\_value [n]} can specify the
+    parameter \texttt{m} for the \texttt{NaiveBayes} classifier.  If
+    unspecified, \texttt{m} takes a value of \texttt{None}, which causes the
+    classifier to use internal cross validation (as expected).
+  \item Similarly, the command line parameter \texttt{--lambda} defaults to
+    \texttt{None} instead of the number it defaulted to before.  This will
+    trigger internal cross validation (as required by the assignment).  However,
+    you can also override internal cross validation by providing
+    \texttt{--lambda [n]} on the command line.
+  \end{itemize}
+
+  \section{Questions}
+
+  \begin{problem}{a}
+    \begin{question}
+      What is the accuracy of Na\"ive Bayes and logistic regression on the
+      different learning problems?  For each problem, perform a $t$ test to
+      determine if either is superior with 95\% confidence.
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{b}
+    \begin{question}
+      Compare these two methods with your previously implemented methods (trees,
+      perceptrons, ANNs).  Discuss which, if any, seems to be better on the
+      provided learning problems in terms of (i) accuracy, precision, recall,
+      and the area under ROC, (ii) runtime, and (iii) code complexity and
+      difficulty of implementation.  Note that this question is about
+      \textit{general trends}--it may not happen that any one algorithm will
+      turn out to be superior across all problems (cf. the NFL theorem).  So use
+      your judgment to determine ``betterness.''  For methods that appear about
+      equal in terms of accuracy, look at the precision and recall and try to
+      explain any patterns you see.
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{c}
+    \begin{question}
+      Plot the choices of $m$ and $\lambda$ for the different folds and datasets
+      on a graph with the datasets on the x-axis, the average choice on the
+      y-axis with max and min values indicating the max and min choices on that
+      dataset.  Use a log-scale for the y-axis.  Discuss what these choices
+      imply about the data and the algorithms.
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{d}
+    \begin{question}
+      Compare the performance of the tuned classifiers with the MLE classifiers.
+      Do you notice a benefit to tuning the parameters in this way?
+    \end{question}
+  \end{problem}
+
+\end{document}
