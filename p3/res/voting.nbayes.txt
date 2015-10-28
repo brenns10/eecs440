@@ -1,0 +1,82 @@
+$ python2 main.py --dataset_directory data --dataset voting nbayes
+{'m_value': None, 'classifier': 'nbayes', 'schema': <data.Schema object at 0x7fd7511dcf10>}
+/usr/lib/python2.7/site-packages/numpy/lib/shape_base.py:431: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`, which always has a shape of (0,).
+  FutureWarning)
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.9999509419152276 for param m_value=0
+internal-cv gets auc=0.99993458922030354 for param m_value=0.001
+internal-cv gets auc=0.99993458922030354 for param m_value=0.001
+internal-cv gets auc=0.99967294610151758 for param m_value=0.1
+internal-cv gets auc=0.99950941915227642 for param m_value=1
+internal-cv gets auc=0.99924777603349035 for param m_value=10
+internal-cv gets auc=0.99787414965986432 for param m_value=100
+internal-cv gets argmax=0
+internal-cv selects m_value=0
+{'m_value': None, 'classifier': 'nbayes', 'schema': <data.Schema object at 0x7fd7511dcf10>}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.99206271435570959 for param m_value=0
+internal-cv gets auc=0.99441450269475917 for param m_value=0.001
+internal-cv gets auc=0.99441450269475917 for param m_value=0.001
+internal-cv gets auc=0.99412052915237803 for param m_value=0.1
+internal-cv gets auc=0.99379389188306544 for param m_value=1
+internal-cv gets auc=0.99346725461375285 for param m_value=10
+internal-cv gets auc=0.99271598889433377 for param m_value=100
+internal-cv gets argmax=1
+internal-cv selects m_value=0.001
+{'m_value': None, 'classifier': 'nbayes', 'schema': <data.Schema object at 0x7fd7511dcf10>}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.98499101747509543 for param m_value=0
+internal-cv gets auc=0.98739180140454186 for param m_value=0.001
+internal-cv gets auc=0.98739180140454186 for param m_value=0.001
+internal-cv gets auc=0.98706516413522949 for param m_value=0.1
+internal-cv gets auc=0.98843704066634153 for param m_value=1
+internal-cv gets auc=0.99154009472480931 for param m_value=10
+internal-cv gets auc=0.9908541564592529 for param m_value=100
+internal-cv gets argmax=5
+internal-cv selects m_value=10
+{'m_value': None, 'classifier': 'nbayes', 'schema': <data.Schema object at 0x7fd7511dcf10>}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.96919810550383667 for param m_value=0
+internal-cv gets auc=0.9879470847623717 for param m_value=0.001
+internal-cv gets auc=0.9879470847623717 for param m_value=0.001
+internal-cv gets auc=0.98853503184713465 for param m_value=0.1
+internal-cv gets auc=0.98895966029724114 for param m_value=1
+internal-cv gets auc=0.99203005062877758 for param m_value=10
+internal-cv gets auc=0.99176874081332778 for param m_value=100
+internal-cv gets argmax=5
+internal-cv selects m_value=10
+{'m_value': None, 'classifier': 'nbayes', 'schema': <data.Schema object at 0x7fd7511dcf10>}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.98802874407970132 for param m_value=0
+internal-cv gets auc=0.99279764821166272 for param m_value=0.001
+internal-cv gets auc=0.99279764821166272 for param m_value=0.001
+internal-cv gets auc=0.99237301976155645 for param m_value=0.1
+internal-cv gets auc=0.99171974522293138 for param m_value=1
+internal-cv gets auc=0.99188306385758762 for param m_value=10
+internal-cv gets auc=0.99132778049975623 for param m_value=100
+internal-cv gets argmax=1
+internal-cv selects m_value=0.001
+      Accuracy: 0.968 0.026
+     Precision: 0.975 0.026
+        Recall: 0.955 0.066
+Area under ROC: 0.967
