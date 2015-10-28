@@ -16,7 +16,7 @@ import numpy as np
 # this file.
 log = logging.getLogger('util')
 log.addHandler(logging.StreamHandler())
-log.setLevel(logging.INFO)
+log.setLevel(logging.DEBUG)
 
 
 def internal_cross_validation(cls, kwargs, paramname, paramrange, statistic,
@@ -56,6 +56,7 @@ def internal_cross_validation(cls, kwargs, paramname, paramrange, statistic,
             predictions = classifier.predict(test_X)
             scores = classifier.predict_proba(test_X)
             stats_manager.add_fold(test_y, predictions, scores, train_time)
+        log.debug('internal-cv: fold completed')
 
     # Get values for our statistic of interest.
     stat_values = []
