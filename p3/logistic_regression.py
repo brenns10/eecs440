@@ -141,7 +141,7 @@ class LogisticRegression(object):
         optres = scipy.optimize.minimize(self.loss,
                                          np.append(self._w, [self._b]),
                                          args=(X, ymat), jac=self.jac,
-                                         method='CG')
+                                         method='Newton-CG')
 
         self._w = optres.x[:-1]
         self._w = self._w.reshape((self._w.shape[0], 1))  # make it a matrix
