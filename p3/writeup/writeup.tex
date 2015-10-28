@@ -89,6 +89,80 @@
       different learning problems?  For each problem, perform a $t$ test to
       determine if either is superior with 95\% confidence.
     \end{question}
+
+    The following table summarizes one run of 5-fold cross validation on each
+    combination of dataset and algorithm.
+
+    \vspace{0.3cm}
+    \begin{tabular}{rrr}
+      \hline
+      Dataset & Na\"ive Bayes & Logistic Regression \\
+      \hline
+      Voting & 0.968 (0.026) & 0.986 (0.005) \\
+      Spam & 0.705 (0.006) & 0.706 (0.002) \\
+      Volcanoes & 0.633 (0.016) & 0.734 (0.020) \\
+      \hline
+    \end{tabular}
+    \vspace{0.3cm}
+
+    Since the data above were not gathered using the same folds, we must perform
+    an independent two-sample $t$ test (rather than the dependent one presented
+    in the slides).  The $t$ test requires the use of the corrected sample
+    standard deviation, while the values given above are uncorrected.  The
+    difference being that corrected sample standard deviation has the following
+    formula:
+
+    \begin{equation}
+      s = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2}
+    \end{equation}
+
+    While the uncorrected standard deviation (presented in the table above) has
+    the formula:
+
+    \begin{equation}
+      s = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2}
+    \end{equation}
+
+    To correct this. we multiply each standard deviation by
+    $\sqrt{\frac{n}{n-1}} = \sqrt{\frac{5}{4}}$ to obtain the $s$ test
+    statistic.  The corrected values of $s$ are presented in the table below:
+
+    \vspace{0.3cm}
+    \begin{tabular}{rrr}
+      \hline
+      Dataset & Na\"ive Bayes & Logistic Regression \\
+      \hline
+      Voting & 0.0291 & 0.0058 \\
+      Spam & 0.0067 & 0.0022 \\
+      Volcanoes & 0.0179 & 0.0224 \\
+      \hline
+    \end{tabular}
+    \vspace{0.3cm}
+
+    To compute the 95\% confidence interval for the difference between the
+    accuracy of na\"ive Bayes and logistic regression, we compute
+    $Acc_{NB} - Acc_{LR} \pm t_{95\%,2n-2} \sqrt{s_{NB}^2 + s_{LR}^2} *
+    \sqrt{\frac{1}{n}}$,
+    where $n$ is the number of folds, which is 5.  Also, $t_{95\%,8} = 2.306$.
+    The confidence intervals are presented in the table below:
+
+    \vspace{0.3cm}
+    \begin{tabular}{rl}
+      \hline
+      Dataset & Confidence Interval \\
+      \hline
+      Voting & $0.968 - 0.986 \pm 2.306 * 0.013 \to [-0.049, +0.013]$ \\
+      Spam & $0.705 - 0.706 \pm 2.306 * 0.003 \to [-0.008, +0.006]$ \\
+      Volcanoes & $0.633 - 0.734 \pm 2.306 * 0.013 \to [-0.131, -0.071]$ \\
+      \hline
+    \end{tabular}
+    \vspace{0.3cm}
+
+    Since 0 is only contained in the confidence interval for Volcanoes, we can
+    only reject the null hypothesis (that both algorithms perform the same) on
+    Volcanoes.  This shows that Logistic Regression is probably better for
+    Volcanoes than Na\"ive Bayes.
+
   \end{problem}
 
   \begin{problem}{b}
