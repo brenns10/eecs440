@@ -1,0 +1,82 @@
+sbrennan@intractable:~/repos/eecs440/p3:master$ python3 main.py --dataset_directory ../data --dataset volcanoes logistic_regression
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:430: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`, which always has a shape of (0,).
+  FutureWarning)
+{'lambda': None, 'schema': <data.Schema object at 0x7f900bf7b908>, 'classifier': 'logistic_regression'}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.69256278538812743 for param lambda=0
+internal-cv gets auc=0.6925813356164382 for param lambda=0.001
+internal-cv gets auc=0.69258704337899502 for param lambda=0.01
+internal-cv gets auc=0.69266124429223852 for param lambda=0.1
+internal-cv gets auc=0.69253424657534313 for param lambda=1
+internal-cv gets auc=0.6946561073059353 for param lambda=10
+internal-cv gets auc=0.69262414383561677 for param lambda=100
+internal-cv gets argmax=5
+internal-cv selects lambda=10
+{'lambda': None, 'schema': <data.Schema object at 0x7f900bf7b908>, 'classifier': 'logistic_regression'}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.71088319088319274 for param lambda=0
+internal-cv gets auc=0.71087891737891917 for param lambda=0.001
+internal-cv gets auc=0.71142165242165245 for param lambda=0.01
+internal-cv gets auc=0.71087464387464572 for param lambda=0.1
+internal-cv gets auc=0.71087891737891917 for param lambda=1
+internal-cv gets auc=0.71291310541310393 for param lambda=10
+internal-cv gets auc=0.71258831908831755 for param lambda=100
+internal-cv gets argmax=5
+internal-cv selects lambda=10
+{'lambda': None, 'schema': <data.Schema object at 0x7f900bf7b908>, 'classifier': 'logistic_regression'}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.68456410256410338 for param lambda=0
+internal-cv gets auc=0.6854615384615379 for param lambda=0.001
+internal-cv gets auc=0.68457122507122536 for param lambda=0.01
+internal-cv gets auc=0.68549999999999944 for param lambda=0.1
+internal-cv gets auc=0.68548717948717874 for param lambda=1
+internal-cv gets auc=0.68454843304843349 for param lambda=10
+internal-cv gets auc=0.68430911680911632 for param lambda=100
+internal-cv gets argmax=3
+internal-cv selects lambda=0.1
+{'lambda': None, 'schema': <data.Schema object at 0x7f900bf7b908>, 'classifier': 'logistic_regression'}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.71299857549857415 for param lambda=0
+internal-cv gets auc=0.71299572649572529 for param lambda=0.001
+internal-cv gets auc=0.71229202279202186 for param lambda=0.01
+internal-cv gets auc=0.71299145299145172 for param lambda=0.1
+internal-cv gets auc=0.71228205128205013 for param lambda=1
+internal-cv gets auc=0.71298575498575367 for param lambda=10
+internal-cv gets auc=0.7137763532763528 for param lambda=100
+internal-cv gets argmax=6
+internal-cv selects lambda=100
+{'lambda': None, 'schema': <data.Schema object at 0x7f900bf7b908>, 'classifier': 'logistic_regression'}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.67796011396011258 for param lambda=0
+internal-cv gets auc=0.67796011396011258 for param lambda=0.001
+internal-cv gets auc=0.67796011396011258 for param lambda=0.01
+internal-cv gets auc=0.67796011396011258 for param lambda=0.1
+internal-cv gets auc=0.67796153846153739 for param lambda=1
+internal-cv gets auc=0.67796581196581063 for param lambda=10
+internal-cv gets auc=0.67795014245014162 for param lambda=100
+internal-cv gets argmax=5
+internal-cv selects lambda=10
+      Accuracy: 0.734 0.020
+     Precision: 0.624 0.040
+        Recall: 0.473 0.032
+Area under ROC: 0.705
