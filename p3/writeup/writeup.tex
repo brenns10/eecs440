@@ -318,6 +318,46 @@
       Compare the performance of the tuned classifiers with the MLE classifiers.
       Do you notice a benefit to tuning the parameters in this way?
     \end{question}
+
+    I assume the meaning of this question is internal cross validation versus
+    just setting the parameter of interest to 0.  Below, I've recorded
+    performance information for na\"ive Bayes with $m=0$.
+
+    \vspace{0.3cm}
+    \begin{tabular}{rrrrr}
+      \hline
+      Dataset & Accuracy & Precision & Recall & AUC \\
+      \hline
+      Voting & 0.984 $\pm$ 0.012 & 0.985 $\pm$ 0.020 & 0.979 $\pm$ 0.010 & 0.994 \\
+      Spam & 0.705 $\pm$ 0.003 & 0.743 $\pm$ 0.002 & 0.808 $\pm$ 0.005 & 0.751 \\
+      Volcanoes & 0.645 $\pm$ 0.019 & 0.473 $\pm$ 0.019 & 0.758 $\pm$ 0.049 & 0.703 \\
+      \hline
+    \end{tabular}
+    \vspace{0.3cm}
+
+    The MLE classifier has a better performance in every statistic for voting,
+    nearly identical for spam, and split for volcanoes.  I wouldn't say that I
+    see a benefit to the tuned parameters in this case.
+
+    Below is the performance for the classifier for logistic regression with
+    $\lambda=0$.
+
+    \vspace{0.3cm}
+    \begin{tabular}{rrrrr}
+      \hline
+      Dataset & Accuracy & Precision & Recall & AUC \\
+      \hline
+      Voting & 0.986 $\pm$ 0.013 & 0.985 $\pm$ 0.020 & 0.985 $\pm$ 0.021 & 0.985 \\
+      Spam & 0.706 $\pm$ 0.004 & 0.728 $\pm$ 0.003 & 0.848 $\pm$ 0.003 & 0.742 \\
+      Volcanoes & 0.740 $\pm$ 0.009 & 0.639 $\pm$ 0.021 & 0.482 $\pm$ 0.053 & 0.703 \\
+      \hline
+    \end{tabular}
+    \vspace{0.3cm}
+
+    Voting performs moderately better tuned, spam displays no difference at all,
+    and volcanoes also performs moderately better tuned.  In this case, there
+    may be a very small benefit to tuning (which also seems to echo the
+    parameter choices in the graph above).
   \end{problem}
 
 \end{document}
