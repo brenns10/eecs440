@@ -1,0 +1,86 @@
+sbrennan@intractable:~/repos/eecs440/p3:master$ python3 main.py --dataset_directory ../data --dataset voting logistic_regression
+{'lambda': None, 'schema': <data.Schema object at 0x7fcb0270e940>, 'classifier': 'logistic_regression'}
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:430: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`, which always has a shape of (0,).
+  FutureWarning)
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.98886166911644668 for param lambda=0
+internal-cv gets auc=0.99129511677282434 for param lambda=0.001
+internal-cv gets auc=0.99364690511187381 for param lambda=0.01
+internal-cv gets auc=0.99400620610811763 for param lambda=0.1
+internal-cv gets auc=0.99498611791605507 for param lambda=1
+internal-cv gets auc=0.99573738363547359 for param lambda=10
+internal-cv gets auc=0.99544341009309256 for param lambda=100
+internal-cv gets argmax=5
+internal-cv selects lambda=10
+{'lambda': None, 'schema': <data.Schema object at 0x7fcb0270e940>, 'classifier': 'logistic_regression'}
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:430: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`, which always has a shape of (0,).
+  FutureWarning)
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.99157275845174009 for param lambda=0
+internal-cv gets auc=0.9926179977135402 for param lambda=0.001
+internal-cv gets auc=0.99565572431814586 for param lambda=0.01
+internal-cv gets auc=0.99892209701126955 for param lambda=0.1
+internal-cv gets auc=0.998987424465132 for param lambda=1
+internal-cv gets auc=0.99872611464968208 for param lambda=10
+internal-cv gets auc=0.99804017638412568 for param lambda=100
+internal-cv gets argmax=4
+internal-cv selects lambda=1
+{'lambda': None, 'schema': <data.Schema object at 0x7fcb0270e940>, 'classifier': 'logistic_regression'}
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:430: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`, which always has a shape of (0,).
+  FutureWarning)
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.98994309262166447 for param lambda=0
+internal-cv gets auc=0.99219976452119363 for param lambda=0.001
+internal-cv gets auc=0.99213435374149705 for param lambda=0.01
+internal-cv gets auc=0.99494701726844648 for param lambda=0.1
+internal-cv gets auc=0.99517595499738454 for param lambda=1
+internal-cv gets auc=0.99494701726844692 for param lambda=10
+internal-cv gets auc=0.99491431187859847 for param lambda=100
+internal-cv gets argmax=4
+internal-cv selects lambda=1
+{'lambda': None, 'schema': <data.Schema object at 0x7fcb0270e940>, 'classifier': 'logistic_regression'}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.99193205944798346 for param lambda=0
+internal-cv gets auc=0.9931732810713706 for param lambda=0.001
+internal-cv gets auc=0.99369590070227087 for param lambda=0.01
+internal-cv gets auc=0.99591703413359545 for param lambda=0.1
+internal-cv gets auc=0.99565572431814553 for param lambda=1
+internal-cv gets auc=0.9947738036910021 for param lambda=10
+internal-cv gets auc=0.993826555609996 for param lambda=100
+internal-cv gets argmax=3
+internal-cv selects lambda=0.1
+{'lambda': None, 'schema': <data.Schema object at 0x7fcb0270e940>, 'classifier': 'logistic_regression'}
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv: fold completed
+internal-cv gets auc=0.98716315531602239 for param lambda=0
+internal-cv gets auc=0.99291197125592112 for param lambda=0.001
+internal-cv gets auc=0.99434917524089605 for param lambda=0.01
+internal-cv gets auc=0.99506777723338347 for param lambda=0.1
+internal-cv gets auc=0.99500244977952101 for param lambda=1
+internal-cv gets auc=0.9944145026947584 for param lambda=10
+internal-cv gets auc=0.99389188306385845 for param lambda=100
+internal-cv gets argmax=3
+internal-cv selects lambda=0.1
+      Accuracy: 0.986 0.005
+     Precision: 0.990 0.012
+        Recall: 0.980 0.019
+Area under ROC: 0.997

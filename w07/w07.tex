@@ -1,0 +1,174 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 7}
+\duedate{October 13, 2015}
+
+\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      A binary classifier is tested on $N$ independent test sets.  The
+      classifier makes $r_i$ errors on the $i\textsuperscript{th}$ set, which
+      has size $n_i$.  Find the maximum likelihood estimate of the true error
+      rate of the classifier. (10 points)
+    \end{question}
+
+    For each test set, the sampling distribution is binomial with parameters
+    $n_i$ and $e_D$.  We would like to find the estimate of $e_D$ that maximizes
+    the likelihood of the observed values $r_i$.  If $N=1$, the maximum
+    likelihood estimate of $e_D$ would simply be $\frac{r_i}{n_i}$.  However,
+    for $N>1$, we must pick an estimate of $e_D$ that maximizes the likelihood
+    of \textit{all} of the observed errors.  Let us refer to each sampling
+    distribution as $R_i$.  In mathematical terms, we are looking for the
+    following estimate of $e_D$:
+
+    \begin{align}
+      e_D &= \arg \max_p Pr\{R_1 = r_1 | n_1, p; R_2 = r_2 | n_2, p; \dots; R_N =
+        r_N | n_N, p\} \label{eq:p1-and} \\
+      &= \arg \max_p \prod_{i=1}^N Pr\{R_i = r_i | n_i, p\} \label{eq:p1-prod} \\
+      &= \arg \max_p \prod_{i=1}^N \binom{n_i}{r_i}
+        p^{r_i}(1-p)^{n_i-r_i} \label{eq:p1-binom} \\
+      &= \arg \max_p \prod_{i=1}^N p^{r_i}(1-p)^{n_i-r_i}  \\
+      &= \arg \max_p \sum_{i=1}^N \ln (p^{r_i} (1-p)^{n_i-r_i}) \label{eq:p1-sum}\\
+      &= \arg \max_p \sum_{i=1}^N (r_i) \ln p + (n_i-r_i) \ln(1-p) \label{eq:p1-mid}
+    \end{align}
+
+    We can make the step from Equation~\ref{eq:p1-and} to
+    Equation~\ref{eq:p1-prod} because the test sets are independent.  We can
+    eliminate the binomial coefficient in Equation~\ref{eq:p1-binom} because it
+    is constant and won't affect the arg max.  Finally, we can switch to a sum
+    of logarithms in Equation~\ref{eq:p1-sum} because the logarithm is an
+    increasing function and whatever value of $p$ maximizes the logarithm will
+    maximize the original function.
+
+    Next, we let $R_T = \sum_{i=1}^{N} r_i$, and $N_T = \sum_{i=1}^N n_i$.  For
+    simplicity of notation, we call the function we are looking to find the
+    argmax of (in Equation~\ref{eq:p1-mid}) $z(p)$.  In order to maximize $z$,
+    we take the derivative of $z$ and look for critical points:
+
+    \begin{align}
+      \frac{dz}{dp} = \frac{d}{dp} \left( R_T \ln p + (N_T-R_T)\ln(1-p) \right)
+      &= 0 \\
+      \frac{R_T}{p} - \frac{N_T-R_T}{1-p} &= 0 \\
+      R_T(1-p) &= p(N_T - R_T) \\
+      R_T - R_T p &= N_T p - R_T p \\
+      \frac{R_T}{N_T} &= p
+    \end{align}
+
+    To ensure that this value of $p$ is the value that maximizes $z$, we must
+    perform the second derivative test to ensure that $\frac{d^2z}{dp^2} < 0$.
+
+    \begin{align}
+      \frac{d^2z}{dp^2} = -\frac{R_T}{p^2} - \frac{N_T - R_T}{(1-p)^2}
+      &\overset{?}{<} 0 \\
+      \frac{R_T}{\left(\frac{R_T^2}{N_T^2}\right)} - \frac{N_T -
+      R_T}{\left(\frac{(N_T-R_T)^2}{N_T^2}\right)} &\overset{?}{<} 0 \\
+      -\frac{N_T^2}{R_T} - \frac{N_T^2}{N_T-R_T} < 0
+    \end{align}
+
+    The second derivative test shows that this is indeed a maximum, and
+    therefore $e_D = \frac{R_T}{N_T}$ is the maximum likelihood parameter
+    estimate.
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      Two classifiers $A$ and $B$ are evaluated on samples of size $n$ and found
+      to have error rates $e_A$ and $e_B$ such that $e_A - e_B = 0.1$.  If the
+      true error rates of $A$ and $B$ are indeed different, how large does $n$
+      have to be to \textbf{guarantee} we can establish the difference at a 95\%
+      confidence level? (10 points)
+    \end{question}
+
+    In order to establish the difference at a 95\% confidence level, we must
+    have $0.1 - 1.96\sigma > 0$:
+
+    \begin{align}
+      \sigma &< \frac{0.1}{1.96} \\
+      Var(Err_A - Err_B) &< \frac{0.1^2}{1.96^2} \\
+      \frac{e_A(1-e_A) + e_B(1-e_B)}{n} &< \frac{0.1^2}{1.96^2} \\ 
+    \end{align}
+
+    First, we note that this variance is never negative, so we do not need to
+    consider the second case of the inequality caused by the square root.  By
+    experience, we know that expression $p(1-p)$ is maximized when $p=0.5$, so
+    to guarantee the inequality holds:
+
+    \begin{align}
+      \frac{0.5}{n} &< \frac{0.1^2}{1.96^2} \\
+      n &> \frac{0.5 * 1.96^2}{0.1^2} \\
+      n &> 434.16
+    \end{align}
+  \end{problem}
+
+  So, a sample of size 435 or greater would guarantee that we can establish the
+  difference with 95\%.
+
+  \begin{problem}{3}
+    \begin{question}
+      Professor X tests a classifier on a test set of size $n$ and determines
+      the $C\%$ confidence interval to be $(a,b)$.  Professor Y performs an
+      independent test of the same classifier with another test set of size $n$.
+      What is the probability that the sample error rate found by Y will lie in
+      $(a,b)$? (10 points)
+    \end{question}
+
+    When Professor X creates a $C\%$ confidence interval of $(a,b)$, this means
+    that the classifier's true error rate will lie within $(a,b)$ with $C\%$
+    probability.  This is not the same as saying that the sample error rate on
+    an independent sample will lie within $(a,b)$ with that same probability.
+
+    The true parameter values of the sampling distribution of the classifier on
+    a sample of size $n$ could be used to give us the probability we're looking
+    for.  However, the only estimates of these parameter values are the ones we
+    have from Professor X's maximum likelihood estimate.  So, the only answer we
+    can give is to use those parameter estimates, giving us a $C\%$ probability
+    that the sample error rate found by Y will lie in the confidence interval.
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      A revolutionary new classifier, the Bayesian Deep Kernel Support Neural
+      Tree Machine, has been invented.  Professors Bayesian Bob and Neural Nan
+      have independently evaluated such a classifier on test sets of size $n$.
+      Over dinner, they share their confidence interval findings with each
+      other.  Unfortunately, they are overheard by Professor Band Wagon, who
+      wants to scoop them without doing the experiment.  What is the best
+      confidence interval that Professor Wagon could report that would be
+      consistent with Profs. Bob and Nan's findings? (10 points)
+    \end{question}
+
+    If Profs. Bob and Nan's confidence intervals overlapped, Professor Wagon
+    could give either a $C^2\%$ confidence interval that was the intersection of
+    the two intervals, or a $(1-C)^2\%$ confidence interval that was the union
+    of the two intervals.  Otherwise, Professor Wagon must give both confidence
+    intervals, as he (or she) can't infer a better one.
+  \end{problem}
+
+  \begin{problem}{5}
+    \begin{question}
+      The maximum margin formulation for a linear classifier does not include
+      $b$, the constant term, in the objective.  In other words, the choice of
+      $b$ plays no role in improving generalizing ability.  Explain intuitively
+      why this makes sense. (10 points)
+    \end{question}
+
+    When we train a linear classifier, we look for values of the parameters
+    $\vec{w}$ and $b$ that satisfy certain constraints.  The constraints are
+    that for positive examples $\vec{w}\cdot\vec{x} + b \ge 1$, and for negative
+    examples $\vec{w}\cdot\vec{x} + b \le -1$.  We aim to maximize the margin
+    (i.e. distance) between these two planes.  When you think of computing the
+    distance between the two planes, you think of subtracting, and it
+    intuitively makes sense that the value for $b$ would cancel out as you
+    determine this distance.  So if you believe that maximizing margin means
+    maximizing generalizing ability, it should make sense that $b$ doesn't
+    matter for that.
+ \end{problem}
+
+\end{document}
