@@ -1,0 +1,58 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 8}
+\duedate{November 3, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      Consider a modified SVM formulation derived using the plus-plane at
+      $\vec{w}\cdot\vec{x} + b = c_1$ and the minus-plane at
+      $\vec{w}\cdot\vec{x}+b=c_2$, $c_1>0$, $c_2<0$, $c_1 \ne -c_2$.  Explain
+      the relationship between the decision surface obtained in this case and
+      the decision surface obtained when $c_1 = -c_2$.  When would we prefer one
+      over the other? (10 points.)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      For a constrained programming problem $\min_w f(w)$, s.t. $g_i(w) \le 0$,
+      $h_j(w) = 0$, the generalized Lagrangian is defined by
+      $L(w, \alpha, \beta) = f(w) + \sum a_i g_i(w) + \sum \beta_j h_j(w)$,
+      $\alpha_i \ge 0$.  A primal linear program is a constrained program of the
+      form: $\min_x c'x$ s.t. $Ax \ge b, x \ge 0$.  Using the generalized
+      Lagrangian, show that the \textit{dual form} of the primal LP is
+      $\max_u b' u$, s.t. $A' u \le c$, $u \ge 0$. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Write down a linear program that, when solved, will yield a
+      \textit{perceptron} that is as accurate as possible on an arbitrary
+      training sample.  Explain your formulation.  Derive the dual form of the
+      perceptron and write down an expression for the weights of the perceptron
+      in terms of dot products between examples.  Use this form to propose an
+      alternative perceptron learning algorithm different from the gradient
+      descent procedure we derived in class.  Do you think your procedure will
+      in fact produce the same solution as gradient descent? (15 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      Derive the dual form corresponding to the primal SVM formulation for the
+      linearly \textit{non}-separable case (i.e. with the slack variables). (15
+      points)
+    \end{question}
+  \end{problem}
+
+\end{document}
