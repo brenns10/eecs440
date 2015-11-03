@@ -20,6 +20,26 @@
       the decision surface obtained when $c_1 = -c_2$.  When would we prefer one
       over the other? (10 points.)
     \end{question}
+
+    When you modify the constants $c_1$ and $c_2$ that define the plus and minus
+    planes, in theory this should not modify the locations of the trained plus
+    and minus plane.  Instead, it should just change the choices of $\vec{w}$
+    and $b$ so that the same plus and minus planes are chosen.  When
+    $c_1 = c_2$, this means that the resulting decision surface
+    ($\vec{w}\cdot\vec{x} = 0$), is halfway between plus and minus plane.  When
+    $c_1 \ne c_2$, the decision surface is somewhere not halfway between the
+    plus and minus plane.  When $c_1 > c_2$, the decision surface is translated
+    closer to the minus plane, and when $c_2 > c_1$, the decision surface is
+    translated closer to the plus plane.
+
+    You may prefer a decision surface translated more to the direction of a
+    particular plane if you have some knowledge about the distribution of your
+    training data.  For instance, if you have many more positive examples than
+    negative examples, you are likely to have more outliers in your positive
+    data, which may ``push'' your plus-plane more than the negative examples
+    ``push'' your minus-plane.  In this situation, it may be desirable to have
+    the final decision surface closer to the plus-plane to make the classifier
+    generalizable to a balanced input set.
   \end{problem}
 
   \begin{problem}{2}
