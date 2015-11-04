@@ -5,7 +5,7 @@
 \assignment{Written 8}
 \duedate{November 3, 2015}
 
-%\usepackage{mathtools}
+\usepackage{mathtools}
 %\usepackage{graphicx}
 
 \begin{document}
@@ -46,12 +46,49 @@
     \begin{question}
       For a constrained programming problem $\min_w f(w)$, s.t. $g_i(w) \le 0$,
       $h_j(w) = 0$, the generalized Lagrangian is defined by
-      $L(w, \alpha, \beta) = f(w) + \sum a_i g_i(w) + \sum \beta_j h_j(w)$,
+      $\ell(w, \alpha, \beta) = f(w) + \sum a_i g_i(w) + \sum \beta_j h_j(w)$,
       $\alpha_i \ge 0$.  A primal linear program is a constrained program of the
-      form: $\min_x c'x$ s.t. $Ax \ge b, x \ge 0$.  Using the generalized
+      form: $\min_x c^Tx$ s.t. $Ax \ge b, x \ge 0$.  Using the generalized
       Lagrangian, show that the \textit{dual form} of the primal LP is
-      $\max_u b' u$, s.t. $A' u \le c$, $u \ge 0$. (10 points)
+      $\max_u b^T u$, s.t. $A^T u \le c$, $u \ge 0$. (10 points)
     \end{question}
+
+    We can write the constraints of the linear program as $g_i(\vec{x}) \le 0$,
+    where $g_i(\vec{x}) = - \vec{a_i} \cdot \vec{x} + b_i$.  Here, $\vec{a_i}$
+    stands for row $i$ of the matrix $A$ (as a vector).
+
+    The Lagrangian for the linear programming problem is:
+
+    \begin{align*}
+      \ell(\vec{x}, \vec{\alpha})
+      &= f(x) + \sum_i \alpha_i g_i(x) \\
+      &= c^T \vec{x} + \sum_i \alpha_i (-\vec{a_i} \cdot \vec{x} + b_i) \\
+      &= c^T \vec{x} - \sum_i \alpha_i \vec{a_i} \cdot \vec{x} + \sum_i \alpha_i b_i \\
+      &= c^T \vec{x} - \sum_i \alpha_i \vec{a_i} \cdot \vec{x} + \alpha^T \cdot \vec{b} \\
+    \end{align*}
+
+    Applying the KKT condition that the gradient of the Lagrangian at the
+    solution is zero:
+
+    \begin{align*}
+      \nabla_{\vec{x}}\ell(\vec{x}, \vec{\alpha})
+      = c^T - \sum_i \alpha_i \vec{a_i} &= 0 \\
+      c^T &= \sum_i \alpha_i \vec{a_i}
+    \end{align*}
+
+    Now, we substitute into the Lagrangian to find the objective function of the
+    dual:
+
+    \begin{align*}
+      D(\vec{\alpha}) &= \left(\sum_i \alpha_i \vec{a_i}\right)\vec{x} - \sum_i \alpha_i \vec{a_i} \cdot \vec{x} + b^T \vec{\alpha} \\
+      &= b^T \vec{\alpha} \\
+    \end{align*}
+
+    The dual form of the linear program is therefore $\max_\alpha b^T \alpha$.
+    The constraint $\alpha \ge 0$ is a KKT condition.  I cannot find a
+    justification for the constraint $A^T \alpha \le 0$ using the Generalized
+    Lagrangian, although I know it to be true of the dual of linear programs in
+    this form.
   \end{problem}
 
   \begin{problem}{3}
