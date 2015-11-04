@@ -147,9 +147,78 @@
   \begin{problem}{4}
     \begin{question}
       Derive the dual form corresponding to the primal SVM formulation for the
-      linearly \textit{non}separable case (i.e. with the slack variables). (15
+      linearly \textit{non}-separable case (i.e. with the slack variables). (15
       points)
     \end{question}
+
+    The QP for the linearly non-separable case is as follows:
+
+    \begin{align*}
+      \min_{\vec{w},b,\vec{\xi}} \frac{1}{2} ||\vec{w}||^2 + C \sum_i \xi_i \\
+      \text{s.t. } y_i(\vec{w}\cdot\vec{x}_i + b) + \xi_i \ge 1 \\
+      \text{and } \xi_i \ge 0 \\
+    \end{align*}
+
+    For the purpose of the Lagrangian, the constraints may be in the form of
+    $g_i(\vec{w}, b, \vec{\xi}) \le 0$, where
+    $g(\vec{w}, b, \vec{\xi}) = 1 - y_i (\vec{w} \cdot \vec{x}_i + b) - \xi_i$.
+    Therefore, the Lagrangian is:
+
+    \begin{align*}
+      \ell(\vec{w}, b, \vec{\xi}, \vec{\alpha}) 
+      &= \frac{1}{2}||\vec{w}||^2 + C \sum_i \xi_i + \sum_i
+        \alpha_i(1-y_i(\vec{w}\cdot\vec{x}_i + b) - \xi_i) \\
+      &= \frac{1}{2}||\vec{w}||^2 + C \sum_i \xi_i + \sum_i
+        \alpha_i - \sum_i \alpha_i y_i(\vec{w}\cdot\vec{x}_i + b) - \sum_i
+        \alpha_i \xi_i \\
+      &= \frac{1}{2}||\vec{w}||^2 + \sum_i(C-\alpha_i) \xi_i + \sum_i
+        \alpha_i - \sum_i \alpha_i y_i(\vec{w}\cdot\vec{x}_i + b) \\
+    \end{align*}
+
+    The gradient w.r.t. $\vec{w}$:
+
+    \begin{align*}
+      \nabla_{\vec{w}}\ell(\vec{w}, b, \vec{\xi}, \vec{\alpha}) 
+      = \vec{w} - \sum_i \alpha_i y_i \vec{x}_i &= 0 \\
+      \vec{w} &= \sum_i \alpha_i y_i \vec{x}_i
+    \end{align*}
+
+    The gradient w.r.t. $b$:
+
+    \begin{align*}
+      \nabla_{b}\ell(\vec{w}, b, \vec{\xi}, \vec{\alpha}) 
+      = \sum_i \alpha_i y_i = 0 \\
+    \end{align*}
+
+    The gradient w.r.t. $\vec{\xi}$:
+
+    \begin{align*}
+      \nabla_{\vec{\xi}}\ell(\vec{w}, b, \vec{\xi}, \vec{\alpha}) 
+      = C - \alpha_i = 0 \:\: \forall i
+    \end{align*}
+
+    To find $D(\alpha)$, we substitute back into the Lagrangian:
+
+    \begin{align*}
+      D(\vec{\alpha}) 
+      &= \frac{1}{2}\left(\sum_i \alpha_i y_i \vec{x}_i\right)\left(\sum_j \alpha_j y_j
+        \vec{x}_j\right) + \sum_i (C-\alpha_i) \xi_i + \sum_i \alpha_i -
+        \sum_i\alpha_iy_i\left(\left(\sum_j \alpha_j y_j
+        \vec{x}_j\right)\cdot\vec{x}_i + b\right)\\
+      &= \frac{1}{2}\sum_{i,j} \alpha_i \alpha_j y_i y_j \vec{x} \cdot \vec{x}_j + \sum_i \alpha_i -
+        \sum_{i,j}\alpha_i \alpha_j y_i y_j \vec{x}_i \cdot \vec{x}_i - b\sum_i
+        \alpha_i y_i\\
+      &= \sum_i \alpha_i - \frac{1}{2}\sum_{i,j} \alpha_i \alpha_j y_i y_j \vec{x}_i \cdot \vec{x}_j
+    \end{align*}
+
+    Strangely, the dual for the non-separable case is the same as the dual for
+    the separable case:
+
+    \begin{align*}
+      \max_{\vec{\alpha}} D(\vec{\alpha}) = \sum_i \alpha_i - \frac{1}{2}
+      \sum_{i,j} \alpha_i \alpha_j y_i y_j \vec{x}_i \cdot \vec{x}_j \\
+      \text{s.t. } \alpha > 0, \sum_i \alpha_i y_i = 0
+    \end{align*}
   \end{problem}
 
 \end{document}
