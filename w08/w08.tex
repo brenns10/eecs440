@@ -102,12 +102,52 @@
       descent procedure we derived in class.  Do you think your procedure will
       in fact produce the same solution as gradient descent? (15 points)
     \end{question}
+
+    A perceptron should classify an example $\vec{x}$ positive if
+    $\vec{w} \cdot \vec{x} - \sigma \ge 0$.  A perceptron that is as accurate as
+    possible should minimize the number of errors, or misclassifications.  Using
+    a method similar to SVMs, we can quantify the misclassifications using
+    variables $\xi_i$.  The resulting program would be:
+
+    \begin{align*}
+      \min \sum_{i} \xi_i & \text{, s.t.} \\
+      y_i(\vec{w}\cdot\vec{x}_i - \sigma) + \xi_i &\ge 0 \:\:\:\: \forall i\\
+      \xi_i &\ge 0 \\
+    \end{align*}
+
+    It is worth noting that $\sigma$ may be set to one without losing any
+    generalization ability, since $\vec{w}$ may be scaled to match any cutoff.
+    So, the final linear program is:
+
+    \begin{align*}
+      \min \sum_{i} \xi_i & \text{, s.t.} \\
+      y_i(\vec{w}\cdot\vec{x}_i - 1) + \xi_i &\ge 0 \:\:\:\: \forall i\\
+      \xi_i &\ge 0 \\
+    \end{align*}
+
+    The constraints may be rewritten:
+    $y_i \vec{w} \cdot \vec{x} + \xi_1 \ge y_i$.  The dual of this linear
+    program (taken by a procedure learned in EECS 477, not the Generalized
+    Lagrangian) is:
+
+    \begin{align*}
+      \max \sum y_i \alpha_i & \text{, s.t.} \\
+      \alpha_i &\le 1 \:\:\:\: \forall i \\
+      \sum_i \alpha_i x_{ij} y_i &= 0 \:\:\:\: \forall j \\
+      \alpha_i &\ge 0 \\
+    \end{align*}
+
+    Here, $j$ corresponds to the indices of each feature (or weight).  There
+    does not appear to be a closed form expression for the weights of the
+    perceptron, even when applying the KKT conditions.  However, a reasonable
+    learning algorithm would simply be to solve the primal linear program for
+    weights.
   \end{problem}
 
   \begin{problem}{4}
     \begin{question}
       Derive the dual form corresponding to the primal SVM formulation for the
-      linearly \textit{non}-separable case (i.e. with the slack variables). (15
+      linearly \textit{non}separable case (i.e. with the slack variables). (15
       points)
     \end{question}
   \end{problem}
