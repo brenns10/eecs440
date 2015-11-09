@@ -1,0 +1,71 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 9}
+\duedate{November 10, 2015}
+
+\usepackage{enumerate}
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      Suppose $K_1$ and $K_2$ are two valid kernels. Show that for positive $a$
+      and $b$, the following are also valid kernels: (i) $aK_1+bK_2$ and (ii)
+      $aK_1K_2$, where the product is the Hadamard product: if $K=K_1K_2$ then
+      $K(x,y)=K_1(x,y)K_2(x,y)$. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      Define $K(x,y)=(x \cdot y+c)^3$, where $c$ is a constant. Show that $K$ is
+      a valid kernel in two ways by (i) finding $\phi$ so that
+      $K = \phi(x) \cdot \phi(y)$, and (ii) showing that $K$ is symmetric
+      positive semidefinite. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Show that, if $K(x,y) = \phi(x) \cdot \phi(y)$ for some $\phi$, it must be
+      (a) symmetric and (b) positive semidefinite. (10 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      An alternative way to think about kernels is as evaluation functions in a
+      \textit{“reproducing kernel Hilbert space”} (RKHS), so that finding a
+      hyperplane $w$ is equivalent to finding a function $f_w$ in the RKHS of a
+      kernel so that $f_w(x)=<w, \phi(x)>$ (the angle brackets are the dot
+      product). In this question we will explore this connection. Read the
+      ``Brief Introduction to RKHS'' document on the class website. Now suppose
+      we have the three points $(x,y)=\{(0,2), (1⁄2,−1), (1,0)\}$ and we want a
+      hyperplane in feature space that exactly fits the three points, i.e. we
+      want $w$ so that $<w, \phi(x_i)>=y_i$. Suppose the feature space map is
+      given by the quadratic kernel $K(a,b)=(ab+1)^2$ so that the feature space
+      corresponds to $P_2([0,1])$ as in the document. Answer the following
+      questions:
+
+      \begin{enumerate}[(a)]
+      \item We can interpret $\phi(x)$ as a representer in $P_2([0,1])$. Which
+        polynomials are the representers for $x=0, 1⁄2, 1$? (6 points)
+      \item Suppose we restrict $w$ to be a linear combination of representers,
+        i.e. $w=\sum α_i \phi(x_i)$. Rewrite the equation $<w, \phi(x_i)>=y_i$
+        in terms of the kernel matrix $K$, the vector of $\alpha$’s and the
+        vector of $y$’s. (6 points)
+      \item Compute the kernel matrix for the three points above and solve your
+        answer to (b) for $\alpha_i$.  Given the representers in (a) and the
+        values of $\alpha_i$, find the polynomial in $P_2([0,1])$ corresponding
+        to $w$. Explain in your own words the connection between this polynomial
+        and the hyperplane in feature space. (8 points)
+      \end{enumerate}
+    \end{question}
+  \end{problem}
+
+\end{document}
