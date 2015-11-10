@@ -59,6 +59,32 @@
       $K = \phi(x) \cdot \phi(y)$, and (ii) showing that $K$ is symmetric
       positive semidefinite. (10 points)
     \end{question}
+
+    \begin{enumerate}[(i)]
+    \item We start by expanding $K(x,y)$:
+
+      \begin{align*}
+        K(x,y) &= (x \cdot y + c)^3 \\
+               &= \left(\sum_{i=1}^n x_i y_i + c\right)\left(\sum_{j=1}^n x_j y_j + c\right)\left(\sum_{k=1}^n x_k y_k + c\right)\\
+               &= \left(\sum_{i=1}^n \sum_{j=1}^n x_ix_jy_iy_j + \sum_{i=1} 2cx_iy_i + c^2\right)\left(\sum_{k=1}^n x_k y_k + c\right)\\
+               &= \sum_{i=1}^n \sum_{j=1}^n \sum_{k=1}^n x_ix_jx_k y_iy_jy_k + \sum_{i=1}^n \sum_{j=1}^n 3cx_ix_jy_iy_j + \sum_{i=1}^n 3c^2x_iy_i + c^3 \\
+      \end{align*}
+
+      We let $\phi(x)$ be vector valued with length $n^3 + n^2 + n + 1$, and
+      with value:
+
+      \begin{align*}
+        \phi(x) = (&x_i x_j x_k, &\dots, &&\:\:\:\: \forall i,j,k \in [1,n] \\
+        &\sqrt{3c} x_i x_j, &\dots, &&\:\:\:\: \forall i,j \in [1,n] \\
+        &\sqrt{3c^2} x_i, &\dots, &&\:\:\:\: \forall i \in [1,n] \\
+        & \sqrt{c^3})\\
+      \end{align*}
+
+      Then, we have that $K(x,y) = \phi(x) \cdot \phi(y)$.
+    \item First, we show that $K$ is symmetric:
+      $K(x,y) = (x \cdot y + c)^3 = (y \cdot x + c)^3 = K(y,x)$, due to the
+      property that the dot product is commutative.
+    \end{enumerate}
   \end{problem}
 
   \begin{problem}{3}
