@@ -6,7 +6,7 @@
 \duedate{November 10, 2015}
 
 \usepackage{enumerate}
-%\usepackage{mathtools}
+\usepackage{mathtools}
 %\usepackage{graphicx}
 
 \begin{document}
@@ -19,6 +19,37 @@
       $aK_1K_2$, where the product is the Hadamard product: if $K=K_1K_2$ then
       $K(x,y)=K_1(x,y)K_2(x,y)$. (10 points)
     \end{question}
+
+    \begin{enumerate}[(i)]
+    \item We have that $\vec{v}^T K_1 \vec{v} \ge 0$,
+      $\vec{v}^T K_2 \vec{v} \ge 0$, for any $\vec{v}$.  Now, we compute this
+      for $K$:
+      \begin{align*}
+        \vec{v}^T K \vec{v} \ge 0 
+        &= \vec{v}^T (aK_1 + bK_2) \vec{v} \\
+        &= a \vec{v}^T K_1 \vec{v} + b \vec{v}^T K_2 \vec{v} \ge 0
+      \end{align*}
+      Therefore, $K$ is positive semidefinite.  Furthermore, we have
+      $K(x,y) = aK_1(x,y) + bK_2(x,y) = aK_1(y,x) + bK_2(y,x) = K(y,x)$, so $K$
+      is symmetric.  Therefore, $K$ is a valid kernel.
+
+    \item Since $K_1$ and $K_2$ are valid kernels, we know that there exist
+      $\phi_1$ and $\phi_2$ such that $K_1(x,y) = \phi_1(x) \cdot \phi_1(y)$ and
+      $K_2(x,y) = \phi_2(x) \cdot \phi_2(y)$.  If we can write $K(x,y)$ in terms
+      of some function $\phi'$, then $K$ is also a valid kernel.
+      \begin{align*}
+        K(x,y) &= aK_1(x,y) K_2(x,y) \\
+               &= a(\phi_1(x) \cdot \phi_1(y))(\phi_2(x) \cdot \phi_2(y)) \\
+               &= a\left(\sum_{i=1}^n \phi_{1i}(x)\phi_{1i}(y)\right) \left(\sum_{j=1}^m \phi_{2j}(x)\phi_{2j}(y)\right)\\
+               &= \sum_{i=1}^n \sum_{j=1}^m a\phi_{1i}(x) \phi_{1i}(y) \phi_{2j}(x) \phi_{2j}(y) \\
+               &= \sum_{i=1}^n \sum_{j=1}^m \sqrt{a}\phi_{1i}(x) \phi_{2j}(x) \sqrt{a}\phi_{1i}(y) \phi_{2j}(y) \\
+               &= \phi'(x) \cdot \phi'(y)\\
+      \end{align*}
+
+      Where $\phi'(x)$ is a vector valued function of length $nm$, and
+      $\phi'_{ij}(x) = \sqrt{a} \phi_{1i}(x) \phi_{2j}(x)$.  Therefore, $K$ is
+      also a valid kernel.
+    \end{enumerate}
   \end{problem}
 
   \begin{problem}{2}
