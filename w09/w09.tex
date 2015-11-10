@@ -100,6 +100,16 @@
     \item Since the dot product is commutative, we know
       $K(x,y) = \phi(x) \cdot \phi(y) = \phi(y) \cdot \phi(x) = K(y,x)$, so $K$
       must be symmetric.
+    \item We must show that $\vec{v}^T K \vec{v} \ge 0$ for any $\vec{v}$:
+
+      \begin{align*}
+        \vec{v}^T K \vec{v} &= \sum_{i=1}^n \sum_{j=1}^n v_i v_j \phi(x_i) \cdot \phi(x_j) \\
+        &= \sum_{i=1}^n \left(v_i \phi(x_i) \cdot \sum_{j=1} v_j \phi(x_j) \right) \\
+        &= \left(\sum_{i=1}^n v_i \phi(x_i)\right) \cdot \left(\sum_{j=1}^n v_j \phi(x_j)\right) \ge 0\\
+      \end{align*}
+
+      Since this is a vector dotted with itself, it must be greater than or
+      equal to zero.
     \end{enumerate}
   \end{problem}
 
