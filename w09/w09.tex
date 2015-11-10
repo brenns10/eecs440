@@ -7,7 +7,10 @@
 
 \usepackage{enumerate}
 \usepackage{mathtools}
+\usepackage{xfrac}
 %\usepackage{graphicx}
+
+\newcommand{\inner}[1]{\langle #1 \rangle}
 
 \begin{document}
   \maketitle
@@ -99,23 +102,23 @@
       An alternative way to think about kernels is as evaluation functions in a
       \textit{“reproducing kernel Hilbert space”} (RKHS), so that finding a
       hyperplane $w$ is equivalent to finding a function $f_w$ in the RKHS of a
-      kernel so that $f_w(x)=<w, \phi(x)>$ (the angle brackets are the dot
+      kernel so that $f_w(x)=\inner{w, \phi(x)}$ (the angle brackets are the dot
       product). In this question we will explore this connection. Read the
       ``Brief Introduction to RKHS'' document on the class website. Now suppose
-      we have the three points $(x,y)=\{(0,2), (1⁄2,−1), (1,0)\}$ and we want a
-      hyperplane in feature space that exactly fits the three points, i.e. we
-      want $w$ so that $<w, \phi(x_i)>=y_i$. Suppose the feature space map is
-      given by the quadratic kernel $K(a,b)=(ab+1)^2$ so that the feature space
-      corresponds to $P_2([0,1])$ as in the document. Answer the following
-      questions:
+      we have the three points $(x,y)=\{(0,2), (\sfrac{1}{2},−1), (1,0)\}$ and
+      we want a hyperplane in feature space that exactly fits the three points,
+      i.e. we want $w$ so that $\inner{w, \phi(x_i)}=y_i$. Suppose the feature
+      space map is given by the quadratic kernel $K(a,b)=(ab+1)^2$ so that the
+      feature space corresponds to $P_2([0,1])$ as in the document. Answer the
+      following questions:
 
       \begin{enumerate}[(a)]
       \item We can interpret $\phi(x)$ as a representer in $P_2([0,1])$. Which
-        polynomials are the representers for $x=0, 1⁄2, 1$? (6 points)
+        polynomials are the representers for $x=0, \sfrac{1}{2}, 1$? (6 points)
       \item Suppose we restrict $w$ to be a linear combination of representers,
-        i.e. $w=\sum α_i \phi(x_i)$. Rewrite the equation $<w, \phi(x_i)>=y_i$
-        in terms of the kernel matrix $K$, the vector of $\alpha$’s and the
-        vector of $y$’s. (6 points)
+        i.e. $w=\sum \alpha_i \phi(x_i)$. Rewrite the equation
+        $\inner{w, \phi(x_i)}=y_i$ in terms of the kernel matrix $K$, the vector
+        of $\alpha$’s and the vector of $y$’s. (6 points)
       \item Compute the kernel matrix for the three points above and solve your
         answer to (b) for $\alpha_i$.  Given the representers in (a) and the
         values of $\alpha_i$, find the polynomial in $P_2([0,1])$ corresponding
