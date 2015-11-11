@@ -198,8 +198,8 @@
       Note that for each value of $x$, the only thing that changes is the right
       hand side of the equations.  So, this system could be represented in
       matrix form as $Aq = b$, where $b$ is the vector of coefficients of $p_i$
-      on the right hand side of the original equation ($(1, 0, 0)$ in the
-      example of $x=0$, or $(1, x, x^2)$ in the general case).  The general
+      on the right hand side of the original equation.  $b = (1, 0, 0)$ in the
+      example of $x=0$, and in the general case, $b = (1, x, x^2)$.  The general
       solution, therefore, is $q = A^{-1}b$.  Via NumPy, we find:
 
       \begin{equation*}
