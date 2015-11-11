@@ -87,6 +87,22 @@
     \item First, we show that $K$ is symmetric:
       $K(x,y) = (x \cdot y + c)^3 = (y \cdot x + c)^3 = K(y,x)$, due to the
       property that the dot product is commutative.
+
+      To show that $K$ is semi-definite, we start with the definition:
+
+      \begin{align*}
+        \vec{v}^T K \vec{v}=
+        &= \sum_{i=1}^n \sum_{j=1}^n v_i v_j K(x_i, x_j) \\
+        &= \sum_{i=1}^n \sum_{j=1}^n v_1 v_j (x_i \cdot x_j + c)^3 \\
+        &= \sum_{i=1}^n \sum_{j=1}^n v_i v_j \phi(x_i) \cdot \phi(x_j) \\
+        &= \sum_{i=1}^n v_i \phi(x_i) \cdot \left(\sum_{j=1}^n v_j \phi(x_j)\right) \\
+        &= \left(\sum_{i=1}^n v_i \phi(x_i)\right) \cdot \left(\sum_{j=1}^n v_j \phi(x_j)\right) \ge 0 \\
+      \end{align*}
+
+      We use the conclusion from (i), separate the summations due to the
+      distributive property of dot products, and then conclude that the overall
+      dot product is greater than zero because it is a vector dotted with
+      itself, which is always greater than or equal to zero.
     \end{enumerate}
   \end{problem}
 
@@ -109,7 +125,7 @@
       \end{align*}
 
       Since this is a vector dotted with itself, it must be greater than or
-      equal to zero.
+      equal to zero.  (This is the same logic behind my answer to 2(ii)).
     \end{enumerate}
   \end{problem}
 
