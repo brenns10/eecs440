@@ -249,20 +249,20 @@
 
       \begin{align*}
         \alpha_1 + \alpha_2 + \alpha_3 &= 2 \\
-        \alpha_1 + \frac{25}{16}\alpha_2 + \frac{9}{4} \alpha_3&= 1 \\
+        \alpha_1 + \frac{25}{16}\alpha_2 + \frac{9}{4} \alpha_3&= -1 \\
         \alpha_1 +\frac{9}{4}\alpha_2 + 4\alpha_3 &= 0 \\
       \end{align*}
 
-      Solving via NumPy, we obtain $\alpha_1 = 5$, $\alpha_2 = -4$,
-      $\alpha_3 = 1$.  Finally, we can compute the value of the polynomial
+      Solving via NumPy, we obtain $\alpha_1 = 33$, $\alpha_2 = -52$,
+      $\alpha_3 = 21$.  Finally, we can compute the value of the polynomial
       corresponding to $w$:
 
       \begin{align*}
         w(t) &= \sum \alpha_i \phi(x_i) \\
-        &= 5 q_0(t) - 4 q_{\frac{1}{2}}(t) + q_1(t) \\
-        &= 5 (9 - 16t + 30t^2) - 4(-1.5 + 15 t - 15t^2) + (3 - 24t + 30t^2) \\
-        &= 45 - 80t + 150t^2 + 6 - 60t + 60t^2 + 3 - 24t + 30t^2 \\
-        &= 54 - 164t + 240t^2
+        &= 33 q_0(t) - 52 q_{\frac{1}{2}}(t) + 21 q_1(t) \\
+        &= 33 (9 - 36t + 30t^2) - 52 (-1.5 + 15 t - 15t^2) + 21 (3 - 24t + 30t^2) \\
+        &= 297 - 1188t + 990t^2 + 78 - 780t + 780t^2 + 63 - 504t + 630t^2 \\
+        &= 438 - 2472t + 2400t^2
       \end{align*}
 
       To be perfectly honest, I'm not sure what the connection is between this
