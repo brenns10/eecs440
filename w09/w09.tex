@@ -174,19 +174,17 @@
         \frac{1}{3}q_0 + \frac{1}{4}q_1 + \frac{1}{5}q_2 &= 0 \\
       \end{align*}
 
-      Using computational methods to solve the system, we obtain: $q_0 = 9$,
-      $q_1 = -36$, $q_2 = 30$, which gives the polynomial
-      $q_0(t) = 9 - 36t + 30t^2$.  The two remaining polynomials may be found
-      similarly: $q_{\frac{1}{2}}(t) = -1.5 + 15 t - 15 t^2$,
-      $q_1(t) = 3 - 24t + 30t^2$.
+      Using NumPy to solve the system, we obtain: $q_0 = 9$, $q_1 = -36$,
+      $q_2 = 30$, which gives the polynomial $q_0(t) = 9 - 36t + 30t^2$.  The
+      two remaining polynomials may be found similarly:
+      $q_{\frac{1}{2}}(t) = -1.5 + 15 t - 15 t^2$, $q_1(t) = 3 - 24t + 30t^2$.
 
       Note that for each value of $x$, the only thing that changes is the right
       hand side of the equations.  So, this system could be represented in
       matrix form as $Aq = b$, where $b$ is the vector of coefficients of $p_i$
       on the right hand side of the original equation ($(1, 0, 0)$ in the
       example of $x=0$, or $(1, x, x^2)$ in the general case).  The general
-      solution, therefore, is $q = A^{-1}b$.  Via computational methods, we
-      find:
+      solution, therefore, is $q = A^{-1}b$.  Via NumPy, we find:
 
       \begin{equation*}
         A^{-1} = \begin{bmatrix*}[r] 9 & -36 & 30 \\ -36 & 192 & -180 \\ 30 &-180 & 180 \end{bmatrix*}
@@ -204,6 +202,55 @@
       paper (see $k(x,y)$).  This provides some validation of this (rather
       interesting but also rather involved) method of determining the
       representers.
+
+    \item Start with the original equation:
+
+      \begin{align*}
+        \inner{w, \phi(x_i)} &= y_i \\
+        \inner{\sum_{j} \alpha_j \phi(x_j), \phi(x_i)} &= y_i \\
+        \sum_j \alpha_j \inner{\phi(x_j), \phi(x_i)} &= y_i \\
+        \sum_j \alpha_j K(x_j, x_i) &= y_i \\
+      \end{align*}
+
+    \item The kernel matrix:
+
+      \begin{align*}
+        K &=
+        \begin{bmatrix*}
+          (0 * 0 + 1)^2 & (0 * \sfrac{1}{2} + 1)^2 & (0 * 1 + 1)^2 \\
+          (\sfrac{1}{2} * 0 + 1)^2 & (\sfrac{1}{2} * \sfrac{1}{2} + 1)^2 & (\sfrac{1}{2} * 1 + 1)^2 \\
+          (1 * 0 + 1)^2 & (1 * \sfrac{1}{2} + 1)^2 & (1*1 + 1)^2 \\
+        \end{bmatrix*} \\
+        K &=
+        \begin{bmatrix*}
+          1 & 1 & 1 \\
+          1 & \sfrac{25}{16} & \sfrac{9}{4} \\
+          1 & \sfrac{9}{4} & 4 \\
+        \end{bmatrix*} \\
+      \end{align*}
+
+      So, the system of equations from (b) becomes:
+
+      \begin{align*}
+        \alpha_1 + \alpha_2 + \alpha_3 &= 2 \\
+        \alpha_1 + \frac{25}{16}\alpha_2 + \frac{9}{4} \alpha_3&= 1 \\
+        \alpha_1 +\frac{9}{4}\alpha_2 + 4\alpha_3 &= 0 \\
+      \end{align*}
+
+      Solving via NumPy, we obtain $\alpha_1 = 5$, $\alpha_2 = -4$,
+      $\alpha_3 = 1$.  Finally, we can compute the value of the polynomial
+      corresponding to $w$:
+
+      \begin{align*}
+        w(t) &= \sum \alpha_i \phi(x_i) \\
+        &= 5 q_0(t) - 4 q_{\frac{1}{2}}(t) + q_1(t) \\
+        &= 5 (9 - 16t + 30t^2) - 4(-1.5 + 15 t - 15t^2) + (3 - 24t + 30t^2) \\
+        &= 45 - 80t + 150t^2 + 6 - 60t + 60t^2 + 3 - 24t + 30t^2 \\
+        &= 54 - 164t + 240t^2
+      \end{align*}
+
+      To be perfectly honest, I'm not sure what the connection is between this
+      polynomial and the hyperplane for the feature space.
     \end{enumerate}
   \end{problem}
 
