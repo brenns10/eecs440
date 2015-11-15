@@ -1,0 +1,74 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Written 10}
+\duedate{November 17, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{1}
+    \begin{question}
+      The Bayesian Candy Factory makes a Halloween Candy Box that contains a mix
+      of yummy (Y) and crummy (C) candy. You know that each Box is one of three
+      types: 1. 75\% Y and 25\% C, 2.  50\% Y and 50\% C and 3. 25\% Y and 75\%
+      C. You open a Box and start munching candies. Let the
+      $i\textsuperscript{th}$ candy you munch be denoted by $c_i$. Answer the
+      following questions using MATLAB, R or any other math package. Generate
+      one Box with 100 candies for each type, and assume a fixed order of
+      munching. (1) For each Box, plot $Pr(T=i|c_1,\dots,c_N)$ on a graph where
+      $T$ represents a type and $N$ ranges from 1 to 100. (You should have three
+      graphs and each graph will have three curves.) (2) For each Box, plot
+      $Pr(c_{N+1}=C|c_1,\dots,c_N)$ where $N$ ranges from 1 to 99. (3) Suppose
+      you are an optimist, and before opening a Box you believe that each Box
+      has 75\% Y (type 1) with probability 0.8 and the probability of the other
+      two types is 0.1 each. Redo part (1) taking this belief into
+      account. Briefly explain the implications of your results. (15 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{2}
+    \begin{question}
+      When estimating parameters for a Boolean attribute $f$ in a na\"ive Bayes
+      model, it is observed that $f$ is true in $k$ out of $n$ positive
+      examples. Further, there is a Dirichlet prior on the parameter
+      representing the probability of $f$ given a positive example, with
+      hyper-parameters $a$ and $b$. Show that the MAP estimate of the
+      parameter’s value is equivalent to an $m$-estimate with specific values of
+      $m$ and $p$. In this way show that $m$-estimates act as Bayesian prior
+      knowledge in na\"ive Bayes. The Dirichlet distribution over
+      $0 \le \theta \le 1$ is given by:
+      $D(\theta;a,b)=[(a-1)! (b-1)! /(a+b-1)!] \theta^{(a-1)} (1-
+      \theta)^{(b-1)}$
+      where $a$, $b$ are positive integers greater than 1 and are parameters of
+      the distribution. (15 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{3}
+    \begin{question}
+      Consider a regression problem with examples described by 2 continuous
+      attributes, $x$ and $y$.  Each example is sampled according to the uniform
+      distribution on $(-1,1)^2$ and labeled with $f(x,y)=1 - x^2 - y^2$ . A
+      learner’s hypothesis class is $h(x,y)=ax+by+c$. (a) Calculate its bias and
+      variance as a function of $x$ and $y$ if the learner sees an arbitrarily
+      large training sample. (b) Using MATLAB, find the $(x,y)$ with the largest
+      bias and the $(x,y)$ with the largest variance for samples of size 10. Can
+      you intuitively justify your findings? (15 points)
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{4}
+    \begin{question}
+      Suppose a learner uses bootstrap resampling to construct a training sample
+      $T$ from an initial sample $U$, of the same size as $U$. Show that, for a
+      large enough $U$, the probability that some example from $U$ appears in
+      $T$ is approximately 0.63. (5 points)
+    \end{question}
+  \end{problem}
+
+\end{document}
