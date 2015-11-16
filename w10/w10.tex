@@ -6,7 +6,7 @@
 \duedate{November 17, 2015}
 
 \usepackage{enumerate}
-%\usepackage{mathtools}
+\usepackage{mathtools}
 %\usepackage{graphicx}
 
 \begin{document}
@@ -112,7 +112,7 @@
       examples. Further, there is a Dirichlet prior on the parameter
       representing the probability of $f$ given a positive example, with
       hyper-parameters $a$ and $b$. Show that the MAP estimate of the
-      parameter’s value is equivalent to an $m$-estimate with specific values of
+      parameter's value is equivalent to an $m$-estimate with specific values of
       $m$ and $p$. In this way show that $m$-estimates act as Bayesian prior
       knowledge in na\"ive Bayes. The Dirichlet distribution over
       $0 \le \theta \le 1$ is given by:
@@ -143,6 +143,28 @@
       large enough $U$, the probability that some example from $U$ appears in
       $T$ is approximately 0.63. (5 points)
     \end{question}
+
+    Let the size of the initial sample be denoted by $n$.  The probability of a
+    single example $u$ being in $T$ is:
+
+    \begin{align*}
+      Pr[u \in T] &= 1 - Pr[u \not\in T] \\
+      &= 1 - \left(\frac{n-1}{n}\right)^n
+    \end{align*}
+
+    We take the limit as $n\to\infty$:
+
+    \begin{align*}
+      \lim_{n\to\infty} Pr[u \in T]
+      &= \lim_{n\to\infty} \left(1 - \left(\frac{n-1}{n}\right)^n\right) \\
+      &= \lim_{n\to\infty} 1 -  \lim_{n\to\infty}\left(\frac{n-1}{n}\right)^n \\
+      &= 1 - \lim_{n\to\infty}\left(1 - \frac{1}{n}\right)^n \\
+      &= 1 - \frac{1}{e} \approx 0.63
+    \end{align*}
+
+    The last step is a generally known special limit.  Thus, for suitably large
+    sample size, the probability of a single example being present in the
+    bootstrap sample is approximately 0.63.
   \end{problem}
 
 \end{document}
