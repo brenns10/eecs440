@@ -5,6 +5,7 @@
 \assignment{Written 10}
 \duedate{November 17, 2015}
 
+\usepackage{enumerate}
 %\usepackage{mathtools}
 %\usepackage{graphicx}
 
@@ -29,6 +30,78 @@
       two types is 0.1 each. Redo part (1) taking this belief into
       account. Briefly explain the implications of your results. (15 points)
     \end{question}
+
+    For this situation, I have defined the probability of a list of candies
+    $c_1, \dots, c_N$ given a box type as binomial, defining success as a Yummy
+    candy, and failure as a Crummy one.  So, for example,
+    $Pr[c_1, \dots, c_N|T=1]$ is binomial with parameters $N$ and $0.75$.  This
+    is a slight simplification, since it models drawing candies with replacement
+    from a population having the given statistics.  In reality, what is
+    happening is that the box is drawn from such a population, and then candies
+    are drawn with replacement from that box.  However, I believe that this
+    simplification is reasonable for the purposes of this question's
+    demonstration.
+
+    Given this assumption, to compute the probability of a particular box type
+    given candies, we simply apply Bayes' Rule:
+
+    \begin{equation}
+      Pr[T=i | c_1, \dots, c_N] = \frac{Pr[c_1, \dots, c_N | T=i] Pr[T=i]}{\sum_{i=1}^3 Pr[c_1, \dots, c_N|T=i] Pr[T=i]}
+    \end{equation}
+
+    These conditional probabilities are computed using the binomial distribution
+    above.  We assume that $Pr[T=i]=\frac{1}{3}$ in parts 1 and 2, and then
+    update this assumption in part 3.
+
+    To compute the probability of the next candy being crummy given the current
+    list of candies, we simply condition on the type computed above:
+
+    \begin{equation}
+      Pr[c_{N+1} = C | c_1, \dots, c_N] = \sum_{i=1}^3 Pr[c_{n+1}=C|T=i] Pr[T=i|c_1, \dots, c_N]
+    \end{equation}
+
+    I apologize for the size of the figures presented below -- I attempted to
+    present them in the most compact manner possible.  This document is
+    completely scalable, so you can zoom in on the figures to see much better
+    detail.
+
+    \begin{enumerate}[1.] 
+    \item \item For the box type 1 ($p(Y)=0.75$):
+
+      \includegraphics[width=0.5\textwidth]{p1_part1_0_75.pdf}
+      \includegraphics[width=0.5\textwidth]{p1_part2_0_75.pdf}
+
+      For the box type 2 ($p(Y)=0.50$):
+
+      \includegraphics[width=0.5\textwidth]{p1_part1_0_50.pdf}
+      \includegraphics[width=0.5\textwidth]{p1_part2_0_50.pdf}
+
+      For the box type 3 ($p(Y)=0.25$):
+
+      \includegraphics[width=0.5\textwidth]{p1_part1_0_25.pdf}
+      \includegraphics[width=0.5\textwidth]{p1_part2_0_25.pdf}
+
+    \item When we adjust our priors, we obtain the following figures.  For the
+      box type 1 ($p(Y)=0.75$):
+
+      \includegraphics[width=0.65\textwidth]{p1_part3_0_75.pdf}
+
+      For the box type 2 ($p(Y)=0.50$):
+
+      \includegraphics[width=0.65\textwidth]{p1_part3_0_50.pdf}
+
+      For the box type 3 ($p(Y)=0.25$):
+
+      \includegraphics[width=0.65\textwidth]{p1_part3_0_25.pdf}
+    \end{enumerate}
+
+    As the figures above demonstrate, the ``optimism'' has a significant effect
+    on the number of candies required to ``decide'' which type the box is.  When
+    the box is type 1, the probability of box 1 is nearly exactly 1 after only
+    20 candies, and it is significantly higher than the other probabilities for
+    the entire curve.  Meanwhile, the other types take much longer to
+    ``decide'', especially for type 2, since that is easiest to ``confuse'' with
+    type 1.
   \end{problem}
 
   \begin{problem}{2}
