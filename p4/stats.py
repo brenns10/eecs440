@@ -1,8 +1,12 @@
 """
 Statistics Computations
 """
+
+from __future__ import division
+
 import numpy as np
-import scipy
+
+SAVE_PLOTS = False
 
 
 class StatisticsManager(object):
@@ -58,13 +62,67 @@ class StatisticsManager(object):
             return np.average(stats), np.std(stats)
 
 def accuracy(labels, predictions):
-    pass
+    """
+    What fraction of the predictions are the same as the labels?
+    """
+    return sum(labels == predictions) / len(labels)
+
 
 def precision(labels, predictions):
-    pass
+    """
+    What fraction of the examples predicted positive are actually positive?
+    """
+    pos_pred = (predictions == 1)
+    if pos_pred.sum() == 0:
+        return 1.0
+    #                  True              Positives / All positive predictions
+    return ((labels == predictions) & pos_pred).sum() / pos_pred.sum()
+
 
 def recall(labels, predictions):
-    pass
+    """
+    What fraction of the positive examples were predicted positive?
+    """
+    pos_label = (labels == 1)
+    if pos_label.sum() == 0:
+        return 1.0
+    #                 True               Positives  / All positive labels
+    return ((labels == predictions) & pos_label).sum() / pos_label.sum()
+
+
+def specificity(labels, predictions):
+    """
+    What fraction of the negative examples were predicted negative?
+    """
+    neg_label = (labels == -1)
+    if neg_label.sum() == 0:
+        return 1.0
+    #                 True               Negatives  / All negative labels
+    return ((labels == predictions) & neg_label).sum() / neg_label.sum()
+
 
 def auc(labels, predictions):
-    pass
+    cutoffs = np.sort(np.unique(np.append(predictions, [0, 1])), )
+    auc = 0
+    prev_tpr = 1
+    prev_fpr = 1
+    tprs = []
+    fprs = []
+    for x in cutoffs:
+        pred = np.where(predictions > x, 1, -1)
+        tpr = recall(labels, pred)
+        fpr = 1 - specificity(labels, pred)
+        auc += (prev_fpr - fpr) * (tpr + prev_tpr) * 0.5
+        prev_tpr = tpr
+        prev_fpr = fpr
+        tprs.append(tpr)
+        fprs.append(fpr)
+    if SAVE_PLOTS:
+        import matplotlib.pyplot as plt
+        plt.style.use('ggplot')
+        fig, ax = plt.subplots()
+        ax.plot(fprs, tprs)
+        ax.set_xlabel('false positive rate')
+        ax.set_ylabel('true positive rate')
+        fig.savefig('roc.pdf')
+    return auc
