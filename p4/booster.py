@@ -47,7 +47,6 @@ class Booster(object):
 
         for i in range(self._iters):
             print('Booster: fit classifier %03d/%03d' % (i+1, self._iters))
-            print(weights)
             # Train a classifier, and then classify the training data.
             classifier = self._cls(**self._params)
             classifier.fit(X, y, sample_weight=weights)
