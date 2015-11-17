@@ -51,4 +51,4 @@ class Bagger(object):
     def predict_proba(self, X):
         predictions = [c.predict(X) for c in self._classifiers]
         positives = [(p == 1) for p in predictions]
-        return positives / self._iters
+        return sum(positives) / self._iters
