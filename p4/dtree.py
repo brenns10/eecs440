@@ -138,6 +138,7 @@ class DecisionTree(object):
         wsum = ws.sum()
         max_ig = -1
         max_idx = -1
+        max_cutoff = -1
 
         last_label = ys[0]
         left = 0
