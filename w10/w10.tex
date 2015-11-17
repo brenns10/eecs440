@@ -121,6 +121,30 @@
       where $a$, $b$ are positive integers greater than 1 and are parameters of
       the distribution. (15 points)
     \end{question}
+
+    The MAP estimate of $\theta$ is:
+
+    \begin{align*}
+      \hat{\theta} &= \arg\max_\theta Pr(D|\theta)Pr(\theta) \\
+      &= \arg \max_\theta \theta^k (1-\theta)^{n-k} \frac{(a-1)!(b-1)!}{(a+b-1)!} \theta^{a-1} (1-\theta)^{b-1} \\
+      &= \arg \max_\theta \theta^{k+a-1} (1-\theta)^{n-k+b-1} \\
+      LL(\theta) &= (k+a-1)\log \theta + (n-k+b-1)\log(1-\theta) \\
+    \end{align*}
+
+    Next we maximize log odds:
+
+    \begin{align*}
+      \frac{dLL}{d\theta} = \frac{k+a-1}{\theta} - \frac{n-k+b-1}{1-\theta} &= 0 \\
+      \frac{k+a-1}{\theta} &= \frac{n-k+b-1}{1-\theta} \\
+      (1-\theta)(k+a-1) &= \theta(n-k+b-1) \\
+      k+a-1-k\theta-a\theta+\theta &= n\theta-k\theta+b\theta-\theta \\
+      k+a-1&=\theta(n+a+b-2)\\
+      \hat{\theta} &= \frac{k+a-1}{n+a+b-2} \\
+    \end{align*}
+
+    The ML parameter estimate of $\theta$ with $m$-estimates would be
+    $\theta=\frac{k+mp}{n+m}$.  We see that $m=a+b-2$, and therefore
+    $p=\frac{a-1}{a+b-2}$.
   \end{problem}
 
   \begin{problem}{3}
