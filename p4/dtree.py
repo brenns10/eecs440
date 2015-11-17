@@ -10,98 +10,51 @@ from scipy.ndimage.interpolation import shift
 import logging
 log = logging.getLogger('dtree')
 log.addHandler(logging.StreamHandler())
-#log.setLevel(logging.DEBUG)
+log.setLevel(logging.DEBUG)
 
 
-def entropy(l):
+def entropy(l, weights):
     """
-    Return the entropy of a vector of nonnegative discrete integers.
-
-    Shannon Entropy is a measure of the "information content" of a random
-    variable.  The more widely dispersed the possible values of the RV, the
-    higher its entropy.  Entropy is measured in bits (as in, the theoretical
-    minimum amount of bits it take to represent the RV).  A RV which was 1 with
-    probability 1 would have entropy of 0.  A RV which took on two values with
-    equal probability would have entropy of 1 bit, etc.  The entropy function
-    is denoted by H(X), and the definition is as follows:
-
-        :math:`H(X) = - \sum_{x\in X} p(X=x) \log_2(p(X=x))`
-
-    :param l: Array of nonnegative integers/bools.
-    :type l: numpy.array or similar
-    :returns: The entropy of the array.
+    Return the entropy of a vector and corresponding weights.
     """
-
-    probabilities = np.bincount(l) / len(l)
-    with np.errstate(divide='ignore'):  # ignore log(0) errors, we'll handle
-        log_probabilities = np.log2(probabilities)
-        log_probabilities[~np.isfinite(log_probabilities)] = 0
-        log_probabilities[np.isnan(log_probabilities)] = 0
-    return -np.sum(probabilities * log_probabilities)
+    max_val = np.max(l)
+    probs = np.zeros(l.shape)
+    for i in range(max_val + 1):
+        probs[i] = weights[l == i].sum()
+    probs = probs[probs != 0]
+    probs = probs / probs.sum()
+    log_probs = np.log2(probs)
+    # with np.errstate(divide='ignore'):  # ignore log(0) errors, we'll handle
+    #     log_probs = np.log2(probs)
+    #     log_probs[~np.isfinite(log_probs)] = 0
+    #     log_probs[np.isnan(log_probs)] = 0
+    return -np.sum(probs * log_probs)
 
 
 def joint_dataset(l1, l2):
     """
-    Create a joint dataset for two non-negative integer (boolean) arrays.
-
-    Works best for integer arrays with values [0,N) and [0,M) respectively.
-    This function will create an array with values [0,N*M), each value
-    representing a possible combination of values from l1 and l2.  Essentially,
-    this is equivalent to zipping l1 and l2, but much faster by using the NumPy
-    native implementations of elementwise addition and multiplication.
-
-    :param l1: first integer vector (values within 0-n)
-    :type l1: numpy.array or similar
-    :param l2: second integer vector (values with 0-m)
-    :type l2: numpy.array or similar
-    :returns: integer vector expressing states of both l1 and l2
+    Create a joint dataset for two 1D arrays of non-negative integers
     """
     N = np.max(l1) + 1
     return l2 * N + l1
 
 
-def mutual_info(l1, l2):
+def mutual_info(l1, l2, weights):
     """
-    Return the mutual information of non-negative integer arrays.
-
-    Again, will work best for arrays with values [0,N), where N is rather
-    small.  This will compute the mutual information (a measure of "shared
-    entropy") between two arrays.  The mutual information between two arrays is
-    maximized when one is completely dependant on the other, and minimized if
-    and only if they are independent.  (Note that this really applies to random
-    variables.  Measurements of random variables obviously won't always
-    evaluate to completely independent probabilities, and so they won't always
-    have exactly 0 mutual information).  The mathematical definition is:
-
-        :math:`I(X; Y) = H(X) + H(Y) - H(X,Y)`
-
-    :param l1: first integer vector (X)
-    :type l1: numpy.array or similar
-    :param l2: first integer vector (Y)
-    :type l2: numpy.array or similar
-    :retuns: mutual information, as a float
+    Return the mutual information of 2 arrays of any type.
     """
-    return entropy(l1) + entropy(l2) - entropy(joint_dataset(l1, l2))
+    return (
+        entropy(l1, weights) +
+        entropy(l2, weights) -
+        entropy(joint_dataset(l1, l2), weights)
+    )
 
 
-def mutual_info_fast(l1, l2, l1_entropy, l2_entropy):
+def mutual_info_fast(l1, l2, weights, l1_entropy, l2_entropy):
     """
     Compute mutual info without recomputing the entropy of l1 and l2.
-
-    This function is useful when you are going to be computing many mutual
-    information values.  Instead of blindly recomputing the entropy of each
-    vector again and again, you may do it once and supply it to this function
-    in order to save on that computation.
-
-    :param l1: first integer vector (X)
-    :type l1: numpy.array or similar
-    :param l2: first integer vector (Y)
-    :type l2: numpy.array or similar
-    :param float l1_entropy: entropy of ``l1`` (precomputed)
-    :param float l2_entropy: entropy of ``l2`` (precomputed)
-    :retuns: mutual information, as a float
     """
-    return l1_entropy + l2_entropy - entropy(joint_dataset(l1, l2))
+    return l1_entropy + l2_entropy - entropy(joint_dataset(l1, l2), weights)
 
 
 class DecisionTree(object):
@@ -135,7 +88,7 @@ class DecisionTree(object):
         # Dictionary of children.
         self._children = {}
 
-    def _gain_ratio(self, splits, y, H_y):
+    def _gain_ratio(self, splits, y, H_y, weights):
         """
         Return the gain ratio of some split of the examples.
 
@@ -143,9 +96,10 @@ class DecisionTree(object):
           example is in.
         :param y: The labels of the examples.
         :param H_y: The entropy of the labels (so we don't recompute)
+        :param weights: sample weights
         """
-        H_splits = entropy(splits)
-        information_gain = mutual_info_fast(splits, y, H_splits, H_y)
+        H_splits = entropy(splits, weights)
+        information_gain = mutual_info_fast(splits, y, weights, H_splits, H_y)
 
         with np.errstate(divide='ignore', invalid='ignore'):
             gain_ratio = information_gain / H_splits
@@ -156,7 +110,7 @@ class DecisionTree(object):
 
         return gain_ratio
 
-    def _find_cutoff(self, X, y, attr, H_y):
+    def _find_cutoff(self, X, y, attr, H_y, weights):
         """
         Return the cutoff, IG, and array for a continuous attribute.
         :param X: examples
@@ -182,7 +136,7 @@ class DecisionTree(object):
         cutoffs = np.unique(X[changes, attr])
         for cutoff in cutoffs:
             split = X[:, attr] < cutoff
-            ig = self._gain_ratio(split, y, H_y)
+            ig = self._gain_ratio(split, y, H_y, weights)
             if ig > max_ig:
                 max_ig = ig
                 max_cutoff = cutoff
@@ -190,7 +144,7 @@ class DecisionTree(object):
         return max_cutoff, max_ig, max_split
 
 
-    def _max_gain_ratio_split(self, X, y):
+    def _max_gain_ratio_split(self, X, y, weights):
         """
         Return the attribute and split that maximizes the gain ratio.
 
@@ -214,7 +168,7 @@ class DecisionTree(object):
         # I'm changing the label -1 to 0, mostly so that my entropy
         # implementation works properly.
         y[y == -1] = 0
-        H_y = entropy(y)
+        H_y = entropy(y, weights)
 
         # Iterate over each attribute, keeping track of the best one.
         for attr in range(X.shape[1]):
@@ -226,10 +180,10 @@ class DecisionTree(object):
                 # For nominal attributes, just use the attribute itself as the
                 # split.
                 split = X[:, attr]
-                ig = self._gain_ratio(split.astype(int), y, H_y)
+                ig = self._gain_ratio(split.astype(int), y, H_y, weights)
                 log.debug('Consider %d (nominal), ig=%r', attr, ig)
             else:
-                cutoff, ig, split = self._find_cutoff(X, y, attr, H_y)
+                cutoff, ig, split = self._find_cutoff(X, y, attr, H_y, weights)
                 log.debug('Consider %r (continueous), cutoff=%r, ig=%r', attr, cutoff, ig)
 
             # Hold onto it if it's thmax()e best so far.
@@ -250,6 +204,8 @@ class DecisionTree(object):
     def fit(self, X, y, sample_weight=None):
         """ Build a decision tree classifier trained on data (X, y) """
         #from smbio.util.repl import repl; repl()
+        if sample_weight is None:
+            sample_weight = np.ones(y.shape)
         log.debug('Starting fit()')
         # If we have a pure tree, we're done.
         unique_labels = np.unique(y)
@@ -267,7 +223,7 @@ class DecisionTree(object):
 
         # Otherwise, choose the attribute to split that maximizes the gain
         # ratio.
-        ig, self._attribute, split = self._max_gain_ratio_split(X, y)
+        ig, self._attribute, split = self._max_gain_ratio_split(X, y, sample_weight)
         log.debug('Choose attribute %r', self._attribute)
         # Fit the children!
         for value in np.unique(split):
