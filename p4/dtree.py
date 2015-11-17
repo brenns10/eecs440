@@ -6,11 +6,10 @@ from __future__ import division
 
 import numpy as np
 from scipy.stats import mode
-from scipy.ndimage.interpolation import shift
 import logging
 log = logging.getLogger('dtree')
 log.addHandler(logging.StreamHandler())
-log.setLevel(logging.DEBUG)
+#log.setLevel(logging.DEBUG)
 
 
 def entropy(l, weights):
@@ -55,6 +54,14 @@ def mutual_info_fast(l1, l2, weights, l1_entropy, l2_entropy):
     Compute mutual info without recomputing the entropy of l1 and l2.
     """
     return l1_entropy + l2_entropy - entropy(joint_dataset(l1, l2), weights)
+
+
+def safelog(n):
+    """For single numbers, return log(n) unless n=0, then return 0."""
+    if n <= 0:
+        return 0
+    else:
+        return np.log2(n)
 
 
 class DecisionTree(object):
@@ -124,24 +131,51 @@ class DecisionTree(object):
         """
         # Get coordinately sorted copies of X and y.
         argsort = X[:, attr].argsort()
+        xs = X[argsort, attr]
         ys = y[argsort]
+        ws = weights[argsort]
 
-        # Create a y array shifted one index up
-        yshift = shift(ys, 1, cval=np.NaN)
-
-        # Iterate over every index where the label isn't the same as the
-        # previous one.
+        wsum = ws.sum()
         max_ig = -1
-        changes = np.where(ys != yshift)[0]
-        cutoffs = np.unique(X[changes, attr])
-        for cutoff in cutoffs:
-            split = X[:, attr] < cutoff
-            ig = self._gain_ratio(split, y, H_y, weights)
-            if ig > max_ig:
-                max_ig = ig
-                max_cutoff = cutoff
-                max_split = split
-        return max_cutoff, max_ig, max_split
+        max_idx = -1
+
+        last_label = ys[0]
+        left = 0
+        right = ws.sum()
+        left_pos = 0
+        left_neg = 0
+        right_pos = ws[ys == 1].sum()
+        right_neg = ws[ys != 1].sum()
+        for i in range(len(ys)):
+            # Update the max information gain.
+            if ys[i] != last_label:
+                ig = H_y
+                ig -= left/wsum * safelog(left/wsum)
+                ig -= right/wsum * safelog(right/wsum)
+                ig += left_pos/wsum * safelog(left_pos/wsum)
+                ig += left_neg/wsum * safelog(left_neg/wsum)
+                ig += right_pos/wsum * safelog(right_pos/wsum)
+                ig += right_neg/wsum * safelog(right_neg/wsum)
+                if ig > max_ig:
+                    max_ig = ig
+                    max_idx = i
+                    max_cutoff = xs[i]
+
+            # And then do the bookkeeping for moving this example to the left.
+            left += ws[i]
+            right -= ws[i]
+            if ys[i] == 1:
+                left_pos += ws[i]
+                right_pos -= ws[i]
+            else:
+                left_neg += ws[i]
+                right_neg -= ws[i]
+
+        # max_cutoff = X[argsort[max_idx], attr]
+        max_split = X[:, attr] < max_cutoff
+        ig = mutual_info(y, max_split, weights)
+        print('recomputed=%f, incremental=%f' % (ig, max_ig))
+        return max_cutoff, ig, max_split
 
 
     def _max_gain_ratio_split(self, X, y, weights):
