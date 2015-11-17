@@ -214,6 +214,28 @@
       The bias error is
       $(\bar{h}(x,y) - f(x,y))^2 = (\frac{1}{3} + x^2 + y^2 - 1)^2 = (x^2 + y^2
       - \frac{2}{3})^2$
+
+    \item To compute the variance error and bias error in general (in order to
+      numerically solve this problem), we must first compute the expected value
+      of $h$, and its variance.
+
+      \begin{align*}
+        E(h(x,y)) &= \frac{1}{4}\int_{-1}^1\int_{-1}^1 (ax + by + c) dx dy \\
+        &= \frac{1}{4} \int_{-1}^1 \left[\frac{ax^2}{2} + bxy +
+          cx\right]_{x=-1}^{x=1} dy \\
+        &= \frac{1}{4} \int_{-1}^1 (2by + 2c)dy \\
+        &= \frac{1}{4} \left[\frac{by^2}{2} + 2cy\right]_{y=-1}^{y=1} \\
+        &= \frac{1}{4} * 4c = c
+      \end{align*}
+
+      My script first gets a random sample of 10 points from $(-1, 1)^2$.  It
+      performs least squares regression to get values for $a$, $b$, and $c$.
+      Then, it maximizes the bias error
+      ($bias(x,y) = (\bar{h}(x,y) - f(x,y))^2 = (c + x^2 + y^2 - 1)^2$) and the
+      variance error
+      ($variance(x,y) = (\bar{h}(x,y) - h(x,y))^2 = (c - h(x,y))^2$).  In both
+      situations, I get the bias and variance to be maximized when
+      $(x,y) = (0,0)$.
     \end{enumerate}
   \end{problem}
 
