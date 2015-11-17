@@ -47,10 +47,10 @@ class Booster(object):
 
         for i in range(self._iters):
             print('Booster: fit classifier %03d/%03d' % (i+1, self._iters))
-
+            print(weights)
             # Train a classifier, and then classify the training data.
             classifier = self._cls(**self._params)
-            classifier.fit(X, y, sample_weght=weights)
+            classifier.fit(X, y, sample_weight=weights)
             predictions = classifier.predict(X)
 
             # Epsilon is the weighted training error.  Use it to calculate
@@ -63,7 +63,7 @@ class Booster(object):
             self._weights.append(alpha)
 
             # Finally, update the weights of each example.
-            new_weights = weights * np.exp(-alpha * y, predictions)
+            new_weights = weights * np.exp(-alpha * y * predictions)
             weights = new_weights / new_weights.sum()  # normalize
 
     def predict(self, X):
