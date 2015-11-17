@@ -2,6 +2,8 @@
 An implementation of bagging as a wrapper for a classifier
 """
 
+from __future__ import division, print_function
+
 import numpy as np
 
 from dtree import DecisionTree
