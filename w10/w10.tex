@@ -158,6 +158,63 @@
       bias and the $(x,y)$ with the largest variance for samples of size 10. Can
       you intuitively justify your findings? (15 points)
     \end{question}
+
+    \begin{enumerate}[(a)]
+    \item If the learner sees an arbitrarily large training sample, then it
+      should converge to a $\hat{h}(x,y)$ that minimizes the total squared loss
+      over all $(x,y) \in (-1,1)^2$.  That is, it should converge to:
+
+      \begin{align*}
+        \hat{h}(x,y) &= \arg \min_{h} \int_{-1}^1\int_{-1}^1 (h(x,y) - f(x,y))^2 dx dy \\
+        &= \arg \min_{a,b,c} \int_{-1}^1\int_{-1}^1 (x^2 + ax + y^2 + by + c-1)^2 dx dy \\
+      \end{align*}
+
+      Using the table below, we expand out the multiplication.  For
+      simplification, we make the substitution $d=c-1$.
+
+      \begin{tabular}{l|lllll}
+              &$x^2$     & $ax$     & $y^2$    & $by$    & $d$     \\
+        \hline
+        $x^2$ & $x^4$    & $ax^3$   & $x^2y^2$ & $bx^2y$  & $dx^2$ \\
+        $ax$  & $ax^3$   & $a^2x^2$ & $axy^2$  & $abxy$   & $adx$  \\
+        $y^2$ & $x^2y^2$ & $axy^2$  & $y^4$    & $by^3$   & $dy^2$ \\
+        $by$  & $bx^2y$  & $abxy$  & $by^3$   &  $b^2y^2$ & $bdy$ \\
+        $d$   & $dx^2$   & $adx$   & $dy^2$   &  $bdy$    & $d^2$ \\
+      \end{tabular}
+
+      Due to the impending integration, we can ignore anything that has an odd
+      power of $x$ or $y$, since that will integrate to an even power and cancel
+      out upon evaluating the definite integral.  So, this evaluates to:
+
+      \begin{align*}
+        \hat{h}(x,y) &= \arg \min_{a,b,c} \int_{-1}^1\int_{-1}^1 \left(x^4 + xy^4 + 2x^2y^2 + (a^2 + 2d)x^2 + (b^2 + 2d) y^2 + d^2 \right)dx dy \\
+        &= \arg \min_{a,b,c} \int_{-1}^1 \left[\frac{1}{5}x^5 + y^4 + \frac{2}{3}x^3y^2 + \frac{1}{3}(a^2 + 2d)x^3 + (b^2 + 2d) xy^2 + d^2x \right]_{x=-1}^{x=1}dy \\
+        &= \arg \min_{a,b,c} \int_{-1}^1 \left(\frac{2}{5} + 2y^4 + \frac{4}{3}y^2 + \frac{2}{3}(a^2+2d) + 2(b^2 + 2d)y^2 + 2d2\right)dy \\
+        &= \arg \min_{a,b,c} \int_{-1}^1 \left( 2y^4 + \left(\frac{4}{3} + 2b^2 + 4d\right)y^2 + \frac{2}{5}+\frac{2}{3}(a^2+2d) + 2d^2\right)dy \\
+        &= \arg \min_{a,b,c} \left[ \frac{2}{5}y^5 + \frac{1}{3}\left(\frac{4}{3} + 2b^2 + 4d\right)y^3 + \frac{2}{5}y+\frac{2}{3}(a^2+2d)y + 2d^2y\right]_{y=-1}^{y=1} \\
+        &= \arg \min_{a,b,c} \frac{4}{5} + \frac{2}{3}\left(\frac{4}{3} + 2b^2 + 4d\right) + \frac{4}{5}+\frac{4}{3}(a^2+2d) + 4d^2 \\
+        &= \arg \min_{a,b,c} \frac{4}{3}a^2 + \frac{4}{3}b^2 + 4d^2 + \frac{16}{3}d \\
+        &= \arg \min_{a,b,c} \frac{4}{3}a^2 + \frac{4}{3}b^2 + 4c^2 - \frac{8}{3}c
+      \end{align*}
+
+      Setting the gradient to zero, we obtain $a=0$, $b=0$, and $c=\frac{1}{3}$.
+      Therefore, $\hat{h}(x,y) = \frac{1}{3}$.
+
+      Now that we have the hypotheses that a learner would have after training
+      on an arbitrarily large sample, we can compute the bias and variance.  In
+      general:
+
+      \begin{align*}
+        E[f(x,y) - h(x,y)] = V(h(x,y)) + V(f(x,y)) + [\bar{h}(x,y) - f(x,y)]^2
+      \end{align*}
+
+      The variance error is $V(h(x,y))$.  Since $h(x,y) = \frac{1}{3}$, this
+      variance is zero.
+
+      The bias error is
+      $(\bar{h}(x,y) - f(x,y))^2 = (\frac{1}{3} + x^2 + y^2 - 1)^2 = (x^2 + y^2
+      - \frac{2}{3})^2$
+    \end{enumerate}
   \end{problem}
 
   \begin{problem}{4}
