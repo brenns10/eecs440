@@ -82,7 +82,7 @@ class ArtificialNeuralNetwork(object):
                 X[:, i] = (X[:, i] - self._means[i]) / self._stds[i]
         return X
 
-    def fitloop_count(self, X, y01):
+    def fitloop_count(self, X, y01, sample_weight):
         """Do the looping portion for a specified number of iterations."""
         # Do training iterations.
         for i in range(self._max_iters):
@@ -92,17 +92,17 @@ class ArtificialNeuralNetwork(object):
             print('iter % 6d' % (i + 1), end='')
             sys.stdout.flush()
             # Do a single training iteration.
-            self.fit_iter(X, y01)
+            self.fit_iter(X, y01, sample_weight)
 
         # Newline after the iteration count line.
         print()
 
-    def fitloop_converge(self, X, y01):
+    def fitloop_converge(self, X, y01, sample_weight):
         """Do the looping portion for a specified number of iterations."""
         # Do training iterations.
         i = 0
         print('iter % 6d' % (i + 1), end='')
-        while not self.fit_iter(X, y01):
+        while not self.fit_iter(X, y01, sample_weight):
             i += 1
             # Update the iteration count on the same line so we have status
             # info without flooding the console.
@@ -121,6 +121,8 @@ class ArtificialNeuralNetwork(object):
         :param y: k-length list of outputs.
         :param sample_weight: ignored right now <3
         """
+        if sample_weight is None:
+            sample_weight = np.ones(y.shape)
         self._means = np.mean(X, 0)
         self._stds = np.std(X, 0)
         X = self.standardize_inputs(X)
@@ -129,9 +131,9 @@ class ArtificialNeuralNetwork(object):
         y01[y01 == -1] = 0
 
         if self._max_iters is None:
-            self.fitloop_converge(X, y01)
+            self.fitloop_converge(X, y01, sample_weight)
         else:
-            self.fitloop_count(X, y01)
+            self.fitloop_count(X, y01, sample_weight)
 
     def _feed_forward(self, X):
         """
@@ -146,23 +148,24 @@ class ArtificialNeuralNetwork(object):
             layer_outputs.append(X)
         return layer_outputs
 
-    def _gradient_outer(self, X, y_hat, y):
+    def _gradient_outer(self, X, y_hat, y, sample_weight):
         """
         Return the gradient for an outer layer.
         :param X: inputs to this layer (k by n)
         :param y_hat: outputs (predictions) from this layer (k by m)
         :param y: expected output from this layer (k)
+        :param sample_weight: weight of each example (k)
         :return: gradients of outer layer weights for each example (k*n*m)
         """
         k, n = X.shape
         m = y_hat.shape[1]  # m should be 1, but just in case
         y = y.reshape(y_hat.shape)  # make y  k by m (just in case)
         # Compute dl/dw
-        dl = y_hat * (1 - y_hat) * (y_hat - y)  # k by m
+        dl = sample_weight.reshape(k, 1) *y_hat * (1 - y_hat) * (y_hat - y)  # k by m
         dl = dl.reshape(k, 1, m) * X.reshape(k, n, 1)
         return dl
 
-    def _gradient_hidden(self, X, outs, dL_next, W_next):
+    def _gradient_hidden(self, X, outs, dL_next, W_next, sample_weight):
         """
         Return the gradient for a hidden layer.
         :param X: inputs to this layer (k by n)
@@ -171,6 +174,8 @@ class ArtificialNeuralNetwork(object):
         :param W_next: (m by p)
         :return: gradients of hidden layer weights for each example (k*n*m)
         """
+        ## SAMPLE WEIGHT IS UNUSED, SINCE THE ASSIGNMENT ONLY REQUIRES A SINGLE
+        ## LAYER
         k, n, m, p = X.shape[0], X.shape[1], outs.shape[1], W_next.shape[1]
         # The formula is:
         # dl/dw = h(n_j) (1 - h(n_j)) x_{ji}
@@ -185,7 +190,7 @@ class ArtificialNeuralNetwork(object):
         dl = dl * X.reshape(k, n, 1)
         return dl  # k by n by m
 
-    def fit_iter(self, X, y):
+    def fit_iter(self, X, y, sample_weight):
         # Feed examples through network.
         outputs = self._feed_forward(X)
 
@@ -200,10 +205,11 @@ class ArtificialNeuralNetwork(object):
         for x, y_hat, W_next in reversed(list(zip(inputs, outputs, layers_shifted))):
             if prev_grad is None:
                 # For the output layer:
-                prev_grad = self._gradient_outer(x, y_hat, y)
+                prev_grad = self._gradient_outer(x, y_hat, y, sample_weight)
             else:
                 # For all the other layers:
-                prev_grad = self._gradient_hidden(x, y_hat, prev_grad, W_next)
+                prev_grad = self._gradient_hidden(x, y_hat, prev_grad, W_next,
+                                                  sample_weight)
             gradients.append(prev_grad)
 
         # Now we have a list of k by (n by m) gradients, one for each layer.
