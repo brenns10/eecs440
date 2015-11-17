@@ -174,7 +174,6 @@ class DecisionTree(object):
         # max_cutoff = X[argsort[max_idx], attr]
         max_split = X[:, attr] < max_cutoff
         ig = mutual_info(y, max_split, weights)
-        print('recomputed=%f, incremental=%f' % (ig, max_ig))
         return max_cutoff, ig, max_split
 
 
