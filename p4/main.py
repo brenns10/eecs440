@@ -148,6 +148,7 @@ def main(**options):
         fs_n = options.pop("fs_features")
 
     schema, X, y = get_dataset(dataset, dataset_directory)
+    options['schema'] = schema
     folds = get_folds(X, y, k)
     stats_manager = StatisticsManager()
     #import pdb;pdb.set_trace()
