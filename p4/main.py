@@ -200,6 +200,7 @@ if __name__ == "__main__":
     parser.add_argument('--dataset', metavar='DATASET', default='voting')
     parser.add_argument('--meta_algorithm', metavar='ALG', required=False, choices=['bagging', 'boosting'], help='Bagging or boosting, if desired')
     parser.add_argument('--meta_iters', metavar='N', type=int, required=False, help='Iterations for bagging or boosting, if applicable')
+    parser.add_argument('--flip-probability', metavar='N', type=float, default=0, required=False, help='Probability of flipping an example')
     parser.add_argument('--fs_algorithm', metavar='ALG', required=False, choices=['pca'], help='Feature selection algorithm, if desired')
     parser.add_argument('--fs_features', metavar='N', required=False, type=int, help='Number of feature to select, if applicable')
 

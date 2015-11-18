@@ -21,7 +21,7 @@ CLASSIFIERS = {
 
 class Booster(object):
 
-    def __init__(self, algorithm, iters, **params):
+    def __init__(self, algorithm, iters, flip_probability=0, **params):
         """
         Boosting wrapper for a classification algorithm
 
@@ -37,9 +37,14 @@ class Booster(object):
         self._params = params
         self._classifiers = []
         self._weights = []
+        self._pflip = flip_probability
 
     def fit(self, X, y):
+        y = y.copy()
         N = len(y)
+        flips = np.random.uniform(0.0, 1.0, N) < self._pflip
+        y[flips & (y == -1)] = 1
+        y[flips & (y == 1)] = -1
 
         # Initialize weights to 1/N
         weights = np.zeros(N)

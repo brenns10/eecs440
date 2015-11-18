@@ -21,7 +21,7 @@ CLASSIFIERS = {
 
 class Bagger(object):
 
-    def __init__(self, algorithm, iters, **params):
+    def __init__(self, algorithm, iters, flip_probability=0, **params):
         """
         Boosting wrapper for a classification algorithm
 
@@ -36,8 +36,13 @@ class Bagger(object):
         self._iters = iters
         self._params = params
         self._classifiers = []
+        self._pflip = flip_probability
 
     def fit(self, X, y):
+        y = y.copy()
+        flips = np.random.uniform(0.0, 1.0, len(y)) < self._pflip
+        y[flips & (y == -1)] = 1
+        y[flips & (y == 1)] = -1
         for i in range(self._iters):
             print('Bagger: fit classifier %03d/%03d' % (i+1, self._iters))
             indexer = np.random.randint(0, len(y), len(y))
