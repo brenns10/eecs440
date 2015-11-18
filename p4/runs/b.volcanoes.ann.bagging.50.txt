@@ -1,0 +1,30 @@
+Booster: fit classifier 031/050
+226 x 1
+iter   5000
+Booster: fit classifier 032/050
+226 x 1
+iter   5000
+Booster: fit classifier 033/050
+226 x 1
+iter   5000
+Booster: fit classifier 034/050
+226 x 1
+iter   5000
+Booster: fit classifier 035/050
+226 x 1
+iter   5000
+Booster: fit classifier 036/050
+226 x 1
+iter   5000
+Booster: fit classifier 037/050
+226 x 1
+iter   5000
+Booster: fit classifier 038/050
+226 x 1
+iter   5000
+Booster: fit classifier 039/050
+226 x 1
+iter   5000
+Booster: fit classifier 040/050
+226 x 1
+iter   2235

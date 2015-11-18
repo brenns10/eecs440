@@ -1,0 +1,30 @@
+Booster: fit classifier 043/050
+226 x 1
+iter   5000
+Booster: fit classifier 044/050
+226 x 1
+iter   5000
+Booster: fit classifier 045/050
+226 x 1
+iter   5000
+Booster: fit classifier 046/050
+226 x 1
+iter   5000
+Booster: fit classifier 047/050
+226 x 1
+iter   5000
+Booster: fit classifier 048/050
+226 x 1
+iter   5000
+Booster: fit classifier 049/050
+226 x 1
+iter   5000
+Booster: fit classifier 050/050
+226 x 1
+iter   5000
+      Accuracy: 0.239 0.010
+     Precision: 0.683 0.031
+        Recall: 0.731 0.029
+Area under ROC: 0.853
+Ran for 1:44:49.341692 (H:MM:SS.fraction)
+

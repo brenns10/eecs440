@@ -1,0 +1,30 @@
+Bagger: fit classifier 003/010
+19 x 1
+iter   5000
+Bagger: fit classifier 004/010
+19 x 1
+iter   5000
+Bagger: fit classifier 005/010
+19 x 1
+iter   5000
+Bagger: fit classifier 006/010
+19 x 1
+iter   5000
+Bagger: fit classifier 007/010
+19 x 1
+iter   5000
+Bagger: fit classifier 008/010
+19 x 1
+iter   5000
+Bagger: fit classifier 009/010
+19 x 1
+iter   5000
+Bagger: fit classifier 010/010
+19 x 1
+iter   5000
+      Accuracy: 0.599 0.025
+     Precision: 0.663 0.034
+        Recall: 0.957 0.040
+Area under ROC: 0.684
+Ran for 1:08:57.930393 (H:MM:SS.fraction)
+
