@@ -238,6 +238,7 @@ class DecisionTree(object):
     def fit(self, X, y, sample_weight=None):
         """ Build a decision tree classifier trained on data (X, y) """
         #from smbio.util.repl import repl; repl()
+        y = y.copy()  # modifying y is bad
         if sample_weight is None:
             sample_weight = np.ones(y.shape)
         log.debug('Starting fit()')
