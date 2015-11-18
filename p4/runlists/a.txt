@@ -1,5 +1,5 @@
-runs/a.voting.dtree.bagging.txt python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 10 dtree --depth 2
-runs/a.voting.ann.bagging.txt: python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 10 ann --layer_sizes 0 --max_iters 5000
+runs/a.voting.dtree.bagging.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 10 dtree --depth 2
+runs/a.voting.ann.bagging.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 10 ann --layer_sizes 0 --max_iters 5000
 runs/a.voting.dtree.boosting.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 10 dtree --depth 2
 runs/a.voting.ann.boosting.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 10 ann --layer_sizes 0 --max_iters 5000
 runs/a.spam.dtree.bagging.txt:python3 main.py --dataset_directory ../data --dataset spam --meta_algorithm bagging --meta_iters 10 dtree --depth 2
