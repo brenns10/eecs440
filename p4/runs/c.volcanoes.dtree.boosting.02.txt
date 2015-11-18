@@ -1,0 +1,25 @@
+$ python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 2 dtree --depth 2
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:431: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`
+, which always has a shape of (0,).
+  FutureWarning)
+{'meta_algorithm': 'boosting', 'depth': 2, 'flip_probability': 0, 'classifier': 'dtree', 'meta_iters': 2, 'schema': <data.Schema object at 0x7f449a2a7e48>}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_algorithm': 'boosting', 'depth': 2, 'flip_probability': 0, 'classifier': 'dtree', 'meta_iters': 2, 'schema': <data.Schema object at 0x7f449a2a7e48>}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_algorithm': 'boosting', 'depth': 2, 'flip_probability': 0, 'classifier': 'dtree', 'meta_iters': 2, 'schema': <data.Schema object at 0x7f449a2a7e48>}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_algorithm': 'boosting', 'depth': 2, 'flip_probability': 0, 'classifier': 'dtree', 'meta_iters': 2, 'schema': <data.Schema object at 0x7f449a2a7e48>}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_algorithm': 'boosting', 'depth': 2, 'flip_probability': 0, 'classifier': 'dtree', 'meta_iters': 2, 'schema': <data.Schema object at 0x7f449a2a7e48>}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+      Accuracy: 0.293 0.008
+     Precision: 0.447 0.024
+        Recall: 0.895 0.026
+Area under ROC: 0.674
+Ran for 0:02:08.568676 (H:MM:SS.fraction)
+

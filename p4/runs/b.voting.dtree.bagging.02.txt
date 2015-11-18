@@ -1,0 +1,25 @@
+$ python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 2 dtree --depth 2
+{'flip_probability': 0, 'meta_algorithm': 'bagging', 'depth': 2, 'schema': <data.Schema object at 0x7f2bae09bf28>, 'classifier': 'dtree', 'meta_iters': 2}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'meta_algorithm': 'bagging', 'depth': 2, 'schema': <data.Schema object at 0x7f2bae09bf28>, 'classifier': 'dtree', 'meta_iters': 2}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'meta_algorithm': 'bagging', 'depth': 2, 'schema': <data.Schema object at 0x7f2bae09bf28>, 'classifier': 'dtree', 'meta_iters': 2}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'meta_algorithm': 'bagging', 'depth': 2, 'schema': <data.Schema object at 0x7f2bae09bf28>, 'classifier': 'dtree', 'meta_iters': 2}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'meta_algorithm': 'bagging', 'depth': 2, 'schema': <data.Schema object at 0x7f2bae09bf28>, 'classifier': 'dtree', 'meta_iters': 2}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+      Accuracy: 0.430 0.009
+     Precision: 0.990 0.020
+        Recall: 0.964 0.013
+Area under ROC: 0.983
+Ran for 0:00:00.727200 (H:MM:SS.fraction)
+
+
+
+

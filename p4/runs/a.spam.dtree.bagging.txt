@@ -1,0 +1,25 @@
+Bagger: fit classifier 003/010
+Bagger: fit classifier 004/010
+Bagger: fit classifier 005/010
+Bagger: fit classifier 006/010
+Bagger: fit classifier 007/010
+Bagger: fit classifier 008/010
+Bagger: fit classifier 009/010
+Bagger: fit classifier 010/010
+{'classifier': 'dtree', 'depth': 2, 'schema': <data.Schema object at 0x7f07b2f54e80>, 'flip_probability': 0, 'meta_algorithm': 'bagging', 'meta_iters': 10}
+Bagger: fit classifier 001/010
+Bagger: fit classifier 002/010
+Bagger: fit classifier 003/010
+Bagger: fit classifier 004/010
+Bagger: fit classifier 005/010
+Bagger: fit classifier 006/010
+Bagger: fit classifier 007/010
+Bagger: fit classifier 008/010
+Bagger: fit classifier 009/010
+Bagger: fit classifier 010/010
+      Accuracy: 0.530 0.004
+     Precision: 0.732 0.003
+        Recall: 0.847 0.007
+Area under ROC: 0.669
+Ran for 0:21:17.147840 (H:MM:SS.fraction)
+

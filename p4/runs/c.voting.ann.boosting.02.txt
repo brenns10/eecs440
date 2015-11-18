@@ -1,0 +1,25 @@
+iter   5000
+{'schema': <data.Schema object at 0x7f0be1dbee80>, 'epsilon': None, 'meta_iters': 2, 'max_iters': 5000, 'num_hidden': 40, 'meta_algorithm': 'boosting', 'flip_probability': 0, 'layer_sizes': 0, 'gamma':
+0.01, 'classifier': 'ann'}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   5000
+{'schema': <data.Schema object at 0x7f0be1dbee80>, 'epsilon': None, 'meta_iters': 2, 'max_iters': 5000, 'num_hidden': 40, 'meta_algorithm': 'boosting', 'flip_probability': 0, 'layer_sizes': 0, 'gamma':
+0.01, 'classifier': 'ann'}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   5000
+{'schema': <data.Schema object at 0x7f0be1dbee80>, 'epsilon': None, 'meta_iters': 2, 'max_iters': 5000, 'num_hidden': 40, 'meta_algorithm': 'boosting', 'flip_probability': 0, 'layer_sizes': 0, 'gamma':
+0.01, 'classifier': 'ann'}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   3162

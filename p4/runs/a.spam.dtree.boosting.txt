@@ -1,0 +1,25 @@
+Booster: fit classifier 003/010
+Booster: fit classifier 004/010
+Booster: fit classifier 005/010
+Booster: fit classifier 006/010
+Booster: fit classifier 007/010
+Booster: fit classifier 008/010
+Booster: fit classifier 009/010
+Booster: fit classifier 010/010
+{'schema': <data.Schema object at 0x7f38d928cf28>, 'depth': 2, 'flip_probability': 0, 'meta_iters': 10, 'classifier': 'dtree', 'meta_algorithm': 'boosting'}
+Booster: fit classifier 001/010
+Booster: fit classifier 002/010
+Booster: fit classifier 003/010
+Booster: fit classifier 004/010
+Booster: fit classifier 005/010
+Booster: fit classifier 006/010
+Booster: fit classifier 007/010
+Booster: fit classifier 008/010
+Booster: fit classifier 009/010
+Booster: fit classifier 010/010
+      Accuracy: 0.541 0.002
+     Precision: 0.732 0.004
+        Recall: 0.865 0.004
+Area under ROC: 0.735
+Ran for 0:20:59.441939 (H:MM:SS.fraction)
+

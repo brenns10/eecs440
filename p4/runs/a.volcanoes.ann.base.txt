@@ -1,0 +1,25 @@
+$ python3 main.py --dataset_directory ../data --dataset volcanoes ann --layer_sizes 0 --max_iters 5000
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:431: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`
+, which always has a shape of (0,).
+  FutureWarning)
+{'max_iters': 5000, 'flip_probability': 0, 'classifier': 'ann', 'epsilon': None, 'schema': <data.Schema object at 0x7f37c501fe48>, 'num_hidden': 40, 'layer_sizes': 0, 'gamma': 0.01}
+Traceback (most recent call last):
+  File "main.py", line 229, in <module>
+    main(**vars(args))
+  File "main.py", line 159, in main
+    classifier = get_classifier(**options)
+  File "main.py", line 57, in get_classifier
+    return CLASSIFIERS[classifier_name](**options)
+TypeError: __init__() got an unexpected keyword argument 'flip_probability'
+Ran for 0:00:00.829468 (H:MM:SS.fraction)
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+Booster: fit classifier 002/002
+226 x 1
+iter   5000
+{'layer_sizes': 0, 'gamma': 0.01, 'max_iters': 5000, 'classifier': 'ann', 'schema': <data.Schema object at 0x7f3a0c96ae48>, 'epsilon': None, 'meta_iters': 2, 'flip_probability': 0, 'num_hidden': 40, 'me
+ta_algorithm': 'boosting'}
+Booster: fit classifier 001/002
+226 x 1
+iter   5000
+Booster: fit classifier 002/002
+226 x 1
+iter   5000
+{'layer_sizes': 0, 'gamma': 0.01, 'max_iters': 5000, 'classifier': 'ann', 'schema': <data.Schema object at 0x7f3a0c96ae48>, 'epsilon': None, 'meta_iters': 2, 'flip_probability': 0, 'num_hidden': 40, 'me
+ta_algorithm': 'boosting'}
+Booster: fit classifier 001/002
+226 x 1
+iter   5000
+Booster: fit classifier 002/002
+226 x 1
+iter   5000
+      Accuracy: 0.225 0.010
+     Precision: 0.799 0.030
+        Recall: 0.685 0.032
+Area under ROC: 0.853
+Ran for 0:11:43.917867 (H:MM:SS.fraction)
+

@@ -1,0 +1,25 @@
+Bagger: fit classifier 025/035
+Bagger: fit classifier 026/035
+Bagger: fit classifier 027/035
+Bagger: fit classifier 028/035
+Bagger: fit classifier 029/035
+Bagger: fit classifier 030/035
+Bagger: fit classifier 031/035
+Bagger: fit classifier 032/035
+Bagger: fit classifier 033/035
+Bagger: fit classifier 034/035
+Bagger: fit classifier 035/035
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+      Accuracy: 0.434 0.013
+     Precision: 0.990 0.012
+        Recall: 0.974 0.023
+Area under ROC: 0.992
+Ran for 0:00:02.167381 (H:MM:SS.fraction)
+

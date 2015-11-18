@@ -1,0 +1,25 @@
+$ python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 2 dtree --depth 2
+{'meta_iters': 2, 'meta_algorithm': 'boosting', 'classifier': 'dtree', 'schema': <data.Schema object at 0x7ff11aef9e80>, 'flip_probability': 0, 'depth': 2}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_iters': 2, 'meta_algorithm': 'boosting', 'classifier': 'dtree', 'schema': <data.Schema object at 0x7ff11aef9e80>, 'flip_probability': 0, 'depth': 2}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_iters': 2, 'meta_algorithm': 'boosting', 'classifier': 'dtree', 'schema': <data.Schema object at 0x7ff11aef9e80>, 'flip_probability': 0, 'depth': 2}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_iters': 2, 'meta_algorithm': 'boosting', 'classifier': 'dtree', 'schema': <data.Schema object at 0x7ff11aef9e80>, 'flip_probability': 0, 'depth': 2}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+{'meta_iters': 2, 'meta_algorithm': 'boosting', 'classifier': 'dtree', 'schema': <data.Schema object at 0x7ff11aef9e80>, 'flip_probability': 0, 'depth': 2}
+Booster: fit classifier 001/002
+Booster: fit classifier 002/002
+      Accuracy: 0.434 0.005
+     Precision: 0.990 0.012
+        Recall: 0.975 0.016
+Area under ROC: 0.992
+Ran for 0:00:01.134697 (H:MM:SS.fraction)
+
+
+
+
