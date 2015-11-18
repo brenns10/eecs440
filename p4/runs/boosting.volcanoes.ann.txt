@@ -1,0 +1,313 @@
+sbrennan@intractable:~/repos/eecs440/p4:master$ python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 20 ann --layer_sizes 0 --max_iters 5000
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:431: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`, which always has a shape of (0,).
+  FutureWarning)
+{'meta_iters': 20, 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'epsilon': None, 'schema': <data.Schema object at 0x7fbdfcb02e80>, 'meta_algorithm': 'boosting', 'num_hidden': 40, 'classifier': 'ann'}
+Booster: fit classifier 001/020
+226 x 1
+iter   5000
+Booster: fit classifier 002/020
+226 x 1
+iter   5000
+Booster: fit classifier 003/020
+226 x 1
+iter   5000
+Booster: fit classifier 004/020
+226 x 1
+iter   5000
+Booster: fit classifier 005/020
+226 x 1
+iter   5000
+Booster: fit classifier 006/020
+226 x 1
+iter   5000
+Booster: fit classifier 007/020
+226 x 1
+iter   5000
+Booster: fit classifier 008/020
+226 x 1
+iter   5000
+Booster: fit classifier 009/020
+226 x 1
+iter   5000
+Booster: fit classifier 010/020
+226 x 1
+iter   5000
+Booster: fit classifier 011/020
+226 x 1
+iter   5000
+Booster: fit classifier 012/020
+226 x 1
+iter   5000
+Booster: fit classifier 013/020
+226 x 1
+iter   5000
+Booster: fit classifier 014/020
+226 x 1
+iter   5000
+Booster: fit classifier 015/020
+226 x 1
+iter   5000
+Booster: fit classifier 016/020
+226 x 1
+iter   5000
+Booster: fit classifier 017/020
+226 x 1
+iter   5000
+Booster: fit classifier 018/020
+226 x 1
+iter   5000
+Booster: fit classifier 019/020
+226 x 1
+iter   5000
+Booster: fit classifier 020/020
+226 x 1
+iter   5000
+{'meta_iters': 20, 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'epsilon': None, 'schema': <data.Schema object at 0x7fbdfcb02e80>, 'meta_algorithm': 'boosting', 'num_hidden': 40, 'classifier': 'ann'}
+Booster: fit classifier 001/020
+226 x 1
+iter   5000
+Booster: fit classifier 002/020
+226 x 1
+iter   5000
+Booster: fit classifier 003/020
+226 x 1
+iter   5000
+Booster: fit classifier 004/020
+226 x 1
+iter   5000
+Booster: fit classifier 005/020
+226 x 1
+iter   5000
+Booster: fit classifier 006/020
+226 x 1
+iter   5000
+Booster: fit classifier 007/020
+226 x 1
+iter   5000
+Booster: fit classifier 008/020
+226 x 1
+iter   5000
+Booster: fit classifier 009/020
+226 x 1
+iter   5000
+Booster: fit classifier 010/020
+226 x 1
+iter   5000
+Booster: fit classifier 011/020
+226 x 1
+iter   5000
+Booster: fit classifier 012/020
+226 x 1
+iter   5000
+Booster: fit classifier 013/020
+226 x 1
+iter   5000
+Booster: fit classifier 014/020
+226 x 1
+iter   5000
+Booster: fit classifier 015/020
+226 x 1
+iter   5000
+Booster: fit classifier 016/020
+226 x 1
+iter   5000
+Booster: fit classifier 017/020
+226 x 1
+iter   5000
+Booster: fit classifier 018/020
+226 x 1
+iter   5000
+Booster: fit classifier 019/020
+226 x 1
+iter   5000
+Booster: fit classifier 020/020
+226 x 1
+iter   5000
+{'meta_iters': 20, 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'epsilon': None, 'schema': <data.Schema object at 0x7fbdfcb02e80>, 'meta_algorithm': 'boosting', 'num_hidden': 40, 'classifier': 'ann'}
+Booster: fit classifier 001/020
+226 x 1
+iter   5000
+Booster: fit classifier 002/020
+226 x 1
+iter   5000
+Booster: fit classifier 003/020
+226 x 1
+iter   5000
+Booster: fit classifier 004/020
+226 x 1
+iter   5000
+Booster: fit classifier 005/020
+226 x 1
+iter   5000
+Booster: fit classifier 006/020
+226 x 1
+iter   5000
+Booster: fit classifier 007/020
+226 x 1
+iter   5000
+Booster: fit classifier 008/020
+226 x 1
+iter   5000
+Booster: fit classifier 009/020
+226 x 1
+iter   5000
+Booster: fit classifier 010/020
+226 x 1
+iter   5000
+Booster: fit classifier 011/020
+226 x 1
+iter   5000
+Booster: fit classifier 012/020
+226 x 1
+iter   5000
+Booster: fit classifier 013/020
+226 x 1
+iter   5000
+Booster: fit classifier 014/020
+226 x 1
+iter   5000
+Booster: fit classifier 015/020
+226 x 1
+iter   5000
+Booster: fit classifier 016/020
+226 x 1
+iter   5000
+Booster: fit classifier 017/020
+226 x 1
+iter   5000
+Booster: fit classifier 018/020
+226 x 1
+iter   5000
+Booster: fit classifier 019/020
+226 x 1
+iter   5000
+Booster: fit classifier 020/020
+226 x 1
+iter   5000
+{'meta_iters': 20, 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'epsilon': None, 'schema': <data.Schema object at 0x7fbdfcb02e80>, 'meta_algorithm': 'boosting', 'num_hidden': 40, 'classifier': 'ann'}
+Booster: fit classifier 001/020
+226 x 1
+iter   5000
+Booster: fit classifier 002/020
+226 x 1
+iter   5000
+Booster: fit classifier 003/020
+226 x 1
+iter   5000
+Booster: fit classifier 004/020
+226 x 1
+iter   5000
+Booster: fit classifier 005/020
+226 x 1
+iter   5000
+Booster: fit classifier 006/020
+226 x 1
+iter   5000
+Booster: fit classifier 007/020
+226 x 1
+iter   5000
+Booster: fit classifier 008/020
+226 x 1
+iter   5000
+Booster: fit classifier 009/020
+226 x 1
+iter   5000
+Booster: fit classifier 010/020
+226 x 1
+iter   5000
+Booster: fit classifier 011/020
+226 x 1
+iter   5000
+Booster: fit classifier 012/020
+226 x 1
+iter   5000
+Booster: fit classifier 013/020
+226 x 1
+iter   5000
+Booster: fit classifier 014/020
+226 x 1
+iter   5000
+Booster: fit classifier 015/020
+226 x 1
+iter   5000
+Booster: fit classifier 016/020
+226 x 1
+iter   5000
+Booster: fit classifier 017/020
+226 x 1
+iter   5000
+Booster: fit classifier 018/020
+226 x 1
+iter   5000
+Booster: fit classifier 019/020
+226 x 1
+iter   5000
+Booster: fit classifier 020/020
+226 x 1
+iter   5000
+{'meta_iters': 20, 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'epsilon': None, 'schema': <data.Schema object at 0x7fbdfcb02e80>, 'meta_algorithm': 'boosting', 'num_hidden': 40, 'classifier': 'ann'}
+Booster: fit classifier 001/020
+226 x 1
+iter   5000
+Booster: fit classifier 002/020
+226 x 1
+iter   5000
+Booster: fit classifier 003/020
+226 x 1
+iter   5000
+Booster: fit classifier 004/020
+226 x 1
+iter   5000
+Booster: fit classifier 005/020
+226 x 1
+iter   5000
+Booster: fit classifier 006/020
+226 x 1
+iter   5000
+Booster: fit classifier 007/020
+226 x 1
+iter   5000
+Booster: fit classifier 008/020
+226 x 1
+iter   5000
+Booster: fit classifier 009/020
+226 x 1
+iter   5000
+Booster: fit classifier 010/020
+226 x 1
+iter   5000
+Booster: fit classifier 011/020
+226 x 1
+iter   5000
+Booster: fit classifier 012/020
+226 x 1
+iter   5000
+Booster: fit classifier 013/020
+226 x 1
+iter   5000
+Booster: fit classifier 014/020
+226 x 1
+iter   5000
+Booster: fit classifier 015/020
+226 x 1
+iter   5000
+Booster: fit classifier 016/020
+226 x 1
+iter   5000
+Booster: fit classifier 017/020
+226 x 1
+iter   5000
+Booster: fit classifier 018/020
+226 x 1
+iter   5000
+Booster: fit classifier 019/020
+226 x 1
+iter   5000
+Booster: fit classifier 020/020
+226 x 1
+iter   5000
+      Accuracy: 0.241 0.011
+     Precision: 0.698 0.027
+        Recall: 0.736 0.034
+Area under ROC: 0.844
+

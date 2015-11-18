@@ -1,0 +1,315 @@
+sbrennan@intractable:~/repos/eecs440/p4:master$ python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --meta_iters 20 ann --layer_sizes 0 --max_iters 5000
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:431: FutureWarning: in the future np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `array([])`, which always has a shape of (0,).
+  FutureWarning)
+{'classifier': 'ann', 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'meta_iters': 20, 'schema': <data.Schema object at 0x7f1df3730eb8>, 'num_hidden': 40, 'meta_algorithm': 'bagging', 'epsilon': None}
+Bagger: fit classifier 001/020
+226 x 1
+iter   5000
+Bagger: fit classifier 002/020
+226 x 1
+iter   5000
+Bagger: fit classifier 003/020
+226 x 1
+iter      2/home/sbrennan/repos/eecs440/p4/ann.py:11: RuntimeWarning: overflow encountered in exp
+  return (1 + np.exp(-X)) ** -1
+iter   5000
+Bagger: fit classifier 004/020
+226 x 1
+iter   5000
+Bagger: fit classifier 005/020
+226 x 1
+iter   5000
+Bagger: fit classifier 006/020
+226 x 1
+iter   5000
+Bagger: fit classifier 007/020
+226 x 1
+iter   5000
+Bagger: fit classifier 008/020
+226 x 1
+iter   5000
+Bagger: fit classifier 009/020
+226 x 1
+iter   5000
+Bagger: fit classifier 010/020
+226 x 1
+iter   5000
+Bagger: fit classifier 011/020
+226 x 1
+iter   5000
+Bagger: fit classifier 012/020
+226 x 1
+iter   5000
+Bagger: fit classifier 013/020
+226 x 1
+iter   5000
+Bagger: fit classifier 014/020
+226 x 1
+iter   5000
+Bagger: fit classifier 015/020
+226 x 1
+iter   5000
+Bagger: fit classifier 016/020
+226 x 1
+iter   5000
+Bagger: fit classifier 017/020
+226 x 1
+iter   5000
+Bagger: fit classifier 018/020
+226 x 1
+iter   5000
+Bagger: fit classifier 019/020
+226 x 1
+iter   5000
+Bagger: fit classifier 020/020
+226 x 1
+iter   5000
+{'classifier': 'ann', 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'meta_iters': 20, 'schema': <data.Schema object at 0x7f1df3730eb8>, 'num_hidden': 40, 'meta_algorithm': 'bagging', 'epsilon': None}
+Bagger: fit classifier 001/020
+226 x 1
+iter   5000
+Bagger: fit classifier 002/020
+226 x 1
+iter   5000
+Bagger: fit classifier 003/020
+226 x 1
+iter   5000
+Bagger: fit classifier 004/020
+226 x 1
+iter   5000
+Bagger: fit classifier 005/020
+226 x 1
+iter   5000
+Bagger: fit classifier 006/020
+226 x 1
+iter   5000
+Bagger: fit classifier 007/020
+226 x 1
+iter   5000
+Bagger: fit classifier 008/020
+226 x 1
+iter   5000
+Bagger: fit classifier 009/020
+226 x 1
+iter   5000
+Bagger: fit classifier 010/020
+226 x 1
+iter   5000
+Bagger: fit classifier 011/020
+226 x 1
+iter   5000
+Bagger: fit classifier 012/020
+226 x 1
+iter   5000
+Bagger: fit classifier 013/020
+226 x 1
+iter   5000
+Bagger: fit classifier 014/020
+226 x 1
+iter   5000
+Bagger: fit classifier 015/020
+226 x 1
+iter   5000
+Bagger: fit classifier 016/020
+226 x 1
+iter   5000
+Bagger: fit classifier 017/020
+226 x 1
+iter   5000
+Bagger: fit classifier 018/020
+226 x 1
+iter   5000
+Bagger: fit classifier 019/020
+226 x 1
+iter   5000
+Bagger: fit classifier 020/020
+226 x 1
+iter   5000
+{'classifier': 'ann', 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'meta_iters': 20, 'schema': <data.Schema object at 0x7f1df3730eb8>, 'num_hidden': 40, 'meta_algorithm': 'bagging', 'epsilon': None}
+Bagger: fit classifier 001/020
+226 x 1
+iter   5000
+Bagger: fit classifier 002/020
+226 x 1
+iter   5000
+Bagger: fit classifier 003/020
+226 x 1
+iter   5000
+Bagger: fit classifier 004/020
+226 x 1
+iter   5000
+Bagger: fit classifier 005/020
+226 x 1
+iter   5000
+Bagger: fit classifier 006/020
+226 x 1
+iter   5000
+Bagger: fit classifier 007/020
+226 x 1
+iter   5000
+Bagger: fit classifier 008/020
+226 x 1
+iter   5000
+Bagger: fit classifier 009/020
+226 x 1
+iter   5000
+Bagger: fit classifier 010/020
+226 x 1
+iter   5000
+Bagger: fit classifier 011/020
+226 x 1
+iter   5000
+Bagger: fit classifier 012/020
+226 x 1
+iter   5000
+Bagger: fit classifier 013/020
+226 x 1
+iter   5000
+Bagger: fit classifier 014/020
+226 x 1
+iter   5000
+Bagger: fit classifier 015/020
+226 x 1
+iter   5000
+Bagger: fit classifier 016/020
+226 x 1
+iter   5000
+Bagger: fit classifier 017/020
+226 x 1
+iter   5000
+Bagger: fit classifier 018/020
+226 x 1
+iter   5000
+Bagger: fit classifier 019/020
+226 x 1
+iter   5000
+Bagger: fit classifier 020/020
+226 x 1
+iter   5000
+{'classifier': 'ann', 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'meta_iters': 20, 'schema': <data.Schema object at 0x7f1df3730eb8>, 'num_hidden': 40, 'meta_algorithm': 'bagging', 'epsilon': None}
+Bagger: fit classifier 001/020
+226 x 1
+iter   5000
+Bagger: fit classifier 002/020
+226 x 1
+iter   5000
+Bagger: fit classifier 003/020
+226 x 1
+iter   5000
+Bagger: fit classifier 004/020
+226 x 1
+iter   5000
+Bagger: fit classifier 005/020
+226 x 1
+iter   5000
+Bagger: fit classifier 006/020
+226 x 1
+iter   5000
+Bagger: fit classifier 007/020
+226 x 1
+iter   5000
+Bagger: fit classifier 008/020
+226 x 1
+iter   5000
+Bagger: fit classifier 009/020
+226 x 1
+iter   5000
+Bagger: fit classifier 010/020
+226 x 1
+iter   5000
+Bagger: fit classifier 011/020
+226 x 1
+iter   5000
+Bagger: fit classifier 012/020
+226 x 1
+iter   5000
+Bagger: fit classifier 013/020
+226 x 1
+iter   5000
+Bagger: fit classifier 014/020
+226 x 1
+iter   5000
+Bagger: fit classifier 015/020
+226 x 1
+iter   5000
+Bagger: fit classifier 016/020
+226 x 1
+iter   5000
+Bagger: fit classifier 017/020
+226 x 1
+iter   5000
+Bagger: fit classifier 018/020
+226 x 1
+iter   5000
+Bagger: fit classifier 019/020
+226 x 1
+iter   5000
+Bagger: fit classifier 020/020
+226 x 1
+iter   5000
+{'classifier': 'ann', 'gamma': 0.01, 'max_iters': 5000, 'layer_sizes': 0, 'meta_iters': 20, 'schema': <data.Schema object at 0x7f1df3730eb8>, 'num_hidden': 40, 'meta_algorithm': 'bagging', 'epsilon': None}
+Bagger: fit classifier 001/020
+226 x 1
+iter   5000
+Bagger: fit classifier 002/020
+226 x 1
+iter   5000
+Bagger: fit classifier 003/020
+226 x 1
+iter   5000
+Bagger: fit classifier 004/020
+226 x 1
+iter   5000
+Bagger: fit classifier 005/020
+226 x 1
+iter   5000
+Bagger: fit classifier 006/020
+226 x 1
+iter   5000
+Bagger: fit classifier 007/020
+226 x 1
+iter   5000
+Bagger: fit classifier 008/020
+226 x 1
+iter   5000
+Bagger: fit classifier 009/020
+226 x 1
+iter   5000
+Bagger: fit classifier 010/020
+226 x 1
+iter   5000
+Bagger: fit classifier 011/020
+226 x 1
+iter   5000
+Bagger: fit classifier 012/020
+226 x 1
+iter   5000
+Bagger: fit classifier 013/020
+226 x 1
+iter   5000
+Bagger: fit classifier 014/020
+226 x 1
+iter   5000
+Bagger: fit classifier 015/020
+226 x 1
+iter   5000
+Bagger: fit classifier 016/020
+226 x 1
+iter   5000
+Bagger: fit classifier 017/020
+226 x 1
+iter   5000
+Bagger: fit classifier 018/020
+226 x 1
+iter   5000
+Bagger: fit classifier 019/020
+226 x 1
+iter   5000
+Bagger: fit classifier 020/020
+226 x 1
+iter   5000
+      Accuracy: 0.215 0.018
+     Precision: 0.820 0.035
+        Recall: 0.655 0.056
+Area under ROC: 0.880
+
