@@ -1,24 +1,24 @@
-runs/d.voting.dtree.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 30 dtree --depth 2
-runs/d.voting.dtree.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 30 dtree --depth 2
-runs/d.voting.dtree.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 30 dtree --depth 2
-runs/d.voting.ann.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/d.voting.ann.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/d.voting.ann.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/d.volcanoes.dtree.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --meta_iters 30 dtree --depth 2
-runs/d.volcanoes.dtree.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --meta_iters 30 dtree --depth 2
-runs/d.volcanoes.dtree.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --meta_iters 30 dtree --depth 2
-runs/d.volcanoes.ann.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/d.volcanoes.ann.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/d.volcanoes.ann.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/e.voting.dtree.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 30 dtree --depth 2
-runs/e.voting.dtree.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 30 dtree --depth 2
-runs/e.voting.dtree.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 30 dtree --depth 2
-runs/e.voting.ann.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/e.voting.ann.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/e.voting.ann.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset voting --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/e.volcanoes.dtree.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 30 dtree --depth 2
-runs/e.volcanoes.dtree.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 30 dtree --depth 2
-runs/e.volcanoes.dtree.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 30 dtree --depth 2
-runs/e.volcanoes.ann.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/e.volcanoes.ann.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
-runs/e.volcanoes.ann.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/d.voting.dtree.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.01 --meta_algorithm bagging --meta_iters 30 dtree --depth 2
+runs/d.voting.dtree.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.10 --meta_algorithm bagging --meta_iters 30 dtree --depth 2
+runs/d.voting.dtree.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.50 --meta_algorithm bagging --meta_iters 30 dtree --depth 2
+runs/d.voting.ann.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.01 --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/d.voting.ann.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.10 --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/d.voting.ann.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.50 --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/d.volcanoes.dtree.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.01 --meta_algorithm bagging --meta_iters 30 dtree --depth 2
+runs/d.volcanoes.dtree.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.10 --meta_algorithm bagging --meta_iters 30 dtree --depth 2
+runs/d.volcanoes.dtree.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.50 --meta_algorithm bagging --meta_iters 30 dtree --depth 2
+runs/d.volcanoes.ann.bagging.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.01 --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/d.volcanoes.ann.bagging.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.10 --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/d.volcanoes.ann.bagging.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.50 --meta_algorithm bagging --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/e.voting.dtree.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.01 --meta_algorithm boosting --meta_iters 30 dtree --depth 2
+runs/e.voting.dtree.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.10 --meta_algorithm boosting --meta_iters 30 dtree --depth 2
+runs/e.voting.dtree.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.50 --meta_algorithm boosting --meta_iters 30 dtree --depth 2
+runs/e.voting.ann.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.01 --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/e.voting.ann.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.10 --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/e.voting.ann.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset voting --flip-probability 0.50 --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/e.volcanoes.dtree.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.01 --meta_algorithm boosting --meta_iters 30 dtree --depth 2
+runs/e.volcanoes.dtree.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.10 --meta_algorithm boosting --meta_iters 30 dtree --depth 2
+runs/e.volcanoes.dtree.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.50 --meta_algorithm boosting --meta_iters 30 dtree --depth 2
+runs/e.volcanoes.ann.boosting.01.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.01 --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/e.volcanoes.ann.boosting.10.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.10 --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
+runs/e.volcanoes.ann.boosting.50.txt:python3 main.py --dataset_directory ../data --dataset volcanoes --flip-probability 0.50 --meta_algorithm boosting --meta_iters 30 ann --layer_sizes 0 --max_iters 5000
