@@ -252,7 +252,12 @@ class DecisionTree(object):
         # If we are at the maximum depth, or if we've used all of our
         # attributes, choose the majority class.
         if self._allowed_depth == 1 or np.all(self._used):
-            self._label = mode(y).mode[0]
+            pos = sample_weight[y == 1].sum()
+            neg = sample_weight.sum() - pos
+            if pos > neg:
+                self._label = 1
+            else:
+                self._label = 0
             log.debug('Maximum depth.  Choosing max label %d', self._label)
             return 1
 
@@ -265,11 +270,12 @@ class DecisionTree(object):
             # Choose the examples that fit this branch.
             new_X = X[split == value]
             new_y = y[split == value]
+            new_w = sample_weight[split == value]
             # Create a new child with adjusted parameters.
             child = DecisionTree(depth=self._allowed_depth-1,
                                  schema=self._schema,
                                  used=np.copy(self._used))
-            d = child.fit(new_X, new_y, sample_weight=sample_weight)
+            d = child.fit(new_X, new_y, sample_weight=new_w)
             if d + 1 > self._depth:
                 self._depth = d + 1
             self._size += child._size
