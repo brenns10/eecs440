@@ -218,7 +218,7 @@ class DecisionTree(object):
                 log.debug('Consider %d (nominal), ig=%r', attr, ig)
             else:
                 cutoff, ig, split = self._find_cutoff(X, y, attr, H_y, weights)
-                log.debug('Consider %r (continueous), cutoff=%r, ig=%r', attr, cutoff, ig)
+                log.debug('Consider %r (continuous), cutoff=%r, ig=%r', attr, cutoff, ig)
 
             # Hold onto it if it's thmax()e best so far.
             if ig > max_ig:
