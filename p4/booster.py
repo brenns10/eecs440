@@ -71,7 +71,10 @@ class Booster(object):
             weights = new_weights / new_weights.sum()  # normalize
 
     def predict(self, X):
-        return self.predict_proba(X) > 0.5
+        predictions = self.predict_proba(X)
+        predictions[predictions > 0.5] = 1
+        predictions[predictions != 1] = -1
+        return predictions
 
     def predict_proba(self, X):
         # Sum of all alpha:
