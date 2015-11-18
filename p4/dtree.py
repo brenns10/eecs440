@@ -66,7 +66,7 @@ def safelog(n):
 
 class DecisionTree(object):
 
-    def __init__(self, depth=None, schema=None, used=None):
+    def __init__(self, depth=None, schema=None, used=None, **_):
         """
         Constructs a Decision Tree Classifier
 

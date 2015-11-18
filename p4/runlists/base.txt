@@ -1,0 +1,6 @@
+runs/a.voting.dtree.base.txt:python3 main.py --dataset_directory ../data --dataset voting dtree --depth 2
+runs/a.voting.ann.base.txt:python3 main.py --dataset_directory ../data --dataset voting ann --layer_sizes 0 --max_iters 5000
+runs/a.spam.dtree.base.txt:python3 main.py --dataset_directory ../data --dataset spam dtree --depth 2
+runs/a.spam.ann.base.txt:python3 main.py --dataset_directory ../data --dataset spam ann --layer_sizes 0 --max_iters 5000
+runs/a.volcanoes.dtree.base.txt:python3 main.py --dataset_directory ../data --dataset volcanoes dtree --depth 2
+runs/a.volcanoes.ann.base.txt:python3 main.py --dataset_directory ../data --dataset volcanoes ann --layer_sizes 0 --max_iters 5000

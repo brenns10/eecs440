@@ -14,7 +14,7 @@ def sigmoid(X):
 class ArtificialNeuralNetwork(object):
 
     def __init__(self, gamma, layer_sizes, num_hidden, epsilon=None,
-                 max_iters=None, schema=None):
+                 max_iters=None, schema=None, **_):
         """
         Construct an artificial neural network classifier
 
