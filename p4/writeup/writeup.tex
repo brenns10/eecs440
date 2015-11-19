@@ -1,0 +1,81 @@
+\documentclass[fleqn]{homework}
+
+\student{Stephen Brennan (smb196)}
+\course{EECS 440}
+\assignment{Programming 4}
+\duedate{November 19, 2015}
+
+%\usepackage{mathtools}
+%\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{placeins}
+
+\begin{document}
+  \maketitle
+
+  \begin{problem}{a}
+    \begin{question}
+      For all problems and the two learning algorithms, compare the accuracy of
+      the ensemble versions (10 iterations) to the base learners. Produce a
+      table with the accuracies of the base learner, the bagged learner, and the
+      boosted learner. Perform paired $t$-tests to determine if any of the
+      ensemble methods are significantly better than the base learner with 95\%
+      confidence.
+    \end{question}
+    \FloatBarrier
+
+    \begin{table}[h]
+    \centering
+    \caption{Comparison of base, bagged, and boosted learners.}
+    \label{t:a-comparison}
+    \begin{tabular}{lllllll}
+      \toprule
+      Problem & \multicolumn{3}{c}{Decision Tree} & \multicolumn{3}{c}{Neural Network} \\
+      \midrule
+             & Base          & Bagging       & Boosting      & Base          & Bagging      & Boosting       \\
+      Voting & 0.989 (0.007) & 0.982 (0.015) & 0.984 (0.012) & 0.984 (0.012) & 0.986 (0.009) & 0.977 (0.012) \\
+      Spam   & 0.711 (0.002) & 0.710 (0.002) & 0.717 (0.005) & 0.647 (0.034) & 0.657 (0.035) & 0.697 (0.003) \\
+      Volcanoes&0.672 (0.001)& 0.672 (0.001) & 0.773 (0.018) & 0.833 (0.028) & 0.839 (0.014) & 0.820 (0.023) \\
+      \bottomrule
+    \end{tabular}
+    \end{table}
+
+    A comparison of the accuracy is presented in Table~\ref{t:a-comparison}.
+  \end{problem}
+
+  \begin{problem}{b}
+    \begin{question}
+      For any two problems and the two learning algorithms, evaluate how the
+      accuracy of bagging changes with the number of iterations. Pick at least
+      three iteration values between 2 and 50, and plot the accuracy on a
+      graph. Do you see any difference by problem? By algorithm?
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{c}
+    \begin{question}
+      Repeat (b) for boosting.
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{d}
+    \begin{question}
+      Evaluate the sensitivity of bagging to noise as follows. When training,
+      after constructing the training sample, flip an example’s label with
+      probability $p$. Then use this noisy sample in your bagging algorithm and
+      evaluate the resulting classifier on the usual (noise free) test set. For
+      any two problems and any two learning algorithms, plot a graph with $p$ on
+      the $x$-axis and the test-set accuracy of bagging (30 iterations) on the
+      $y$-axis. You can use results from the previous questions for a $p=0$
+      point. Discuss how resilient bagging is to noise based on your
+      observations.
+    \end{question}
+  \end{problem}
+
+  \begin{problem}{e}
+    \begin{question}
+      Repeat (d) for boosting.
+    \end{question}
+  \end{problem}
+
+\end{document}
