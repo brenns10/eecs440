@@ -116,6 +116,41 @@
       three iteration values between 2 and 50, and plot the accuracy on a
       graph. Do you see any difference by problem? By algorithm?
     \end{question}
+
+    \begin{table}[h]
+      \centering
+      \caption{Effect of iterations of bagging on accuracy.}
+      \label{t:b}
+      \begin{tabular}{ll|ll}
+        \toprule
+        Problem   & Iterations & Decision Tree Accuracy & Neural Network Accuracy \\
+        \midrule
+                  & 2          & 0.984 (0.014)          & 0.982 (0.012)            \\
+        Voting    & 35         & 0.989 (0.010)          & 0.986 (0.009)            \\
+                  & 50         & 0.984 (0.015)          & 0.984 (0.012)            \\
+        \midrule
+                  & 2          & 0.676 (0.007)          & 0.827 (0.015)            \\
+        Volcanoes & 35         & 0.672 (0.001)          & 0.848 (0.014)            \\
+                  & 50         & 0.672 (0.001)          & 0.845 (0.027)            \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+
+    These findings are presented in Figures~\ref{f:b-voting} and
+    ~\ref{f:b-volcanoes}.  Please note the $y$ scales on these plots.
+
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:b-voting}
+      \includegraphics[width=0.67\textwidth]{b-voting.pdf}
+    \end{figure}
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:b-volcanoes}
+      \includegraphics[width=0.67\textwidth]{b-volcanoes.pdf}
+    \end{figure}
   \end{problem}
 
   \begin{problem}{c}
