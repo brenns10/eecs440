@@ -125,12 +125,14 @@
         \toprule
         Problem   & Iterations & Decision Tree Accuracy & Neural Network Accuracy \\
         \midrule
-                  & 2          & 0.984 (0.014)          & 0.982 (0.012)            \\
-        Voting    & 35         & 0.989 (0.010)          & 0.986 (0.009)            \\
+        Voting    & 2          & 0.984 (0.014)          & 0.982 (0.012)            \\
+                  & 20         & 0.982 (0.015)          & 0.986 (0.009)            \\
+                  & 35         & 0.989 (0.010)          & 0.986 (0.009)            \\
                   & 50         & 0.984 (0.015)          & 0.984 (0.012)            \\
         \midrule
-                  & 2          & 0.676 (0.007)          & 0.827 (0.015)            \\
-        Volcanoes & 35         & 0.672 (0.001)          & 0.848 (0.014)            \\
+        Volcanoes & 2          & 0.676 (0.007)          & 0.827 (0.015)            \\
+                  & 20         & 0.672 (0.001)          & 0.839 (0.014)            \\
+                  & 35         & 0.672 (0.001)          & 0.848 (0.014)            \\
                   & 50         & 0.672 (0.001)          & 0.845 (0.027)            \\
         \bottomrule
       \end{tabular}
@@ -165,6 +167,48 @@
     \begin{question}
       Repeat (b) for boosting.
     \end{question}
+
+    \begin{table}[h]
+      \centering
+      \caption{Effect of iterations of boosting on accuracy.}
+      \label{t:c}
+      \begin{tabular}{ll|ll}
+        \toprule
+        Problem   & Iterations & Decision Tree Accuracy & Neural Network Accuracy \\
+        \midrule
+        Voting    & 2          & 0.989 (0.007)          & 0.966 (0.016)            \\
+                  & 20         & 0.984 (0.012)          & 0.977 (0.012)            \\
+                  & 35         & 0.986 (0.009)          & 0.975 (0.024)            \\
+                  & 50         & 0.986 (0.009)          & 0.984 (0.014)            \\
+        \midrule
+        Volcanoes & 2          & 0.696 (0.021)          & 0.840 (0.009)            \\
+                  & 20         & 0.773 (0.018)          & 0.820 (0.023)            \\
+                  & 35         & 0.814 (0.024)          & 0.806 (0.014)            \\
+                  & 50         & 0.826 (0.026)          & 0.807 (0.016)            \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+
+    These findings are presented in Figures~\ref{f:c-voting} and
+    \ref{f:c-volcanoes}.  Please note the $y$ scales on these plots.  The
+    general trend seems to be here that boosting improves the performance of the
+    decision tree on volcanoes rather uniformly, while actually hurting the
+    performance of the neural network on volcanoes.  Meanwhile, it has very
+    little effect on voting.
+
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:c-voting}
+      \includegraphics[width=0.67\textwidth]{c-voting.pdf}
+    \end{figure}
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:c-volcanoes}
+      \includegraphics[width=0.67\textwidth]{c-volcanoes.pdf}
+    \end{figure}
+
   \end{problem}
 
   \begin{problem}{d}
