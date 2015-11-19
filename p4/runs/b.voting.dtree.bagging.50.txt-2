@@ -1,0 +1,49 @@
+Bagger: fit classifier 012/050
+Bagger: fit classifier 013/050
+Bagger: fit classifier 014/050
+Bagger: fit classifier 015/050
+Bagger: fit classifier 016/050
+Bagger: fit classifier 017/050
+Bagger: fit classifier 018/050
+Bagger: fit classifier 019/050
+Bagger: fit classifier 020/050
+Bagger: fit classifier 021/050
+Bagger: fit classifier 022/050
+Bagger: fit classifier 023/050
+Bagger: fit classifier 024/050
+Bagger: fit classifier 025/050
+Bagger: fit classifier 026/050
+Bagger: fit classifier 027/050
+Bagger: fit classifier 028/050
+Bagger: fit classifier 029/050
+Bagger: fit classifier 030/050
+Bagger: fit classifier 031/050
+Bagger: fit classifier 032/050
+Bagger: fit classifier 033/050
+Bagger: fit classifier 034/050
+Bagger: fit classifier 035/050
+Bagger: fit classifier 036/050
+Bagger: fit classifier 037/050
+Bagger: fit classifier 038/050
+Bagger: fit classifier 039/050
+Bagger: fit classifier 040/050
+Bagger: fit classifier 041/050
+Bagger: fit classifier 042/050
+Bagger: fit classifier 043/050
+Bagger: fit classifier 044/050
+Bagger: fit classifier 045/050
+Bagger: fit classifier 046/050
+Bagger: fit classifier 047/050
+Bagger: fit classifier 048/050
+Bagger: fit classifier 049/050
+Bagger: fit classifier 050/050
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+      Accuracy: 0.984 0.015
+     Precision: 0.990 0.012
+        Recall: 0.974 0.040
+Area under ROC: 0.992
+Ran for 0:00:02.622752 (H:MM:SS.fraction)
+

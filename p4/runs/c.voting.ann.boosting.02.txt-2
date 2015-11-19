@@ -1,0 +1,49 @@
+classifier': 'ann', 'meta_iters': 2}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   5000
+{'layer_sizes': 0, 'num_hidden': 40, 'schema': <data.Schema object at 0x7f3dc0efaf98>, 'max_iter
+s': 5000, 'gamma': 0.01, 'epsilon': None, 'flip_probability': 0, 'meta_algorithm': 'boosting', '
+classifier': 'ann', 'meta_iters': 2}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   5000
+{'layer_sizes': 0, 'num_hidden': 40, 'schema': <data.Schema object at 0x7f3dc0efaf98>, 'max_iter
+s': 5000, 'gamma': 0.01, 'epsilon': None, 'flip_probability': 0, 'meta_algorithm': 'boosting', '
+classifier': 'ann', 'meta_iters': 2}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   5000
+{'layer_sizes': 0, 'num_hidden': 40, 'schema': <data.Schema object at 0x7f3dc0efaf98>, 'max_iter
+s': 5000, 'gamma': 0.01, 'epsilon': None, 'flip_probability': 0, 'meta_algorithm': 'boosting', '
+classifier': 'ann', 'meta_iters': 2}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   5000
+{'layer_sizes': 0, 'num_hidden': 40, 'schema': <data.Schema object at 0x7f3dc0efaf98>, 'max_iter
+s': 5000, 'gamma': 0.01, 'epsilon': None, 'flip_probability': 0, 'meta_algorithm': 'boosting', '
+classifier': 'ann', 'meta_iters': 2}
+Booster: fit classifier 001/002
+11 x 1
+iter   5000
+Booster: fit classifier 002/002
+11 x 1
+iter   5000
+      Accuracy: 0.966 0.016
+     Precision: 1.000 0.000
+        Recall: 0.923 0.036
+Area under ROC: 0.978
+Ran for 0:00:31.293776 (H:MM:SS.fraction)
+

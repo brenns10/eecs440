@@ -1,0 +1,49 @@
+iter      2/home/sbrennan/repos/eecs440/p4/ann.py:11: RuntimeWarning: overflow encountered in ex
+p
+  return (1 + np.exp(-X)) ** -1
+iter   5000
+Bagger: fit classifier 002/002
+226 x 1
+iter   5000
+{'gamma': 0.01, 'flip_probability': 0, 'max_iters': 5000, 'layer_sizes': 0, 'num_hidden': 40, 's
+chema': <data.Schema object at 0x7f746b536f98>, 'meta_algorithm': 'bagging', 'meta_iters': 2, 'e
+psilon': None, 'classifier': 'ann'}
+Bagger: fit classifier 001/002
+226 x 1
+iter   5000
+Bagger: fit classifier 002/002
+226 x 1
+iter   5000
+{'gamma': 0.01, 'flip_probability': 0, 'max_iters': 5000, 'layer_sizes': 0, 'num_hidden': 40, 's
+chema': <data.Schema object at 0x7f746b536f98>, 'meta_algorithm': 'bagging', 'meta_iters': 2, 'e
+psilon': None, 'classifier': 'ann'}
+Bagger: fit classifier 001/002
+226 x 1
+iter   5000
+Bagger: fit classifier 002/002
+226 x 1
+iter   5000
+{'gamma': 0.01, 'flip_probability': 0, 'max_iters': 5000, 'layer_sizes': 0, 'num_hidden': 40, 's
+chema': <data.Schema object at 0x7f746b536f98>, 'meta_algorithm': 'bagging', 'meta_iters': 2, 'e
+psilon': None, 'classifier': 'ann'}
+Bagger: fit classifier 001/002
+226 x 1
+iter   5000
+Bagger: fit classifier 002/002
+226 x 1
+iter   5000
+{'gamma': 0.01, 'flip_probability': 0, 'max_iters': 5000, 'layer_sizes': 0, 'num_hidden': 40, 's
+chema': <data.Schema object at 0x7f746b536f98>, 'meta_algorithm': 'bagging', 'meta_iters': 2, 'e
+psilon': None, 'classifier': 'ann'}
+Bagger: fit classifier 001/002
+226 x 1
+iter   5000
+Bagger: fit classifier 002/002
+226 x 1
+iter   5000
+      Accuracy: 0.827 0.015
+     Precision: 0.822 0.066
+        Recall: 0.625 0.125
+Area under ROC: 0.823
+Ran for 0:11:17.530398 (H:MM:SS.fraction)
+

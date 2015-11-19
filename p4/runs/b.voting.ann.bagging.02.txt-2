@@ -1,0 +1,49 @@
+ 'epsilon': None, 'num_hidden': 40}
+Bagger: fit classifier 001/002
+11 x 1
+iter   5000
+Bagger: fit classifier 002/002
+11 x 1
+iter   5000
+{'schema': <data.Schema object at 0x7fb0e5c8ae48>, 'meta_algorithm': 'bagging', 'classifier': 'a
+nn', 'meta_iters': 2, 'layer_sizes': 0, 'flip_probability': 0, 'gamma': 0.01, 'max_iters': 5000,
+ 'epsilon': None, 'num_hidden': 40}
+Bagger: fit classifier 001/002
+11 x 1
+iter   5000
+Bagger: fit classifier 002/002
+11 x 1
+iter   5000
+{'schema': <data.Schema object at 0x7fb0e5c8ae48>, 'meta_algorithm': 'bagging', 'classifier': 'a
+nn', 'meta_iters': 2, 'layer_sizes': 0, 'flip_probability': 0, 'gamma': 0.01, 'max_iters': 5000,
+ 'epsilon': None, 'num_hidden': 40}
+Bagger: fit classifier 001/002
+11 x 1
+iter   5000
+Bagger: fit classifier 002/002
+11 x 1
+iter   5000
+{'schema': <data.Schema object at 0x7fb0e5c8ae48>, 'meta_algorithm': 'bagging', 'classifier': 'a
+nn', 'meta_iters': 2, 'layer_sizes': 0, 'flip_probability': 0, 'gamma': 0.01, 'max_iters': 5000,
+ 'epsilon': None, 'num_hidden': 40}
+Bagger: fit classifier 001/002
+11 x 1
+iter   5000
+Bagger: fit classifier 002/002
+11 x 1
+iter   5000
+{'schema': <data.Schema object at 0x7fb0e5c8ae48>, 'meta_algorithm': 'bagging', 'classifier': 'a
+nn', 'meta_iters': 2, 'layer_sizes': 0, 'flip_probability': 0, 'gamma': 0.01, 'max_iters': 5000,
+ 'epsilon': None, 'num_hidden': 40}
+Bagger: fit classifier 001/002
+11 x 1
+iter   5000
+Bagger: fit classifier 002/002
+11 x 1
+iter   5000
+      Accuracy: 0.982 0.012
+     Precision: 0.990 0.013
+        Recall: 0.969 0.025
+Area under ROC: 0.983
+Ran for 0:00:30.799931 (H:MM:SS.fraction)
+

@@ -1,4 +1,28 @@
 iter   5000
+Booster: fit classifier 008/010
+226 x 1
+iter   5000
+Booster: fit classifier 009/010
+226 x 1
+iter   5000
+Booster: fit classifier 010/010
+226 x 1
+iter   5000
+{'max_iters': 5000, 'num_hidden': 40, 'schema': <data.Schema object at 0x7f2afb1d9f98>, 'flip_pr
+obability': 0, 'meta_iters': 10, 'epsilon': None, 'meta_algorithm': 'boosting', 'gamma': 0.01, '
+classifier': 'ann', 'layer_sizes': 0}
+Booster: fit classifier 001/010
+226 x 1
+iter   5000
+Booster: fit classifier 002/010
+226 x 1
+iter   5000
+Booster: fit classifier 003/010
+226 x 1
+iter   5000
+Booster: fit classifier 004/010
+226 x 1
+iter   5000
 Booster: fit classifier 005/010
 226 x 1
 iter   5000
@@ -17,9 +41,9 @@ iter   5000
 Booster: fit classifier 010/010
 226 x 1
 iter   5000
-      Accuracy: 0.239 0.011
-     Precision: 0.695 0.021
-        Recall: 0.731 0.035
-Area under ROC: 0.850
-Ran for 0:51:06.228966 (H:MM:SS.fraction)
+      Accuracy: 0.820 0.023
+     Precision: 0.717 0.035
+        Recall: 0.744 0.034
+Area under ROC: 0.857
+Ran for 0:49:19.219375 (H:MM:SS.fraction)
 

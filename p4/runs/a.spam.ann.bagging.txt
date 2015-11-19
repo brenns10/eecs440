@@ -1,4 +1,28 @@
 iter   5000
+Bagger: fit classifier 008/010
+19 x 1
+iter   5000
+Bagger: fit classifier 009/010
+19 x 1
+iter   5000
+Bagger: fit classifier 010/010
+19 x 1
+iter   5000
+{'num_hidden': 40, 'classifier': 'ann', 'meta_algorithm': 'bagging', 'max_iters': 5000, 'schema'
+: <data.Schema object at 0x7f5f50779e80>, 'meta_iters': 10, 'flip_probability': 0, 'gamma': 0.01
+, 'epsilon': None, 'layer_sizes': 0}
+Bagger: fit classifier 001/010
+19 x 1
+iter   5000
+Bagger: fit classifier 002/010
+19 x 1
+iter   5000
+Bagger: fit classifier 003/010
+19 x 1
+iter   5000
+Bagger: fit classifier 004/010
+19 x 1
+iter   5000
 Bagger: fit classifier 005/010
 19 x 1
 iter   5000
@@ -17,9 +41,9 @@ iter   5000
 Bagger: fit classifier 010/010
 19 x 1
 iter   5000
-      Accuracy: 0.586 0.030
-     Precision: 0.675 0.039
-        Recall: 0.937 0.048
-Area under ROC: 0.685
-Ran for 2:26:29.434287 (H:MM:SS.fraction)
+      Accuracy: 0.657 0.035
+     Precision: 0.657 0.037
+        Recall: 0.961 0.041
+Area under ROC: 0.683
+Ran for 2:16:11.808380 (H:MM:SS.fraction)
 

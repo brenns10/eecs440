@@ -1,0 +1,49 @@
+$ python3 main.py --dataset_directory ../data --dataset volcanoes --meta_algorithm bagging --met
+a_iters 2 dtree --depth 2
+/usr/local/lib/python3.4/dist-packages/numpy/lib/shape_base.py:431: FutureWarning: in the future
+ np.array_split will retain the shape of arrays with a zero size, instead of replacing them by `
+array([])`, which always has a shape of (0,).
+  FutureWarning)
+{'flip_probability': 0, 'schema': <data.Schema object at 0x7f5d76048f98>, 'meta_iters': 2, 'clas
+sifier': 'dtree', 'depth': 2, 'meta_algorithm': 'bagging'}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'schema': <data.Schema object at 0x7f5d76048f98>, 'meta_iters': 2, 'clas
+sifier': 'dtree', 'depth': 2, 'meta_algorithm': 'bagging'}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'schema': <data.Schema object at 0x7f5d76048f98>, 'meta_iters': 2, 'clas
+sifier': 'dtree', 'depth': 2, 'meta_algorithm': 'bagging'}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'schema': <data.Schema object at 0x7f5d76048f98>, 'meta_iters': 2, 'clas
+sifier': 'dtree', 'depth': 2, 'meta_algorithm': 'bagging'}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+{'flip_probability': 0, 'schema': <data.Schema object at 0x7f5d76048f98>, 'meta_iters': 2, 'clas
+sifier': 'dtree', 'depth': 2, 'meta_algorithm': 'bagging'}
+Bagger: fit classifier 001/002
+Bagger: fit classifier 002/002
+      Accuracy: 0.676 0.007
+     Precision: 0.904 0.191
+        Recall: 0.144 0.288
+Area under ROC: 0.609
+Ran for 0:02:15.588748 (H:MM:SS.fraction)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

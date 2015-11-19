@@ -1,0 +1,49 @@
+iter   5000
+Booster: fit classifier 017/030
+226 x 1
+iter   5000
+Booster: fit classifier 018/030
+226 x 1
+iter   5000
+Booster: fit classifier 019/030
+226 x 1
+iter   5000
+Booster: fit classifier 020/030
+226 x 1
+iter   5000
+Booster: fit classifier 021/030
+226 x 1
+iter   5000
+Booster: fit classifier 022/030
+226 x 1
+iter   5000
+Booster: fit classifier 023/030
+226 x 1
+iter   5000
+Booster: fit classifier 024/030
+226 x 1
+iter   5000
+Booster: fit classifier 025/030
+226 x 1
+iter   5000
+Booster: fit classifier 026/030
+226 x 1
+iter   5000
+Booster: fit classifier 027/030
+226 x 1
+iter   5000
+Booster: fit classifier 028/030
+226 x 1
+iter   5000
+Booster: fit classifier 029/030
+226 x 1
+iter   5000
+Booster: fit classifier 030/030
+226 x 1
+iter   5000
+      Accuracy: 0.820 0.019
+     Precision: 0.743 0.040
+        Recall: 0.691 0.041
+Area under ROC: 0.833
+Ran for 2:09:51.632719 (H:MM:SS.fraction)
+

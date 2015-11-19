@@ -1,12 +1,8 @@
 No branch available. (x[0]=2), children=dict_keys([1, 3])
 No branch available. (x[0]=2), children=dict_keys([1, 3])
 No branch available. (x[0]=2), children=dict_keys([1, 3])
-No branch available. (x[0]=2), children=dict_keys([1, 3])
-No branch available. (x[0]=2), children=dict_keys([1, 3])
-No branch available. (x[0]=2), children=dict_keys([1, 3])
-No branch available. (x[0]=2), children=dict_keys([1, 3])
-No branch available. (x[0]=2), children=dict_keys([1, 3])
-{'meta_iters': 10, 'meta_algorithm': 'bagging', 'depth': 2, 'schema': <data.Schema object at 0x7fbd6cfcbe80>, 'classifier': 'dtree', 'flip_probability': 0}
+{'depth': 2, 'schema': <data.Schema object at 0x7f26afe07d68>, 'flip_probability': 0, 'meta_algo
+rithm': 'bagging', 'meta_iters': 10, 'classifier': 'dtree'}
 Bagger: fit classifier 001/010
 Bagger: fit classifier 002/010
 Bagger: fit classifier 003/010
@@ -17,9 +13,37 @@ Bagger: fit classifier 007/010
 Bagger: fit classifier 008/010
 Bagger: fit classifier 009/010
 Bagger: fit classifier 010/010
-      Accuracy: 0.436 0.009
-     Precision: 0.990 0.020
-        Recall: 0.980 0.019
+{'depth': 2, 'schema': <data.Schema object at 0x7f26afe07d68>, 'flip_probability': 0, 'meta_algo
+rithm': 'bagging', 'meta_iters': 10, 'classifier': 'dtree'}
+Bagger: fit classifier 001/010
+Bagger: fit classifier 002/010
+Bagger: fit classifier 003/010
+Bagger: fit classifier 004/010
+Bagger: fit classifier 005/010
+Bagger: fit classifier 006/010
+Bagger: fit classifier 007/010
+Bagger: fit classifier 008/010
+Bagger: fit classifier 009/010
+Bagger: fit classifier 010/010
+{'depth': 2, 'schema': <data.Schema object at 0x7f26afe07d68>, 'flip_probability': 0, 'meta_algo
+rithm': 'bagging', 'meta_iters': 10, 'classifier': 'dtree'}
+Bagger: fit classifier 001/010
+Bagger: fit classifier 002/010
+Bagger: fit classifier 003/010
+Bagger: fit classifier 004/010
+Bagger: fit classifier 005/010
+Bagger: fit classifier 006/010
+Bagger: fit classifier 007/010
+Bagger: fit classifier 008/010
+Bagger: fit classifier 009/010
+Bagger: fit classifier 010/010
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+      Accuracy: 0.982 0.015
+     Precision: 0.990 0.012
+        Recall: 0.969 0.038
 Area under ROC: 0.992
-Ran for 0:00:00.892037 (H:MM:SS.fraction)
+Ran for 0:00:00.454707 (H:MM:SS.fraction)
 

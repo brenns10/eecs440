@@ -1,0 +1,49 @@
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+{'flip_probability': 0, 'schema': <data.Schema object at 0x7f599e035e80>, 'depth': 2, 'classifie
+r': 'dtree', 'meta_algorithm': 'bagging', 'meta_iters': 35}
+Bagger: fit classifier 001/035
+Bagger: fit classifier 002/035
+Bagger: fit classifier 003/035
+Bagger: fit classifier 004/035
+Bagger: fit classifier 005/035
+Bagger: fit classifier 006/035
+Bagger: fit classifier 007/035
+Bagger: fit classifier 008/035
+Bagger: fit classifier 009/035
+Bagger: fit classifier 010/035
+Bagger: fit classifier 011/035
+Bagger: fit classifier 012/035
+Bagger: fit classifier 013/035
+Bagger: fit classifier 014/035
+Bagger: fit classifier 015/035
+Bagger: fit classifier 016/035
+Bagger: fit classifier 017/035
+Bagger: fit classifier 018/035
+Bagger: fit classifier 019/035
+Bagger: fit classifier 020/035
+Bagger: fit classifier 021/035
+Bagger: fit classifier 022/035
+Bagger: fit classifier 023/035
+Bagger: fit classifier 024/035
+Bagger: fit classifier 025/035
+Bagger: fit classifier 026/035
+Bagger: fit classifier 027/035
+Bagger: fit classifier 028/035
+Bagger: fit classifier 029/035
+Bagger: fit classifier 030/035
+Bagger: fit classifier 031/035
+Bagger: fit classifier 032/035
+Bagger: fit classifier 033/035
+Bagger: fit classifier 034/035
+Bagger: fit classifier 035/035
+      Accuracy: 0.989 0.010
+     Precision: 0.990 0.019
+        Recall: 0.985 0.021
+Area under ROC: 0.992
+Ran for 0:00:03.002265 (H:MM:SS.fraction)
+

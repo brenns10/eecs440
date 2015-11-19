@@ -1,4 +1,3 @@
-Booster: fit classifier 003/010
 Booster: fit classifier 004/010
 Booster: fit classifier 005/010
 Booster: fit classifier 006/010
@@ -6,7 +5,8 @@ Booster: fit classifier 007/010
 Booster: fit classifier 008/010
 Booster: fit classifier 009/010
 Booster: fit classifier 010/010
-{'schema': <data.Schema object at 0x7f4db084ce80>, 'depth': 2, 'classifier': 'dtree', 'flip_probability': 0, 'meta_algorithm': 'boosting', 'meta_iters': 10}
+{'classifier': 'dtree', 'depth': 2, 'flip_probability': 0, 'meta_algorithm': 'boosting', 'schema
+': <data.Schema object at 0x7ffaa524bf98>, 'meta_iters': 10}
 Booster: fit classifier 001/010
 Booster: fit classifier 002/010
 Booster: fit classifier 003/010
@@ -17,9 +17,33 @@ Booster: fit classifier 007/010
 Booster: fit classifier 008/010
 Booster: fit classifier 009/010
 Booster: fit classifier 010/010
-      Accuracy: 0.199 0.039
-     Precision: 0.687 0.086
-        Recall: 0.609 0.119
-Area under ROC: 0.822
-Ran for 0:09:14.205848 (H:MM:SS.fraction)
+{'classifier': 'dtree', 'depth': 2, 'flip_probability': 0, 'meta_algorithm': 'boosting', 'schema
+': <data.Schema object at 0x7ffaa524bf98>, 'meta_iters': 10}
+Booster: fit classifier 001/010
+Booster: fit classifier 002/010
+Booster: fit classifier 003/010
+Booster: fit classifier 004/010
+Booster: fit classifier 005/010
+Booster: fit classifier 006/010
+Booster: fit classifier 007/010
+Booster: fit classifier 008/010
+Booster: fit classifier 009/010
+Booster: fit classifier 010/010
+{'classifier': 'dtree', 'depth': 2, 'flip_probability': 0, 'meta_algorithm': 'boosting', 'schema
+': <data.Schema object at 0x7ffaa524bf98>, 'meta_iters': 10}
+Booster: fit classifier 001/010
+Booster: fit classifier 002/010
+Booster: fit classifier 003/010
+Booster: fit classifier 004/010
+Booster: fit classifier 005/010
+Booster: fit classifier 006/010
+Booster: fit classifier 007/010
+Booster: fit classifier 008/010
+Booster: fit classifier 009/010
+Booster: fit classifier 010/010
+      Accuracy: 0.773 0.018
+     Precision: 0.749 0.039
+        Recall: 0.473 0.104
+Area under ROC: 0.808
+Ran for 0:09:33.186675 (H:MM:SS.fraction)
 

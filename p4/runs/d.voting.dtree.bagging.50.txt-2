@@ -1,0 +1,49 @@
+Bagger: fit classifier 022/030
+Bagger: fit classifier 023/030
+Bagger: fit classifier 024/030
+Bagger: fit classifier 025/030
+Bagger: fit classifier 026/030
+Bagger: fit classifier 027/030
+Bagger: fit classifier 028/030
+Bagger: fit classifier 029/030
+Bagger: fit classifier 030/030
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+No branch available. (x[0]=2), children=dict_keys([1, 3])
+{'meta_algorithm': 'bagging', 'meta_iters': 30, 'depth': 2, 'schema': <data.Schema object at 0x7
+fa4ddda5f28>, 'classifier': 'dtree', 'flip_probability': 0.5}
+Bagger: fit classifier 001/030
+Bagger: fit classifier 002/030
+Bagger: fit classifier 003/030
+Bagger: fit classifier 004/030
+Bagger: fit classifier 005/030
+Bagger: fit classifier 006/030
+Bagger: fit classifier 007/030
+Bagger: fit classifier 008/030
+Bagger: fit classifier 009/030
+Bagger: fit classifier 010/030
+Bagger: fit classifier 011/030
+Bagger: fit classifier 012/030
+Bagger: fit classifier 013/030
+Bagger: fit classifier 014/030
+Bagger: fit classifier 015/030
+Bagger: fit classifier 016/030
+Bagger: fit classifier 017/030
+Bagger: fit classifier 018/030
+Bagger: fit classifier 019/030
+Bagger: fit classifier 020/030
+Bagger: fit classifier 021/030
+Bagger: fit classifier 022/030
+Bagger: fit classifier 023/030
+Bagger: fit classifier 024/030
+Bagger: fit classifier 025/030
+Bagger: fit classifier 026/030
+Bagger: fit classifier 027/030
+Bagger: fit classifier 028/030
+Bagger: fit classifier 029/030
+Bagger: fit classifier 030/030
+      Accuracy: 0.643 0.178
+     Precision: 0.800 0.400
+        Recall: 0.200 0.400
+Area under ROC: 0.989
+Ran for 0:00:03.558083 (H:MM:SS.fraction)
+
