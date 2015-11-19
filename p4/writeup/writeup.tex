@@ -151,6 +151,14 @@
       \label{f:b-volcanoes}
       \includegraphics[width=0.67\textwidth]{b-volcanoes.pdf}
     \end{figure}
+
+    Overall, it seems that bagging did not help with voting very much, probably
+    because it already had very good accuracy.  Bagging showed mild improvement
+    for the neural network, but not for the decision tree.  I noticed that
+    bagging became a majority class label predictor for decision tree on
+    volcanoes, when you set the iterations high.  I wonder if this is due to the
+    fact that decision trees are in general a rather poor predictor for large
+    amounts of continuous attributes like volcanoes.
   \end{problem}
 
   \begin{problem}{c}
