@@ -223,6 +223,52 @@
       point. Discuss how resilient bagging is to noise based on your
       observations.
     \end{question}
+
+    \begin{table}[h]
+      \centering
+      \caption{Effect of flipping labels on bagging accuracy.}
+      \label{t:d}
+      \begin{tabular}{ll|ll}
+        \toprule
+        Problem   & $p$        & Decision Tree Accuracy & Neural Network Accuracy \\
+        \midrule
+        Voting    & 0.00       & 0.982 (0.015)          & 0.986 (0.009)            \\
+                  & 0.01       & 0.982 (0.012)          & 0.984 (0.015)            \\
+                  & 0.10       & 0.986 (0.009)          & 0.980 (0.011)            \\
+                  & 0.50       & 0.643 (0.178)          & 0.693 (0.050)            \\
+        \midrule
+        Volcanoes & 0.00       & 0.672 (0.001)          & 0.839 (0.014)            \\
+                  & 0.01       & 0.672 (0.001)          & 0.841 (0.023)            \\
+                  & 0.10       & 0.672 (0.001)          & 0.818 (0.014)            \\
+                  & 0.50       & 0.672 (0.001)          & 0.677 (0.007)            \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+
+    These findings are presented in Figures~\ref{f:d-voting} and
+    ~\ref{f:d-volcanoes}.  Please note the $y$ scales on these plots.
+
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:d-voting}
+      \includegraphics[width=0.67\textwidth]{d-voting.pdf}
+    \end{figure}
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:d-volcanoes}
+      \includegraphics[width=0.67\textwidth]{d-volcanoes.pdf}
+    \end{figure}
+
+    It appears that bagging is surprisingly resilient to this flipping of
+    labels.  For the most part, performance across the board doesn't degrade too
+    much even at $p=0.10$, which seems pretty high.  I was expecting much worse
+    results, which is why there is such a gap between my $p=0.10$ and $p=0.50$
+    points.  The only thing to note here is that the decision tree for volcanoes
+    seems to have degraded to a majority class prediction in this test (as in
+    others).  It is a really strange thing to see, given that this doesn't occur
+    with other datasets.
   \end{problem}
 
   \begin{problem}{e}
