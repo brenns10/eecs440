@@ -40,7 +40,29 @@
     \end{tabular}
     \end{table}
 
-    A comparison of the accuracy is presented in Table~\ref{t:a-comparison}.
+    A comparison of the accuracies is presented in Table~\ref{t:a-comparison}.
+    Numbers in parentheses are (uncorrected) standard deviations.  Resulting
+    95\% confidence intervals are presented in Table~\ref{t:a-ci}
+
+    \begin{table}[h]
+      \centering
+      \caption{Confidence intervals for difference of ensemble and base learner means.}
+      \label{t:a-ci}
+      \begin{tabular}{lcccc}
+        \toprule
+        Problem   & \multicolumn{2}{c}{Decision Tree} & \multicolumn{2}{c}{Neural Network} \\
+        \midrule
+                  & Bagging         & Boosting        & Bagging         & Boosting \\
+        Voting    & (-0.012, 0.026) & (-0.011, 0.021) & (-0.019, 0.015) & (-0.013, 0.027)\\
+        Spam      & (-0.005, 0.007) & (-0.014, 0.002) & (-0.066, 0.046) & (-0.089, -0.011)\\
+        Volcanoes & (-0.002, 0.002) & (-0.122, -0.080)& (-0.042, 0.030) & (-0.029, 0.055)\\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+
+    According to the confidence intervals in Table~\ref{t:a-ci}, Boosting
+    improved the Decision Tree's performance on Volcanoes significantly, and the
+    Neural Network's performance on Spam significantly.
   \end{problem}
 
   \begin{problem}{b}
