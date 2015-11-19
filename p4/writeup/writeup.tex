@@ -13,6 +13,50 @@
 \begin{document}
   \maketitle
 
+  \section{Implementation Commentary}
+
+  For the most part, implementing bagging and boosting was rather simple.  My
+  original implementation of decision trees had to be slightly optimized in
+  order to provide reasonable performance in this situation.  In particular, my
+  selection of a cutoff for continuous variables was inefficient originally: it
+  recomputed mutual information (an linear time operation in the number of
+  examples) for every potential cutoff (which is also linear in the number of
+  examples).  This gave an overall quadratic runtime.  I was able to improve
+  this by doing a single iteration over the sorted values for the continuous
+  feature.  For each variable, I updated counts (more accurately, weights) of
+  examples on either side of the split, and incrementally recomputed the mutual
+  information, resulting in a linear time operation.  Accounting for the time to
+  sort the examples by their attribute value, this resulted in an $O(n \log n)$
+  improvement, which was very noticeable.
+
+  Implementing weights for decision trees was simple.  Most of the modifications
+  were the mutual information procedure (using weights instead of counts for
+  computing probabilities).  The other critical change was to select the
+  majority class label (at leaves) based on the total weights, not on the
+  counts.  When I did this, Boosting started giving better results.
+
+  Implementing weights for neural networks was also rather simple.  Instead of
+  using the squared loss function $L(\hat{y_i}, y_i) = (\hat{y}_i - y_i)^2$, I
+  used a weighted squared loss function:
+  $L(\hat{y_i}, y_i) = w_i (\hat{y}_i - y_i)^2$.  Thus, the weights were simply
+  multiplied into the gradient for each example.
+
+  Also, it is worth noting that my implementations and changes only went so far
+  as the assignment description specified.  That is, I have not tested and will
+  not certify that these work when the parameters (for instance, decision tree
+  depth or neural net layers) are set to values not specified from the
+  assignment description.  So, when using my code, please use the following
+  arguments:
+
+  \begin{itemize}
+  \item For decision trees, be sure to set \texttt{--depth} to 2 (this means
+    level of decision nodes, and then leaf nodes).
+  \item For neural networks, be sure to set \texttt{--layer\_sizes} to 0 (no
+    hidden layer) and \texttt{--max\_iters} to something reasonable (I used 5000
+    in all my tests), since convergence never seems to be a guarantee in my
+    neural network implementation.
+  \end{itemize}
+
   \begin{problem}{a}
     \begin{question}
       For all problems and the two learning algorithms, compare the accuracy of
@@ -28,7 +72,7 @@
     \centering
     \caption{Comparison of base, bagged, and boosted learners.}
     \label{t:a-comparison}
-    \begin{tabular}{lllllll}
+    \begin{tabular}{llll|lll}
       \toprule
       Problem & \multicolumn{3}{c}{Decision Tree} & \multicolumn{3}{c}{Neural Network} \\
       \midrule
