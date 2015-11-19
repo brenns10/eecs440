@@ -57,6 +57,7 @@
     neural network implementation.
   \end{itemize}
 
+    \FloatBarrier
   \begin{problem}{a}
     \begin{question}
       For all problems and the two learning algorithms, compare the accuracy of
@@ -109,6 +110,7 @@
     Neural Network's performance on Spam significantly.
   \end{problem}
 
+    \FloatBarrier
   \begin{problem}{b}
     \begin{question}
       For any two problems and the two learning algorithms, evaluate how the
@@ -116,6 +118,7 @@
       three iteration values between 2 and 50, and plot the accuracy on a
       graph. Do you see any difference by problem? By algorithm?
     \end{question}
+    \FloatBarrier
 
     \begin{table}[h]
       \centering
@@ -163,10 +166,12 @@
     amounts of continuous attributes like volcanoes.
   \end{problem}
 
+    \FloatBarrier
   \begin{problem}{c}
     \begin{question}
       Repeat (b) for boosting.
     \end{question}
+    \FloatBarrier
 
     \begin{table}[h]
       \centering
@@ -211,6 +216,7 @@
 
   \end{problem}
 
+    \FloatBarrier
   \begin{problem}{d}
     \begin{question}
       Evaluate the sensitivity of bagging to noise as follows. When training,
@@ -223,6 +229,7 @@
       point. Discuss how resilient bagging is to noise based on your
       observations.
     \end{question}
+    \FloatBarrier
 
     \begin{table}[h]
       \centering
@@ -271,10 +278,56 @@
     with other datasets.
   \end{problem}
 
+    \FloatBarrier
   \begin{problem}{e}
     \begin{question}
       Repeat (d) for boosting.
     \end{question}
+    \FloatBarrier
+
+    \begin{table}[h]
+      \centering
+      \caption{Effect of flipping labels on boosting accuracy.}
+      \label{t:e}
+      \begin{tabular}{ll|ll}
+        \toprule
+        Problem   & $p$        & Decision Tree Accuracy & Neural Network Accuracy \\
+        \midrule
+        Voting    & 0.00       & 0.984 (0.012)          & 0.977 (0.012)            \\
+                  & 0.01       & 0.982 (0.015)          & 0.973 (0.012)            \\
+                  & 0.10       & 0.982 (0.009)          & 0.942 (0.020)            \\
+                  & 0.50       & 0.927 (0.070)          & 0.795 (0.044)            \\
+        \midrule
+        Volcanoes & 0.00       & 0.773 (0.018)          & 0.820 (0.023)            \\
+                  & 0.01       & 0.799 (0.014)          & 0.808 (0.016)            \\
+                  & 0.10       & 0.802 (0.010)          & 0.820 (0.019)            \\
+                  & 0.50       & 0.719 (0.007)          & 0.736 (0.011)            \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+
+    These findings are presented in Figures~\ref{f:e-voting} and
+    ~\ref{f:e-volcanoes}.  Please note the $y$ scales on these plots.
+
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:e-voting}
+      \includegraphics[width=0.67\textwidth]{e-voting.pdf}
+    \end{figure}
+    \begin{figure}[h!]
+      \centering
+      \caption{}
+      \label{f:e-volcanoes}
+      \includegraphics[width=0.67\textwidth]{e-volcanoes.pdf}
+    \end{figure}
+
+    These results are rather surprising.  They seem to indicate that boosting is
+    somewhat \textit{more} resilient to noise than bagging.  This is surprising
+    because in class bagging was presented as a method that was useful for
+    ``averaging out'' noise, whereas boosting was presented as a technique that
+    could increase the complexity of a decision surface to match examples that
+    were misclassified on the previous iteration.
   \end{problem}
 
 \end{document}
